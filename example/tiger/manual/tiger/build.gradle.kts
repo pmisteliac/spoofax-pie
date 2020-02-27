@@ -24,6 +24,7 @@ dependencies {
   api(compositeBuild("esv.common"))
   api(compositeBuild("stratego.common"))
   api(compositeBuild("constraint.common"))
+  api(compositeBuild("statix.common"))
 
   implementation(compositeBuild("nabl2.common"))
   implementation("org.metaborg:strategoxt-min-jar")

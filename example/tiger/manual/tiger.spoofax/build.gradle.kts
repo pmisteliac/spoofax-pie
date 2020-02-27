@@ -18,6 +18,9 @@ dependencies {
   api("org.metaborg:pie.dagger")
   api("com.google.dagger:dagger")
 
+  // TODO: Include
+  implementation(compositeBuild("statix.completions"))
+
   compileOnly("org.checkerframework:checker-qual-android")
 
   annotationProcessor("com.google.dagger:dagger-compiler")

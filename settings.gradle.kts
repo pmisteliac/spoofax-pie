@@ -23,7 +23,7 @@ if(gradle.parent == null) {
   includeBuild("core")
   // Included builds listed below can use the Gradle plugins built in 'core'.
   includeBuild("example/tiger/spoofaxcore")
-  includeBuild("example/tiger/generated")
+  //includeBuild("example/tiger/generated")
   includeBuild("example/tiger/manual")
-  includeBuild("example/mod")
+  //includeBuild("example/mod")
 }

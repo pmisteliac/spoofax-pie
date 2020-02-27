@@ -17,6 +17,8 @@ import mb.spoofax.core.language.command.CommandDef;
 import mb.spoofax.core.language.command.HierarchicalResourceType;
 import mb.stratego.common.StrategoRuntime;
 import mb.stratego.common.StrategoRuntimeBuilder;
+import mb.tiger.TigerAnalyzer;
+import mb.tiger.TigerAnalyzerFactory;
 import mb.tiger.TigerConstraintAnalyzer;
 import mb.tiger.TigerConstraintAnalyzerFactory;
 import mb.tiger.TigerParser;
@@ -48,6 +50,8 @@ import mb.tiger.spoofax.task.reusable.TigerListDefNames;
 import mb.tiger.spoofax.task.reusable.TigerListLiteralVals;
 import mb.tiger.spoofax.task.reusable.TigerParse;
 import mb.tiger.spoofax.task.reusable.TigerStyle;
+import mb.tiger.spoofax.task.reusable.*;
+import org.spoofax.interpreter.terms.ITermFactory;
 
 import javax.inject.Named;
 import java.util.HashSet;
@@ -64,7 +68,15 @@ public class TigerModule {
     TigerParser provideParser(TigerParserFactory parserFactory) {
         return parserFactory.create();
     }
+    @Provides @LanguageScope
+    TigerAnalyzerFactory provideAnalyzerFactory(LoggerFactory loggerFactory, ITermFactory termFactory) {
+        return new TigerAnalyzerFactory(termFactory, loggerFactory);
+    }
 
+    @Provides @LanguageScope
+    TigerAnalyzer provideAnalyzer(TigerAnalyzerFactory analyzerFactory) {
+        return analyzerFactory.create();
+    }
 
     @Provides @LanguageScope
     TigerStylerFactory provideStylerFactory(LoggerFactory loggerFactory) {
@@ -109,6 +121,7 @@ public class TigerModule {
         TigerStyle style,
         TigerAnalyze analyze,
         TigerCompleteTaskDef complete,
+        TigerStatixSpecTaskDef statixSpec,
 
         TigerListLiteralVals listLiteralVals,
         TigerListDefNames listDefNames,
@@ -132,6 +145,7 @@ public class TigerModule {
         taskDefs.add(style);
         taskDefs.add(analyze);
         taskDefs.add(complete);
+        taskDefs.add(statixSpec);
 
         taskDefs.add(listLiteralVals);
         taskDefs.add(listDefNames);

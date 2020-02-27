@@ -154,7 +154,9 @@ public final class IntellijLogger implements Logger, AutoCloseable {
     @Override
     public void error(String msg) {
         if (!isErrorEnabled()) return;
-        this.intellijLogger.error(msg);
+        // We have to explicitly pass null for the exception
+        // to prevent IntelliJ from printing a complete stack trace on error.
+        this.intellijLogger.error(msg, (Throwable)null);
     }
 
     @Override
@@ -166,7 +168,9 @@ public final class IntellijLogger implements Logger, AutoCloseable {
     @Override
     public void error(String format, Object... args) {
         if (!isErrorEnabled()) return;
-        this.intellijLogger.error(format(format, args));
+        // We have to explicitly pass null for the exception
+        // to prevent IntelliJ from printing a complete stack trace on error.
+        this.intellijLogger.error(format(format, args), (Throwable)null);
     }
 
     @Override

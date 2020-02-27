@@ -19,6 +19,8 @@ import mb.spoofax.core.language.command.CommandDef;
 import mb.spoofax.core.language.command.arg.RawArgs;
 import mb.spoofax.core.language.menu.CommandAction;
 import mb.spoofax.core.language.menu.MenuItem;
+import mb.statix.common.StatixSpecProvider;
+import mb.statix.spec.Spec;
 import mb.tiger.spoofax.command.TigerCompileDirectoryCommand;
 import mb.tiger.spoofax.command.TigerCompileFileAltCommand;
 import mb.tiger.spoofax.command.TigerCompileFileCommand;
@@ -30,6 +32,7 @@ import mb.tiger.spoofax.task.TigerIdeCheck;
 import mb.tiger.spoofax.task.TigerIdeTokenize;
 import mb.tiger.spoofax.task.reusable.TigerCompleteTaskDef;
 import mb.tiger.spoofax.task.reusable.TigerParse;
+import mb.tiger.spoofax.task.reusable.TigerStatixSpecTaskDef;
 import mb.tiger.spoofax.task.reusable.TigerStyle;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -44,7 +47,8 @@ public class TigerInstance implements LanguageInstance {
     private final TigerIdeCheck tigerIdeCheck;
     private final TigerStyle style;
     private final TigerIdeTokenize tokenize;
-    private final TigerCompleteTaskDef complete;
+    private final TigerCompleteTaskDef completeTaskDef;
+    private final TigerStatixSpecTaskDef statixSpecTaskDef;
 
     private final TigerShowParsedAstCommand showParsedAstCommand;
     private final TigerShowPrettyPrintedTextCommand showPrettyPrintedTextCommand;
@@ -63,7 +67,8 @@ public class TigerInstance implements LanguageInstance {
         TigerIdeCheck tigerIdeCheck,
         TigerStyle style,
         TigerIdeTokenize tokenize,
-        TigerCompleteTaskDef complete,
+        TigerCompleteTaskDef completeTaskDef,
+        TigerStatixSpecTaskDef statixSpecTaskDef,
 
         TigerShowParsedAstCommand showParsedAstCommand,
         TigerShowPrettyPrintedTextCommand showPrettyPrintedTextCommand,
@@ -80,7 +85,8 @@ public class TigerInstance implements LanguageInstance {
         this.tigerIdeCheck = tigerIdeCheck;
         this.style = style;
         this.tokenize = tokenize;
-        this.complete = complete;
+        this.completeTaskDef = completeTaskDef;
+        this.statixSpecTaskDef = statixSpecTaskDef;
 
         this.showParsedAstCommand = showParsedAstCommand;
         this.showPrettyPrintedTextCommand = showPrettyPrintedTextCommand;
@@ -113,8 +119,18 @@ public class TigerInstance implements LanguageInstance {
     }
 
     @Override
-    public Task<@Nullable CompletionResult> createCompletionTask(ResourceKey resourceKey, Region primarySelection) {
-        return complete.createTask(new TigerCompleteTaskDef.Input(parse.createAstSupplier(resourceKey)));
+    public Task<@Nullable CompletionResult> createCompleteTask(ResourceKey resourceKey, Region primarySelection) {
+        return completeTaskDef.createTask(new TigerCompleteTaskDef.Input(
+            resourceKey,
+            parse.createAstSupplier(resourceKey),
+            primarySelection.getStartOffset()
+        ));
+    }
+
+    public Task<@Nullable Spec> createStatixSpecTask() {
+        return statixSpecTaskDef.createTask(new TigerStatixSpecTaskDef.Input(
+            null    // TODO: Provide Statix spec parser task
+        ));
     }
 
     @Override public LanguageInspection getInspection() {

@@ -10,7 +10,10 @@ import mb.spoofax.core.platform.PlatformComponent;
  * TigerModule}, which may inject objects from a {@link PlatformComponent}. Task definitions are overridden to concrete
  * types so that Dagger can use constructor injection on those types.
  */
-@LanguageScope @Component(modules = TigerModule.class, dependencies = PlatformComponent.class)
+@LanguageScope @Component(modules = {
+    TigerModule.class,
+    SpoofaxModule.class
+}, dependencies = PlatformComponent.class)
 public interface TigerComponent extends LanguageComponent {
     @Override TigerInstance getLanguageInstance();
 }

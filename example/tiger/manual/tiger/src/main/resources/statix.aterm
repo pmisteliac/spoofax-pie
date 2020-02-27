@@ -1,0 +1,2726 @@
+Spec(
+  [Label("static-semantics!R"), Label("static-semantics!P")]
+, [Decl(), Label("static-semantics!typeOfDecl")]
+, EOP()
+, [ Rule(
+      NoName()
+    , C("static-semantics!programOK", [Op("Mod", [Var("e")])])
+    , CExists(
+        [Var("s"), Var("T"), Var("typeOfExp0")]
+      , CConj(
+          CNew([Var("s")])
+        , CConj(
+            C("static-semantics!init", [Var("s")], NoMessage())
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e"), Var("typeOfExp0")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp0"), Var("T"), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!declareType"
+      , [Var("s"), Var("x"), Var("T")]
+      )
+    , CExists(
+        [Var("wld0"), Var("wld4")]
+      , CConj(
+          CConj(
+            CTellRel(
+              Label("static-semantics!typeOfDecl")
+            , [Occurrence("static-semantics!Type", [Var("x")], NoId()), Var("T")]
+            , Var("s")
+            )
+          , CTellRel(
+              Decl()
+            , [Occurrence("static-semantics!Type", [Var("x")], NoId())]
+            , Var("s")
+            )
+          )
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Type", [Var("u3")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u3"), Var("x"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld0"), Tuple([Var("wld4"), Var("T")])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!declareVar"
+      , [Var("s"), Var("x"), Var("T")]
+      )
+    , CExists(
+        [Var("wld6"), Var("wld7")]
+      , CConj(
+          CConj(
+            CTellRel(
+              Label("static-semantics!typeOfDecl")
+            , [Occurrence("static-semantics!Var", [Var("x")], NoId()), Var("T")]
+            , Var("s")
+            )
+          , CTellRel(
+              Decl()
+            , [Occurrence("static-semantics!Var", [Var("x")], NoId())]
+            , Var("s")
+            )
+          )
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Var", [Var("u4")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u4"), Var("x"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld6"), Tuple([Var("wld7"), Var("T")])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!declareTypeRaw"
+      , [Var("s"), Var("x"), Var("T")]
+      )
+    , CExists(
+        [Var("wld8"), Var("wld9")]
+      , CConj(
+          CConj(
+            CTellRel(
+              Label("static-semantics!typeOfDecl")
+            , [Occurrence("static-semantics!Type", [Var("x")], NoId()), Var("T")]
+            , Var("s")
+            )
+          , CTellRel(
+              Decl()
+            , [Occurrence("static-semantics!Type", [Var("x")], NoId())]
+            , Var("s")
+            )
+          )
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Type", [Var("u6")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u6"), Var("x"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld8"), Tuple([Var("wld9"), Var("T")])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!lookupType"
+      , [Var("s"), Var("x"), Var("out0")]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out0"), Var("T"), NoMessage())
+        , CExists(
+            [Var("x'"), Var("wld10"), Var("wld11"), Var("astId0")]
+          , CConj(
+              CConj(
+                CAstId(Var("x"), Var("astId0"))
+              , CAstProperty(Var("astId0"), Ref(), Var("x'"))
+              )
+            , CResolveQuery(
+                Label("static-semantics!typeOfDecl")
+              , Filter(
+                  Closure(Label("static-semantics!P"))
+                , LLam(
+                    [ Tuple(
+                        [Occurrence("static-semantics!Type", [Var("u7")], WithId(Wld())), Wld()]
+                      )
+                    ]
+                  , CEqual(Var("u7"), Var("x"), NoMessage())
+                  )
+                )
+              , Min(
+                  [LabelPair(EOP(), Label("static-semantics!P"))]
+                , LLam([Wld(), Wld()], CTrue())
+                )
+              , Var("s")
+              , ListTail(
+                  [ Tuple(
+                      [ Var("wld10")
+                      , Tuple(
+                          [Occurrence("static-semantics!Type", [Var("x'")], NoId()), Var("T")]
+                        )
+                      ]
+                    )
+                  ]
+                , Var("wld11")
+                )
+              , NoMessage()
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!declareVarRaw"
+      , [Var("s"), Var("x"), Var("T")]
+      )
+    , CExists(
+        [Var("wld12"), Var("wld13")]
+      , CConj(
+          CConj(
+            CTellRel(
+              Label("static-semantics!typeOfDecl")
+            , [Occurrence("static-semantics!Var", [Var("x")], NoId()), Var("T")]
+            , Var("s")
+            )
+          , CTellRel(
+              Decl()
+            , [Occurrence("static-semantics!Var", [Var("x")], NoId())]
+            , Var("s")
+            )
+          )
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Var", [Var("u8")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u8"), Var("x"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld12"), Tuple([Var("wld13"), Var("T")])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!lookupVar"
+      , [Var("s"), Var("x"), Var("out1")]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out1"), Var("T"), NoMessage())
+        , CExists(
+            [Var("x'"), Var("wld14"), Var("wld15"), Var("astId1")]
+          , CConj(
+              CConj(
+                CAstId(Var("x"), Var("astId1"))
+              , CAstProperty(Var("astId1"), Ref(), Var("x'"))
+              )
+            , CResolveQuery(
+                Label("static-semantics!typeOfDecl")
+              , Filter(
+                  Closure(Label("static-semantics!P"))
+                , LLam(
+                    [ Tuple(
+                        [Occurrence("static-semantics!Var", [Var("u9")], WithId(Wld())), Wld()]
+                      )
+                    ]
+                  , CEqual(Var("u9"), Var("x"), NoMessage())
+                  )
+                )
+              , Min(
+                  [LabelPair(EOP(), Label("static-semantics!P"))]
+                , LLam([Wld(), Wld()], CTrue())
+                )
+              , Var("s")
+              , ListTail(
+                  [ Tuple(
+                      [ Var("wld14")
+                      , Tuple(
+                          [Occurrence("static-semantics!Var", [Var("x'")], NoId()), Var("T")]
+                        )
+                      ]
+                    )
+                  ]
+                , Var("wld15")
+                )
+              , NoMessage()
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!declareField"
+      , [Var("s"), Var("x"), Var("T")]
+      )
+    , CExists(
+        [Var("wld16"), Var("wld17")]
+      , CConj(
+          CConj(
+            CTellRel(
+              Label("static-semantics!typeOfDecl")
+            , [Occurrence("static-semantics!Field", [Var("x")], NoId()), Var("T")]
+            , Var("s")
+            )
+          , CTellRel(
+              Decl()
+            , [Occurrence("static-semantics!Field", [Var("x")], NoId())]
+            , Var("s")
+            )
+          )
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Field", [Var("u10")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u10"), Var("x"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld16"), Tuple([Var("wld17"), Var("T")])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!lookupField"
+      , [Var("s"), Var("x"), Var("out2")]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out2"), Var("T"), NoMessage())
+        , CExists(
+            [Var("x'"), Var("wld18"), Var("wld19"), Var("astId2")]
+          , CConj(
+              CConj(
+                CAstId(Var("x"), Var("astId2"))
+              , CAstProperty(Var("astId2"), Ref(), Var("x'"))
+              )
+            , CResolveQuery(
+                Label("static-semantics!typeOfDecl")
+              , Filter(
+                  Closure(Label("static-semantics!P"))
+                , LLam(
+                    [ Tuple(
+                        [Occurrence("static-semantics!Field", [Var("u11")], WithId(Wld())), Wld()]
+                      )
+                    ]
+                  , CEqual(Var("u11"), Var("x"), NoMessage())
+                  )
+                )
+              , Min(
+                  [LabelPair(EOP(), Label("static-semantics!P"))]
+                , LLam([Wld(), Wld()], CTrue())
+                )
+              , Var("s")
+              , ListTail(
+                  [ Tuple(
+                      [ Var("wld18")
+                      , Tuple(
+                          [Occurrence("static-semantics!Field", [Var("x'")], NoId()), Var("T")]
+                        )
+                      ]
+                    )
+                  ]
+                , Var("wld19")
+                )
+              , NoMessage()
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!subtype", [Var("T"), Var("T")])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!subtype"
+      , [Op("NIL", []), Op("RECORD", [Var("s")])]
+      )
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!subtypeO"
+      , [Var("t"), Var("T"), Var("T")]
+      )
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!subtypeO"
+      , [ Var("t")
+        , Op("NIL", [])
+        , Op("RECORD", [Var("s")])
+        ]
+      )
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!subtypes", [List([]), List([])])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!subtypes"
+      , [ ListTail([Var("T")], Var("Ts"))
+        , ListTail([Var("S")], Var("Ss"))
+        ]
+      )
+    , CConj(
+        C("static-semantics!subtype", [Var("T"), Var("S")], NoMessage())
+      , C("static-semantics!subtypes", [Var("Ts"), Var("Ss")], NoMessage())
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!equitype", [Var("T"), Var("T")])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!equitype"
+      , [Op("NIL", []), Op("RECORD", [Var("s")])]
+      )
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!equitype"
+      , [Op("RECORD", [Var("s")]), Op("NIL", [])]
+      )
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!lub"
+      , [Var("S"), Var("T"), Var("out3")]
+      )
+    , CConj(CEqual(Var("out3"), Var("S"), NoMessage()), CTrue())
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!lub"
+      , [Op("NIL", []), Var("T"), Var("out6")]
+      )
+    , CConj(CEqual(Var("out6"), Var("T"), NoMessage()), CTrue())
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s_outer")
+        , Op("Let", [Var("ds"), Var("es")])
+        , Var("out7")
+        ]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out7"), Var("T"), NoMessage())
+        , CExists(
+            [Var("s_body"), Var("typeOfSeq0")]
+          , CConj(
+              CNew([Var("s_body")])
+            , CConj(
+                C(
+                  "static-semantics!decsOk"
+                , [Var("s_outer"), Var("s_body"), Var("ds")]
+                , NoMessage()
+                )
+              , CConj(
+                  C(
+                    "static-semantics!typeOfSeq"
+                  , [Var("s_body"), Var("es"), Var("typeOfSeq0")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfSeq0"), Var("T"), NoMessage())
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decsOk"
+      , [Var("s_outer"), Var("s_body"), List([])]
+      )
+    , CTellEdge(Var("s_body"), Label("static-semantics!P"), Var("s_outer"))
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decsOk"
+      , [Var("s_outer"), Var("s_body"), List([Var("dec")])]
+      )
+    , CConj(
+        CTellEdge(Var("s_body"), Label("static-semantics!P"), Var("s_outer"))
+      , C(
+          "static-semantics!decOk"
+        , [Var("s_body"), Var("s_outer"), Var("dec")]
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decsOk"
+      , [ Var("s_outer")
+        , Var("s_body")
+        , ListTail(
+            [Var("dec")]
+          , As(Var("decs"), ListTail([Wld()], Wld()))
+          )
+        ]
+      )
+    , CExists(
+        [Var("s_dec")]
+      , CConj(
+          CNew([Var("s_dec")])
+        , CConj(
+            CTellEdge(Var("s_dec"), Label("static-semantics!P"), Var("s_outer"))
+          , CConj(
+              C(
+                "static-semantics!decOk"
+              , [Var("s_dec"), Var("s_outer"), Var("dec")]
+              , NoMessage()
+              )
+            , C(
+                "static-semantics!decsOk"
+              , [Var("s_dec"), Var("s_body"), Var("decs")]
+              , NoMessage()
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decOk"
+      , [Var("s"), Var("s_outer"), Op("TypeDecs", [Var("tdecs")])]
+      )
+    , C(
+        "static-semantics!tdecsOk"
+      , [Var("s"), Var("s"), Var("tdecs")]
+      , NoMessage()
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!tdecOk"
+      , [ Var("s")
+        , Var("s_outer")
+        , Op("TypeDec", [Var("x"), Var("t")])
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("typeOfType0")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfType"
+            , [Var("s_outer"), Var("t"), Var("typeOfType0")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfType0"), Var("T"), NoMessage())
+          )
+        , C(
+            "static-semantics!declareType"
+          , [Var("s"), Var("x"), Var("T")]
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfType"
+      , [Var("s"), Op("Tid", [Var("x")]), Var("out8")]
+      )
+    , CExists(
+        [Var("lookupType0")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!lookupType"
+            , [Var("s"), Var("x"), Var("lookupType0")]
+            , NoMessage()
+            )
+          , CEqual(Var("out8"), Var("lookupType0"), NoMessage())
+          )
+        , CTrue()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decOk"
+      , [Var("s"), Var("s_outer"), Op("FunDecs", [Var("fdecs")])]
+      )
+    , C(
+        "static-semantics!fdecsOk"
+      , [Var("s"), Var("s_outer"), Var("fdecs")]
+      , NoMessage()
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fdecOk"
+      , [ Var("s")
+        , Var("s_outer")
+        , As(
+            Var("d")
+          , Op(
+              "ProcDec"
+            , [Var("f"), Var("args"), Var("e")]
+            )
+          )
+        ]
+      )
+    , CExists(
+        [Var("s_fun"), Var("Ts"), Var("typesOfArgs0"), Var("typeOfExp1")]
+      , CConj(
+          CNew([Var("s_fun")])
+        , CConj(
+            CTellEdge(Var("s_fun"), Label("static-semantics!P"), Var("s"))
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typesOfArgs"
+                , [Var("s_fun"), Var("s_outer"), Var("args"), Var("typesOfArgs0")]
+                , NoMessage()
+                )
+              , CEqual(Var("typesOfArgs0"), Var("Ts"), NoMessage())
+              )
+            , CConj(
+                C(
+                  "static-semantics!declareVar"
+                , [ Var("s")
+                  , Var("f")
+                  , Op("FUN", [Var("Ts"), Op("UNIT", [])])
+                  ]
+                , NoMessage()
+                )
+              , CConj(
+                  C(
+                    "static-semantics!typeOfExp"
+                  , [Var("s_fun"), Var("e"), Var("typeOfExp1")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfExp1"), Op("UNIT", []), NoMessage())
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fdecOk"
+      , [ Var("s")
+        , Var("s_outer")
+        , As(
+            Var("d")
+          , Op(
+              "FunDec"
+            , [Var("f"), Var("args"), Var("t"), Var("e")]
+            )
+          )
+        ]
+      )
+    , CExists(
+        [ Var("s_fun")
+        , Var("Ts")
+        , Var("T")
+        , Var("S")
+        , Var("typesOfArgs1")
+        , Var("typeOfType1")
+        , Var("typeOfExp2")
+        ]
+      , CConj(
+          CNew([Var("s_fun")])
+        , CConj(
+            CTellEdge(Var("s_fun"), Label("static-semantics!P"), Var("s"))
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typesOfArgs"
+                , [Var("s_fun"), Var("s_outer"), Var("args"), Var("typesOfArgs1")]
+                , NoMessage()
+                )
+              , CEqual(Var("typesOfArgs1"), Var("Ts"), NoMessage())
+              )
+            , CConj(
+                CConj(
+                  C(
+                    "static-semantics!typeOfType"
+                  , [Var("s_outer"), Var("t"), Var("typeOfType1")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfType1"), Var("T"), NoMessage())
+                )
+              , CConj(
+                  C(
+                    "static-semantics!declareVar"
+                  , [ Var("s")
+                    , Var("f")
+                    , Op("FUN", [Var("Ts"), Var("T")])
+                    ]
+                  , NoMessage()
+                  )
+                , CConj(
+                    CConj(
+                      C(
+                        "static-semantics!typeOfExp"
+                      , [Var("s_fun"), Var("e"), Var("typeOfExp2")]
+                      , NoMessage()
+                      )
+                    , CEqual(Var("typeOfExp2"), Var("S"), NoMessage())
+                    )
+                  , C(
+                      "static-semantics!subtypeO"
+                    , [Var("t"), Var("S"), Var("T")]
+                    , NoMessage()
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfArg"
+      , [ Var("s_fun")
+        , Var("s_outer")
+        , Op("FArg", [Var("x"), Var("t")])
+        , Var("out9")
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("typeOfType2")]
+      , CConj(
+          CEqual(Var("out9"), Var("T"), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfType"
+              , [Var("s_outer"), Var("t"), Var("typeOfType2")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfType2"), Var("T"), NoMessage())
+            )
+          , C(
+              "static-semantics!declareVar"
+            , [Var("s_fun"), Var("x"), Var("T")]
+            , NoMessage()
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Call", [Var("f"), Var("es")])
+        , Var("out10")
+        ]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out10"), Var("T"), NoMessage())
+        , CExists(
+            [Var("Ts"), Var("Ss"), Var("lookupVar0"), Var("typeOfExps0")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!lookupVar"
+                , [Var("s"), Var("f"), Var("lookupVar0")]
+                , NoMessage()
+                )
+              , CEqual(
+                  Var("lookupVar0")
+                , Op("FUN", [Var("Ts"), Var("T")])
+                , NoMessage()
+                )
+              )
+            , CConj(
+                CConj(
+                  C(
+                    "static-semantics!typeOfExps"
+                  , [Var("s"), Var("es"), Var("typeOfExps0")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfExps0"), Var("Ss"), NoMessage())
+                )
+              , C("static-semantics!subtypes", [Var("Ss"), Var("Ts")], NoMessage())
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decOk"
+      , [ Var("s")
+        , Var("s_outer")
+        , Op(
+            "VarDec"
+          , [Var("x"), Var("t"), Var("e")]
+          )
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("S"), Var("typeOfType3"), Var("typeOfExp3")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfType"
+            , [Var("s_outer"), Var("t"), Var("typeOfType3")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfType3"), Var("T"), NoMessage())
+          )
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s_outer"), Var("e"), Var("typeOfExp3")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp3"), Var("S"), NoMessage())
+            )
+          , CConj(
+              C("static-semantics!subtype", [Var("S"), Var("T")], NoMessage())
+            , C(
+                "static-semantics!declareVar"
+              , [Var("s"), Var("x"), Var("T")]
+              , NoMessage()
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!decOk"
+      , [ Var("s")
+        , Var("s_outer")
+        , Op("VarDecNoType", [Var("x"), Var("e")])
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("typeOfExp4")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfExp"
+            , [Var("s_outer"), Var("e"), Var("typeOfExp4")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfExp4"), Var("T"), NoMessage())
+          )
+        , CConj(
+            CInequal(Var("T"), Op("NIL", []), NoMessage())
+          , C(
+              "static-semantics!declareVar"
+            , [Var("s"), Var("x"), Var("T")]
+            , NoMessage()
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op(
+            "L2E"
+          , [Op("V2L", [Op("Var", [Var("x")])])]
+          )
+        , Var("out11")
+        ]
+      )
+    , CExists(
+        [Var("lookupVar1")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!lookupVar"
+            , [Var("s"), Var("x"), Var("lookupVar1")]
+            , NoMessage()
+            )
+          , CEqual(Var("out11"), Var("lookupVar1"), NoMessage())
+          )
+        , CTrue()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfType"
+      , [Var("s"), Op("ArrayTy", [Var("x")]), Var("out12")]
+      )
+    , CExists(
+        [Var("T"), Var("s_arr"), Var("typeOfType4")]
+      , CConj(
+          CEqual(
+            Var("out12")
+          , Op("ARRAY", [Var("T"), Var("s_arr")])
+          , NoMessage()
+          )
+        , CConj(
+            CNew([Var("s_arr")])
+          , CConj(
+              C(
+                "static-semantics!typeOfType"
+              , [Var("s"), Op("Tid", [Var("x")]), Var("typeOfType4")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfType4"), Var("T"), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op(
+            "Array"
+          , [Var("x"), Var("e1"), Var("e2")]
+          )
+        , Var("out13")
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("s_arr")]
+      , CConj(
+          CEqual(
+            Var("out13")
+          , Op("ARRAY", [Var("T"), Var("s_arr")])
+          , NoMessage()
+          )
+        , CExists(
+            [Var("S"), Var("typeOfType5"), Var("typeOfExp5"), Var("typeOfExp6")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfType"
+                , [Var("s"), Op("Tid", [Var("x")]), Var("typeOfType5")]
+                , NoMessage()
+                )
+              , CEqual(
+                  Var("typeOfType5")
+                , Op("ARRAY", [Var("S"), Var("s_arr")])
+                , NoMessage()
+                )
+              )
+            , CConj(
+                CConj(
+                  C(
+                    "static-semantics!typeOfExp"
+                  , [Var("s"), Var("e1"), Var("typeOfExp5")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfExp5"), Op("INT", []), NoMessage())
+                )
+              , CConj(
+                  CConj(
+                    C(
+                      "static-semantics!typeOfExp"
+                    , [Var("s"), Var("e2"), Var("typeOfExp6")]
+                    , NoMessage()
+                    )
+                  , CEqual(Var("typeOfExp6"), Var("T"), NoMessage())
+                  )
+                , C("static-semantics!subtype", [Var("T"), Var("S")], NoMessage())
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfLVal"
+      , [ Var("s")
+        , Op("Subscript", [Var("e1"), Var("e2")])
+        , Var("out14")
+        ]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out14"), Var("T"), NoMessage())
+        , CExists(
+            [Var("s_arr"), Var("typeOfLVal0"), Var("typeOfExp7")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfLVal"
+                , [Var("s"), Var("e1"), Var("typeOfLVal0")]
+                , NoMessage()
+                )
+              , CEqual(
+                  Var("typeOfLVal0")
+                , Op("ARRAY", [Var("T"), Var("s_arr")])
+                , NoMessage()
+                )
+              )
+            , CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e2"), Var("typeOfExp7")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp7"), Op("INT", []), NoMessage())
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Assign", [Var("e1"), Var("e2")])
+        , Var("out15")
+        ]
+      )
+    , CConj(
+        CEqual(Var("out15"), Op("UNIT", []), NoMessage())
+      , CExists(
+          [Var("T"), Var("S"), Var("typeOfLVal1"), Var("typeOfExp8")]
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfLVal"
+              , [Var("s"), Var("e1"), Var("typeOfLVal1")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfLVal1"), Var("T"), NoMessage())
+            )
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e2"), Var("typeOfExp8")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp8"), Var("S"), NoMessage())
+              )
+            , C("static-semantics!subtype", [Var("S"), Var("T")], NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfLVal"
+      , [ Var("s")
+        , Op("V2L", [Op("Var", [Var("x")])])
+        , Var("out16")
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("lookupVar2")]
+      , CConj(
+          CEqual(Var("out16"), Var("T"), NoMessage())
+        , CConj(
+            C(
+              "static-semantics!lookupVar"
+            , [Var("s"), Var("x"), Var("lookupVar2")]
+            , NoMessage()
+            )
+          , CEqual(Var("lookupVar2"), Var("T"), NoMessage())
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("L2E", [Var("lval")]), Var("out17")]
+      )
+    , CExists(
+        [Var("typeOfLVal2")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfLVal"
+            , [Var("s"), Var("lval"), Var("typeOfLVal2")]
+            , NoMessage()
+            )
+          , CEqual(Var("out17"), Var("typeOfLVal2"), NoMessage())
+          )
+        , CTrue()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfSeq"
+      , [Var("s"), List([]), Var("out18")]
+      )
+    , CConj(
+        CEqual(Var("out18"), Op("UNIT", []), NoMessage())
+      , CTrue()
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfSeq"
+      , [Var("s"), List([Var("e")]), Var("out19")]
+      )
+    , CExists(
+        [Var("T"), Var("typeOfExp9")]
+      , CConj(
+          CEqual(Var("out19"), Var("T"), NoMessage())
+        , CConj(
+            C(
+              "static-semantics!typeOfExp"
+            , [Var("s"), Var("e"), Var("typeOfExp9")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfExp9"), Var("T"), NoMessage())
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfSeq"
+      , [ Var("s")
+        , ListTail(
+            [Var("e")]
+          , As(Var("es"), ListTail([Wld()], Wld()))
+          )
+        , Var("out20")
+        ]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out20"), Var("T"), NoMessage())
+        , CExists(
+            [Var("S"), Var("typeOfExp10"), Var("typeOfSeq1")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e"), Var("typeOfExp10")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp10"), Var("S"), NoMessage())
+              )
+            , CConj(
+                C(
+                  "static-semantics!typeOfSeq"
+                , [Var("s"), Var("es"), Var("typeOfSeq1")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfSeq1"), Var("T"), NoMessage())
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("Seq", [Var("es")]), Var("out21")]
+      )
+    , CExists(
+        [Var("typeOfSeq2")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfSeq"
+            , [Var("s"), Var("es"), Var("typeOfSeq2")]
+            , NoMessage()
+            )
+          , CEqual(Var("out21"), Var("typeOfSeq2"), NoMessage())
+          )
+        , CTrue()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op(
+            "If"
+          , [Var("e1"), Var("e2"), Var("e3")]
+          )
+        , Var("out22")
+        ]
+      )
+    , CExists(
+        [ Var("T")
+        , Var("S")
+        , Var("lub0")
+        , Var("typeOfExp11")
+        , Var("typeOfExp12")
+        , Var("typeOfExp13")
+        ]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!lub"
+            , [Var("T"), Var("S"), Var("lub0")]
+            , NoMessage()
+            )
+          , CEqual(Var("out22"), Var("lub0"), NoMessage())
+          )
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp11")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp11"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e2"), Var("typeOfExp12")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp12"), Var("T"), NoMessage())
+              )
+            , CConj(
+                CConj(
+                  C(
+                    "static-semantics!typeOfExp"
+                  , [Var("s"), Var("e3"), Var("typeOfExp13")]
+                  , NoMessage()
+                  )
+                , CEqual(Var("typeOfExp13"), Var("S"), NoMessage())
+                )
+              , C("static-semantics!equitype", [Var("S"), Var("T")], NoMessage())
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("IfThen", [Var("e1"), Var("e2")])
+        , Var("out23")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp14"), Var("typeOfExp15")]
+      , CConj(
+          CEqual(Var("out23"), Op("UNIT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp14")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp14"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp15")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp15"), Op("UNIT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("While", [Var("e1"), Var("e2")])
+        , Var("out24")
+        ]
+      )
+    , CConj(
+        CEqual(Var("out24"), Op("UNIT", []), NoMessage())
+      , CExists(
+          [Var("s_loop"), Var("typeOfExp16"), Var("typeOfExp17")]
+        , CConj(
+            CNew([Var("s_loop")])
+          , CConj(
+              CTellEdge(Var("s_loop"), Label("static-semantics!P"), Var("s"))
+            , CConj(
+                CConj(
+                  CTellRel(
+                    Label("static-semantics!typeOfDecl")
+                  , [Occurrence("static-semantics!Loop", [Str("break")], NoId()), Op("UNIT", [])]
+                  , Var("s_loop")
+                  )
+                , CTellRel(
+                    Decl()
+                  , [Occurrence("static-semantics!Loop", [Str("break")], NoId())]
+                  , Var("s_loop")
+                  )
+                )
+              , CConj(
+                  CConj(
+                    C(
+                      "static-semantics!typeOfExp"
+                    , [Var("s_loop"), Var("e1"), Var("typeOfExp16")]
+                    , NoMessage()
+                    )
+                  , CEqual(Var("typeOfExp16"), Op("INT", []), NoMessage())
+                  )
+                , CConj(
+                    C(
+                      "static-semantics!typeOfExp"
+                    , [Var("s_loop"), Var("e2"), Var("typeOfExp17")]
+                    , NoMessage()
+                    )
+                  , CEqual(Var("typeOfExp17"), Op("UNIT", []), NoMessage())
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op(
+            "For"
+          , [ Op("Var", [Var("x")])
+            , Var("e1")
+            , Var("e2")
+            , Var("e3")
+            ]
+          )
+        , Var("out25")
+        ]
+      )
+    , CConj(
+        CEqual(Var("out25"), Op("UNIT", []), NoMessage())
+      , CExists(
+          [Var("s_for"), Var("typeOfExp18"), Var("typeOfExp19"), Var("typeOfExp20")]
+        , CConj(
+            CNew([Var("s_for")])
+          , CConj(
+              CTellEdge(Var("s_for"), Label("static-semantics!P"), Var("s"))
+            , CConj(
+                C(
+                  "static-semantics!declareVar"
+                , [Var("s_for"), Var("x"), Op("INT", [])]
+                , NoMessage()
+                )
+              , CConj(
+                  CConj(
+                    CTellRel(
+                      Label("static-semantics!typeOfDecl")
+                    , [Occurrence("static-semantics!Loop", [Str("break")], NoId()), Op("UNIT", [])]
+                    , Var("s_for")
+                    )
+                  , CTellRel(
+                      Decl()
+                    , [Occurrence("static-semantics!Loop", [Str("break")], NoId())]
+                    , Var("s_for")
+                    )
+                  )
+                , CConj(
+                    CConj(
+                      C(
+                        "static-semantics!typeOfExp"
+                      , [Var("s"), Var("e1"), Var("typeOfExp18")]
+                      , NoMessage()
+                      )
+                    , CEqual(Var("typeOfExp18"), Op("INT", []), NoMessage())
+                    )
+                  , CConj(
+                      CConj(
+                        C(
+                          "static-semantics!typeOfExp"
+                        , [Var("s"), Var("e2"), Var("typeOfExp19")]
+                        , NoMessage()
+                        )
+                      , CEqual(Var("typeOfExp19"), Op("INT", []), NoMessage())
+                      )
+                    , CConj(
+                        C(
+                          "static-semantics!typeOfExp"
+                        , [Var("s_for"), Var("e3"), Var("typeOfExp20")]
+                        , NoMessage()
+                        )
+                      , CEqual(Var("typeOfExp20"), Op("UNIT", []), NoMessage())
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("Break", []), Var("out26")]
+      )
+    , CExists(
+        [Var("wld20"), Var("wld21")]
+      , CConj(
+          CEqual(Var("out26"), Op("UNIT", []), NoMessage())
+        , CResolveQuery(
+            Label("static-semantics!typeOfDecl")
+          , Filter(
+              Closure(Label("static-semantics!P"))
+            , LLam(
+                [ Tuple(
+                    [Occurrence("static-semantics!Loop", [Var("u12")], WithId(Wld())), Wld()]
+                  )
+                ]
+              , CEqual(Var("u12"), Str("break"), NoMessage())
+              )
+            )
+          , Min(
+              [LabelPair(EOP(), Label("static-semantics!P"))]
+            , LLam([Wld(), Wld()], CTrue())
+            )
+          , Var("s")
+          , List(
+              [ Tuple(
+                  [Var("wld20"), Tuple([Var("wld21"), Op("UNIT", [])])]
+                )
+              ]
+            )
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("Int", [Var("i")]), Var("out27")]
+      )
+    , CConj(
+        CEqual(Var("out27"), Op("INT", []), NoMessage())
+      , CTrue()
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("Uminus", [Var("e")]), Var("out28")]
+      )
+    , CExists(
+        [Var("typeOfExp21")]
+      , CConj(
+          CEqual(Var("out28"), Op("INT", []), NoMessage())
+        , CConj(
+            C(
+              "static-semantics!typeOfExp"
+            , [Var("s"), Var("e"), Var("typeOfExp21")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfExp21"), Op("INT", []), NoMessage())
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Divide", [Var("e1"), Var("e2")])
+        , Var("out29")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp22"), Var("typeOfExp23")]
+      , CConj(
+          CEqual(Var("out29"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp22")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp22"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp23")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp23"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Times", [Var("e1"), Var("e2")])
+        , Var("out30")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp24"), Var("typeOfExp25")]
+      , CConj(
+          CEqual(Var("out30"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp24")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp24"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp25")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp25"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Minus", [Var("e1"), Var("e2")])
+        , Var("out31")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp26"), Var("typeOfExp27")]
+      , CConj(
+          CEqual(Var("out31"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp26")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp26"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp27")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp27"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Plus", [Var("e1"), Var("e2")])
+        , Var("out32")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp28"), Var("typeOfExp29")]
+      , CConj(
+          CEqual(Var("out32"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp28")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp28"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp29")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp29"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Eq", [Var("e1"), Var("e2")])
+        , Var("out33")
+        ]
+      )
+    , CConj(
+        CEqual(Var("out33"), Op("INT", []), NoMessage())
+      , CExists(
+          [Var("T"), Var("S"), Var("typeOfExp30"), Var("typeOfExp31")]
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp30")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp30"), Var("T"), NoMessage())
+            )
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e2"), Var("typeOfExp31")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp31"), Var("S"), NoMessage())
+              )
+            , C("static-semantics!equitype", [Var("T"), Var("S")], NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Neq", [Var("e1"), Var("e2")])
+        , Var("out34")
+        ]
+      )
+    , CConj(
+        CEqual(Var("out34"), Op("INT", []), NoMessage())
+      , CExists(
+          [Var("T"), Var("S"), Var("typeOfExp32"), Var("typeOfExp33")]
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp32")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp32"), Var("T"), NoMessage())
+            )
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfExp"
+                , [Var("s"), Var("e2"), Var("typeOfExp33")]
+                , NoMessage()
+                )
+              , CEqual(Var("typeOfExp33"), Var("S"), NoMessage())
+              )
+            , C("static-semantics!equitype", [Var("T"), Var("S")], NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Gt", [Var("e1"), Var("e2")])
+        , Var("out35")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp34"), Var("typeOfExp35")]
+      , CConj(
+          CEqual(Var("out35"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp34")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp34"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp35")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp35"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Lt", [Var("e1"), Var("e2")])
+        , Var("out36")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp36"), Var("typeOfExp37")]
+      , CConj(
+          CEqual(Var("out36"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp36")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp36"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp37")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp37"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Geq", [Var("e1"), Var("e2")])
+        , Var("out37")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp38"), Var("typeOfExp39")]
+      , CConj(
+          CEqual(Var("out37"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp38")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp38"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp39")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp39"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Leq", [Var("e1"), Var("e2")])
+        , Var("out38")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp40"), Var("typeOfExp41")]
+      , CConj(
+          CEqual(Var("out38"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp40")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp40"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp41")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp41"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("Or", [Var("e1"), Var("e2")])
+        , Var("out39")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp42"), Var("typeOfExp43")]
+      , CConj(
+          CEqual(Var("out39"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp42")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp42"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp43")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp43"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , Op("And", [Var("e1"), Var("e2")])
+        , Var("out40")
+        ]
+      )
+    , CExists(
+        [Var("typeOfExp44"), Var("typeOfExp45")]
+      , CConj(
+          CEqual(Var("out40"), Op("INT", []), NoMessage())
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e1"), Var("typeOfExp44")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp44"), Op("INT", []), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e2"), Var("typeOfExp45")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp45"), Op("INT", []), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("Exp-Plhdr", []), Var("out41")]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(CEqual(Var("out41"), Var("T"), NoMessage()), CTrue())
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfType"
+      , [Var("s"), Op("RecordTy", [Var("fields")]), Var("out42")]
+      )
+    , CExists(
+        [Var("s_rec")]
+      , CConj(
+          CEqual(
+            Var("out42")
+          , Op("RECORD", [Var("s_rec")])
+          , NoMessage()
+          )
+        , CConj(
+            CNew([Var("s_rec")])
+          , C(
+              "static-semantics!fieldsOk"
+            , [Var("s_rec"), Var("s"), Var("fields")]
+            , NoMessage()
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fieldOk"
+      , [ Var("s_rec")
+        , Var("s_outer")
+        , Op("Field", [Var("x"), Var("t")])
+        ]
+      )
+    , CExists(
+        [Var("T"), Var("typeOfType6")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!typeOfType"
+            , [Var("s_outer"), Op("Tid", [Var("t")]), Var("typeOfType6")]
+            , NoMessage()
+            )
+          , CEqual(Var("typeOfType6"), Var("T"), NoMessage())
+          )
+        , C(
+            "static-semantics!declareField"
+          , [Var("s_rec"), Var("x"), Var("T")]
+          , NoMessage()
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("NilExp", []), Var("out43")]
+      )
+    , CConj(
+        CEqual(Var("out43"), Op("NIL", []), NoMessage())
+      , CTrue()
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [ Var("s")
+        , As(
+            Var("e")
+          , Op("Record", [Var("t"), Var("inits")])
+          )
+        , Var("out44")
+        ]
+      )
+    , CExists(
+        [Var("s_rec")]
+      , CConj(
+          CEqual(
+            Var("out44")
+          , Op("RECORD", [Var("s_rec")])
+          , NoMessage()
+          )
+        , CExists(
+            [Var("s_init"), Var("ds"), Var("typeOfType7")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfType"
+                , [Var("s"), Op("Tid", [Var("t")]), Var("typeOfType7")]
+                , NoMessage()
+                )
+              , CEqual(
+                  Var("typeOfType7")
+                , Op("RECORD", [Var("s_rec")])
+                , NoMessage()
+                )
+              )
+            , CConj(
+                CNew([Var("s_init")])
+              , CConj(
+                  C(
+                    "static-semantics!initsOk"
+                  , [Var("s"), Var("s_rec"), Var("s_init"), Var("inits")]
+                  , NoMessage()
+                  )
+                , CConj(
+                    CResolveQuery(
+                      Label("static-semantics!typeOfDecl")
+                    , Filter(
+                        Closure(Label("static-semantics!P"))
+                      , LLam(
+                          [ Tuple(
+                              [Occurrence("static-semantics!Field", [Var("u13")], WithId(Wld())), Wld()]
+                            )
+                          ]
+                        , CExists(
+                            [Var("wld22")]
+                          , CEqual(Var("u13"), Var("wld22"), NoMessage())
+                          )
+                        )
+                      )
+                    , Min(
+                        [LabelPair(EOP(), Label("static-semantics!P"))]
+                      , LLam([Wld(), Wld()], CTrue())
+                      )
+                    , Var("s_rec")
+                    , Var("ds")
+                    , NoMessage()
+                    )
+                  , C(
+                      "static-semantics!allFieldsInitialized"
+                    , [Var("t"), Var("ds"), Var("s_init")]
+                    , NoMessage()
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!initOk"
+      , [ Var("s")
+        , Var("s_rec")
+        , Var("s_init")
+        , Op("InitField", [Var("x"), Var("e")])
+        ]
+      )
+    , CExists(
+        [Var("S"), Var("T"), Var("lookupField0"), Var("typeOfExp46")]
+      , CConj(
+          CConj(
+            C(
+              "static-semantics!lookupField"
+            , [Var("s_rec"), Var("x"), Var("lookupField0")]
+            , NoMessage()
+            )
+          , CEqual(Var("lookupField0"), Var("T"), NoMessage())
+          )
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("s"), Var("e"), Var("typeOfExp46")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp46"), Var("S"), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!declareField"
+              , [Var("s_init"), Var("x"), Var("S")]
+              , NoMessage()
+              )
+            , C("static-semantics!subtype", [Var("S"), Var("T")], NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fieldInitialized"
+      , [ Var("t")
+        , Tuple(
+            [ Wld()
+            , Tuple(
+                [Occurrence("static-semantics!Field", [Var("x")], NoId()), Wld()]
+              )
+            ]
+          )
+        , Var("s")
+        ]
+      )
+    , CExists(
+        [Var("wld23")]
+      , CResolveQuery(
+          Label("static-semantics!typeOfDecl")
+        , Filter(
+            Closure(Label("static-semantics!P"))
+          , LLam(
+              [ Tuple(
+                  [Occurrence("static-semantics!Field", [Var("u14")], WithId(Wld())), Wld()]
+                )
+              ]
+            , CEqual(Var("u14"), Var("x"), NoMessage())
+            )
+          )
+        , Min(
+            [LabelPair(EOP(), Label("static-semantics!P"))]
+          , LLam([Wld(), Wld()], CTrue())
+          )
+        , Var("s")
+        , List([Var("wld23")])
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfLVal"
+      , [ Var("s")
+        , Op("FieldVar", [Var("lval"), Var("x")])
+        , Var("out45")
+        ]
+      )
+    , CExists(
+        [Var("T")]
+      , CConj(
+          CEqual(Var("out45"), Var("T"), NoMessage())
+        , CExists(
+            [Var("s_rec"), Var("typeOfLVal3"), Var("lookupField1")]
+          , CConj(
+              CConj(
+                C(
+                  "static-semantics!typeOfLVal"
+                , [Var("s"), Var("lval"), Var("typeOfLVal3")]
+                , NoMessage()
+                )
+              , CEqual(
+                  Var("typeOfLVal3")
+                , Op("RECORD", [Var("s_rec")])
+                , NoMessage()
+                )
+              )
+            , CConj(
+                C(
+                  "static-semantics!lookupField"
+                , [Var("s_rec"), Var("x"), Var("lookupField1")]
+                , NoMessage()
+                )
+              , CEqual(Var("lookupField1"), Var("T"), NoMessage())
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExp"
+      , [Var("s"), Op("String", [Wld()]), Var("out46")]
+      )
+    , CConj(
+        CEqual(Var("out46"), Op("STRING", []), NoMessage())
+      , CTrue()
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!init", [Var("s")])
+    , CConj(
+        C(
+          "static-semantics!declareTypeRaw"
+        , [Var("s"), Str("int"), Op("INT", [])]
+        , NoMessage()
+        )
+      , CConj(
+          C(
+            "static-semantics!declareTypeRaw"
+          , [Var("s"), Str("string"), Op("STRING", [])]
+          , NoMessage()
+          )
+        , CConj(
+            C(
+              "static-semantics!declareVarRaw"
+            , [ Var("s")
+              , Str("print")
+              , Op(
+                  "FUN"
+                , [List([Op("STRING", [])]), Op("UNIT", [])]
+                )
+              ]
+            , NoMessage()
+            )
+          , CConj(
+              C(
+                "static-semantics!declareVarRaw"
+              , [ Var("s")
+                , Str("chr")
+                , Op(
+                    "FUN"
+                  , [List([Op("INT", [])]), Op("STRING", [])]
+                  )
+                ]
+              , NoMessage()
+              )
+            , CConj(
+                C(
+                  "static-semantics!declareVarRaw"
+                , [ Var("s")
+                  , Str("ord")
+                  , Op(
+                      "FUN"
+                    , [List([Op("STRING", [])]), Op("INT", [])]
+                    )
+                  ]
+                , NoMessage()
+                )
+              , CConj(
+                  C(
+                    "static-semantics!declareVarRaw"
+                  , [ Var("s")
+                    , Str("size")
+                    , Op(
+                        "FUN"
+                      , [List([Op("STRING", [])]), Op("INT", [])]
+                      )
+                    ]
+                  , NoMessage()
+                  )
+                , CConj(
+                    C(
+                      "static-semantics!declareVarRaw"
+                    , [ Var("s")
+                      , Str("substring")
+                      , Op(
+                          "FUN"
+                        , [ List(
+                              [Op("STRING", []), Op("INT", []), Op("INT", [])]
+                            )
+                          , Op("STRING", [])
+                          ]
+                        )
+                      ]
+                    , NoMessage()
+                    )
+                  , CConj(
+                      C(
+                        "static-semantics!declareVarRaw"
+                      , [ Var("s")
+                        , Str("concat")
+                        , Op(
+                            "FUN"
+                          , [ List([Op("STRING", []), Op("STRING", [])])
+                            , Op("STRING", [])
+                            ]
+                          )
+                        ]
+                      , NoMessage()
+                      )
+                    , CConj(
+                        C(
+                          "static-semantics!declareVarRaw"
+                        , [ Var("s")
+                          , Str("not")
+                          , Op(
+                              "FUN"
+                            , [List([Op("INT", [])]), Op("INT", [])]
+                            )
+                          ]
+                        , NoMessage()
+                        )
+                      , CConj(
+                          C(
+                            "static-semantics!declareVarRaw"
+                          , [ Var("s")
+                            , Str("exit")
+                            , Op(
+                                "FUN"
+                              , [List([Op("INT", [])]), Op("UNIT", [])]
+                              )
+                            ]
+                          , NoMessage()
+                          )
+                        , CConj(
+                            C(
+                              "static-semantics!declareVarRaw"
+                            , [ Var("s")
+                              , Str("getchar")
+                              , Op("FUN", [List([]), Op("STRING", [])])
+                              ]
+                            , NoMessage()
+                            )
+                          , CConj(
+                              C(
+                                "static-semantics!declareVarRaw"
+                              , [ Var("s")
+                                , Str("flush")
+                                , Op("FUN", [List([]), Op("UNIT", [])])
+                                ]
+                              , NoMessage()
+                              )
+                            , C(
+                                "static-semantics!declareVarRaw"
+                              , [ Var("s")
+                                , Str("printi")
+                                , Op(
+                                    "FUN"
+                                  , [List([Op("INT", [])]), Op("UNIT", [])]
+                                  )
+                                ]
+                              , NoMessage()
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!typeOfExps", [Wld(), List([]), Var("out47")])
+    , CConj(CEqual(Var("out47"), List([]), NoMessage()), CTrue())
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typeOfExps"
+      , [ Var("x_1")
+        , ListTail([Var("x_2")], Var("xs_2"))
+        , Var("out48")
+        ]
+      )
+    , CExists(
+        [Var("y_1"), Var("ys_1"), Var("typeOfExp47"), Var("typeOfExps1")]
+      , CConj(
+          CEqual(
+            Var("out48")
+          , ListTail([Var("y_1")], Var("ys_1"))
+          , NoMessage()
+          )
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfExp"
+              , [Var("x_1"), Var("x_2"), Var("typeOfExp47")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExp47"), Var("y_1"), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typeOfExps"
+              , [Var("x_1"), Var("xs_2"), Var("typeOfExps1")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfExps1"), Var("ys_1"), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!tdecsOk", [Wld(), Wld(), List([])])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!tdecsOk"
+      , [ Var("x_1")
+        , Var("x_2")
+        , ListTail([Var("x_3")], Var("xs_3"))
+        ]
+      )
+    , CConj(
+        C(
+          "static-semantics!tdecOk"
+        , [Var("x_1"), Var("x_2"), Var("x_3")]
+        , NoMessage()
+        )
+      , C(
+          "static-semantics!tdecsOk"
+        , [Var("x_1"), Var("x_2"), Var("xs_3")]
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!fdecsOk", [Wld(), Wld(), List([])])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fdecsOk"
+      , [ Var("x_1")
+        , Var("x_2")
+        , ListTail([Var("x_3")], Var("xs_3"))
+        ]
+      )
+    , CConj(
+        C(
+          "static-semantics!fdecOk"
+        , [Var("x_1"), Var("x_2"), Var("x_3")]
+        , NoMessage()
+        )
+      , C(
+          "static-semantics!fdecsOk"
+        , [Var("x_1"), Var("x_2"), Var("xs_3")]
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typesOfArgs"
+      , [Wld(), Wld(), List([]), Var("out49")]
+      )
+    , CConj(CEqual(Var("out49"), List([]), NoMessage()), CTrue())
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!typesOfArgs"
+      , [ Var("x_1")
+        , Var("x_2")
+        , ListTail([Var("x_3")], Var("xs_3"))
+        , Var("out50")
+        ]
+      )
+    , CExists(
+        [Var("y_1"), Var("ys_1"), Var("typeOfArg0"), Var("typesOfArgs2")]
+      , CConj(
+          CEqual(
+            Var("out50")
+          , ListTail([Var("y_1")], Var("ys_1"))
+          , NoMessage()
+          )
+        , CConj(
+            CConj(
+              C(
+                "static-semantics!typeOfArg"
+              , [Var("x_1"), Var("x_2"), Var("x_3"), Var("typeOfArg0")]
+              , NoMessage()
+              )
+            , CEqual(Var("typeOfArg0"), Var("y_1"), NoMessage())
+            )
+          , CConj(
+              C(
+                "static-semantics!typesOfArgs"
+              , [Var("x_1"), Var("x_2"), Var("xs_3"), Var("typesOfArgs2")]
+              , NoMessage()
+              )
+            , CEqual(Var("typesOfArgs2"), Var("ys_1"), NoMessage())
+            )
+          )
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!fieldsOk", [Wld(), Wld(), List([])])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!fieldsOk"
+      , [ Var("x_1")
+        , Var("x_2")
+        , ListTail([Var("x_3")], Var("xs_3"))
+        ]
+      )
+    , CConj(
+        C(
+          "static-semantics!fieldOk"
+        , [Var("x_1"), Var("x_2"), Var("x_3")]
+        , NoMessage()
+        )
+      , C(
+          "static-semantics!fieldsOk"
+        , [Var("x_1"), Var("x_2"), Var("xs_3")]
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!initsOk", [Wld(), Wld(), Wld(), List([])])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!initsOk"
+      , [ Var("x_1")
+        , Var("x_2")
+        , Var("x_3")
+        , ListTail([Var("x_4")], Var("xs_4"))
+        ]
+      )
+    , CConj(
+        C(
+          "static-semantics!initOk"
+        , [Var("x_1"), Var("x_2"), Var("x_3"), Var("x_4")]
+        , NoMessage()
+        )
+      , C(
+          "static-semantics!initsOk"
+        , [Var("x_1"), Var("x_2"), Var("x_3"), Var("xs_4")]
+        , NoMessage()
+        )
+      )
+    )
+  , Rule(
+      NoName()
+    , C("static-semantics!allFieldsInitialized", [Wld(), List([]), Wld()])
+    , CTrue()
+    )
+  , Rule(
+      NoName()
+    , C(
+        "static-semantics!allFieldsInitialized"
+      , [ Var("x_1")
+        , ListTail([Var("x_2")], Var("xs_2"))
+        , Var("x_3")
+        ]
+      )
+    , CConj(
+        C(
+          "static-semantics!fieldInitialized"
+        , [Var("x_1"), Var("x_2"), Var("x_3")]
+        , NoMessage()
+        )
+      , C(
+          "static-semantics!allFieldsInitialized"
+        , [Var("x_1"), Var("xs_2"), Var("x_3")]
+        , NoMessage()
+        )
+      )
+    )
+  ]
+, [ ("initOk", 3, Decl())
+  , ("initOk", 3, Label("static-semantics!typeOfDecl"))
+  , ("typesOfArgs", 1, Decl())
+  , ("typesOfArgs", 1, Label("static-semantics!typeOfDecl"))
+  , ("declareField", 1, Decl())
+  , ("declareField", 1, Label("static-semantics!typeOfDecl"))
+  , ("declareTypeRaw", 1, Decl())
+  , ("declareTypeRaw", 1, Label("static-semantics!typeOfDecl"))
+  , ("init", 1, Decl())
+  , ("init", 1, Decl())
+  , ("init", 1, Label("static-semantics!typeOfDecl"))
+  , ("init", 1, Label("static-semantics!typeOfDecl"))
+  , ("fieldsOk", 1, Decl())
+  , ("fieldsOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("fdecOk", 1, Decl())
+  , ("fdecOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("decOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("decOk", 1, Decl())
+  , ("decOk", 1, Decl())
+  , ("decOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("fdecsOk", 1, Decl())
+  , ("fdecsOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("typeOfArg", 1, Decl())
+  , ("typeOfArg", 1, Label("static-semantics!typeOfDecl"))
+  , ("declareVar", 1, Decl())
+  , ("declareVar", 1, Label("static-semantics!typeOfDecl"))
+  , ("declareType", 1, Label("static-semantics!typeOfDecl"))
+  , ("declareType", 1, Decl())
+  , ("declareVarRaw", 1, Decl())
+  , ("declareVarRaw", 1, Label("static-semantics!typeOfDecl"))
+  , ("fieldOk", 1, Decl())
+  , ("fieldOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("initsOk", 3, Decl())
+  , ("initsOk", 3, Label("static-semantics!typeOfDecl"))
+  , ("decsOk", 2, Label("static-semantics!P"))
+  , ("decsOk", 2, Label("static-semantics!typeOfDecl"))
+  , ("decsOk", 2, Decl())
+  , ("decsOk", 2, Decl())
+  , ("decsOk", 2, Label("static-semantics!typeOfDecl"))
+  , ("decsOk", 2, Label("static-semantics!P"))
+  , ("tdecOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("tdecOk", 1, Decl())
+  , ("tdecsOk", 1, Label("static-semantics!typeOfDecl"))
+  , ("tdecsOk", 1, Decl())
+  ]
+)

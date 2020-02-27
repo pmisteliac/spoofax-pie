@@ -33,6 +33,8 @@ include("nabl2.common")
 include("statix.common")
 include("spoofax2.common")
 
+include("statix.completions")
+
 include("spoofax.core")
 include("spoofax.cli")
 include("spoofax.intellij")

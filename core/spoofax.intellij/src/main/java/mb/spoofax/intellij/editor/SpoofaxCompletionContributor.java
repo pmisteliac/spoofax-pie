@@ -61,14 +61,15 @@ public abstract class SpoofaxCompletionContributor extends CompletionContributor
         final Region selection = Region.atOffset(parameters.getOffset());
         final @Nullable CompletionResult completionResult;
         try (final PieSession session = this.pieSessionProvider.get()) {
-            Task<@Nullable CompletionResult> completionTask = this.languageInstance.createCompletionTask(resourceKey, selection);
+            Task<@Nullable CompletionResult> completionTask = this.languageInstance.createCompleteTask(resourceKey, selection);
             completionResult = session.require(completionTask);
         } catch (ExecException e) {
             throw new RuntimeException("Code completion on resource '" + resourceKey + "' failed unexpectedly.", e);
         }
 
         if (completionResult == null) return;
-        result.addAllElements(completionResult.getProposals().stream().map(this::proposalToElement).collect(Collectors.toList()));
+        List<LookupElement> elements = completionResult.getProposals().stream().map(this::proposalToElement).collect(Collectors.toList());
+        result.addAllElements(elements);
     }
 
     private LookupElement proposalToElement(CompletionProposal proposal) {

@@ -6,6 +6,7 @@ import mb.common.util.Experimental;
 import mb.common.util.ListView;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * A completion proposal.

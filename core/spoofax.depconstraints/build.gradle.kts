@@ -33,6 +33,7 @@ dependencies {
     api("org.metaborg:nabl2.solver:$spoofaxCoreVersion")
     api("org.metaborg:nabl2.terms:$spoofaxCoreVersion")
     api("org.metaborg:statix.solver:$spoofaxCoreVersion")
+    api("org.metaborg:statix.generator:$spoofaxCoreVersion")
 
     runtime("org.metaborg:strategoxt-min-jar:$spoofaxCoreVersion")
 
@@ -46,6 +47,7 @@ dependencies {
     api("org.immutables:value:$immutablesVersion")
     api("org.immutables:value-annotations:$immutablesVersion")
     api("javax.inject:javax.inject:1")
+    api("one.util:streamex:0.7.2")
 
     api("org.checkerframework:checker-qual-android:3.0.0") // Use android version: annotation retention policy is class instead of runtime.
 

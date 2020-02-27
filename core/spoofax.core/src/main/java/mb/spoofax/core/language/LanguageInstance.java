@@ -34,7 +34,7 @@ public interface LanguageInstance {
      * @param primarySelection the primary selection at which completion is invoked
      * @return a {@link CompletionResult}; or {@code null} when no completions could be generated
      */
-    Task<@Nullable CompletionResult> createCompletionTask(ResourceKey resourceKey, Region primarySelection);
+    Task<@Nullable CompletionResult> createCompleteTask(ResourceKey resourceKey, Region primarySelection);
 
     LanguageInspection getInspection();
 
