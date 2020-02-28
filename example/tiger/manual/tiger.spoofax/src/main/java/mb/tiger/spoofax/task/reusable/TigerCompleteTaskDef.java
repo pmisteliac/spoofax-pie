@@ -8,11 +8,14 @@ import mb.completions.common.CompletionProposal;
 import mb.completions.common.CompletionResult;
 import mb.log.api.Logger;
 import mb.log.api.LoggerFactory;
+import mb.nabl2.terms.IApplTerm;
 import mb.nabl2.terms.IListTerm;
 import mb.nabl2.terms.ITerm;
+import mb.nabl2.terms.ITermVar;
 import mb.nabl2.terms.ListTerms;
 import mb.nabl2.terms.Terms;
 import mb.nabl2.terms.build.TermBuild;
+import mb.nabl2.terms.stratego.StrategoTermIndices;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.pie.api.ExecContext;
 import mb.pie.api.Supplier;
@@ -106,11 +109,23 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             return null;   // Cannot complete when we don't get an AST.
         }
 
-        // 3) Get the solver state of the program (whole project),
+        // 3) Find the placeholder closest to the caret <- that's the one we want to complete
+        @Nullable IStrategoAppl placeholder = findPlaceholderAt(ast, input.caretLocation);
+        if (placeholder == null) {
+            log.error("Completion failed: we don't know the placeholder.");
+            return null;   // Cannot complete when we don't know the placeholder.
+        }
+
+        // Convert to Statix AST
+        PlaceholderVarMap placeholderVarMap = new PlaceholderVarMap(input.resourceKey.toString());
+        ITerm statixAst = toStatixAst(ast, input.resourceKey, placeholderVarMap);
+        ITermVar placeholderVar = Objects.requireNonNull(placeholderVarMap.getVar((IApplTerm)strategoTerms.fromStratego(placeholder)));
+
+        // 4) Get the solver state of the program (whole project),
         //    which should have some remaining constraints on the placeholder.
         //    TODO: What to do when the file is semantically incorrect? Recovery?
         SolverContext ctx = analyzer.createContext();
-        SolverState initialState = analyzer.analyze(ctx, ast, input.resourceKey);
+        SolverState initialState = analyzer.analyze(ctx, statixAst, placeholderVar);
         if (initialState.hasErrors()) {
             log.error("Completion failed: input program validation failed.\n" + initialState.toString());
             return null;    // Cannot complete when analysis fails.
@@ -120,17 +135,9 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             return null;    // Cannot complete when there are no constraints left.
         }
 
-        // TODO: Move getting the placeholder before analyze, for optimization (it is currently here for debugging)
-        // 4) Find the placeholder closest to the caret <- that's the one we want to complete
-        @Nullable IStrategoAppl placeholder = findPlaceholderAt(ast, input.caretLocation);
-        if (placeholder == null) {
-            log.error("Completion failed: we don't know the placeholder.");
-            return null;   // Cannot complete when we don't know the placeholder.
-        }
-
         // 5) Invoke the completer on the solver state, indicating the placeholder for which we want completions
         // 6) Get the possible completions back, as a list of ASTs with new solver states
-        List<IStrategoTerm> completionTerms = complete(ctx, initialState, placeholder);
+        List<IStrategoTerm> completionTerms = complete(ctx, initialState, placeholderVar);
 
         // 7) Format each completion as a proposal, with pretty-printed text
         List<String> completionStrings = completionTerms.stream().map(this::prettyPrint).collect(Collectors.toList());
@@ -148,6 +155,53 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
 //            new CompletionProposal("mypackage", "description", "", "", "mypackage", Objects.requireNonNull(StyleName.fromString("meta.package")), ListView.of(), false),
 //            new CompletionProposal("myclass", "description", "", "T", "mypackage", Objects.requireNonNull(StyleName.fromString("meta.class")), ListView.of(), false)
 //        ), true);
+    }
+
+    /**
+     * Converts a Stratego AST to a Statix AST.
+     *
+     * @param ast the Stratego AST to convert
+     * @param resourceKey the resource key of the resource from which the AST was parsed
+     * @return the resulting Statix AST, annotated with term indices
+     */
+    private ITerm toStatixAst(IStrategoTerm ast, @Nullable ResourceKey resourceKey, PlaceholderVarMap placeholderVarMap) {
+        IStrategoTerm annotatedAst = addIndicesToAst(ast, resourceKey);
+        ITerm statixAst = strategoTerms.fromStratego(annotatedAst);
+        ITerm newStatixAst = replacePlaceholdersByConstraintVariables(statixAst, placeholderVarMap);
+        return newStatixAst;
+    }
+
+    private ITerm replacePlaceholdersByConstraintVariables(ITerm term, PlaceholderVarMap placeholderVarMap) {
+        return term.match(Terms.<ITerm>casesFix(
+            (m, appl) ->  {
+                if (appl.getOp().endsWith("-Plhdr") && appl.getArity() == 0) {
+                    // Placeholder
+                    return placeholderVarMap.addPlaceholderMapping(appl);
+                } else {
+                    return TermBuild.B.newAppl(appl.getOp(), appl.getArgs().stream().map(a -> a.match(m)).collect(Collectors.toList()), appl.getAttachments());
+                }
+            },
+            (m, list) -> list.match(ListTerms.<IListTerm>casesFix(
+                (lm, cons) -> TermBuild.B.newCons(cons.getHead().match(m), cons.getTail().match(lm), cons.getAttachments()),
+                (lm, nil) -> nil,
+                (lm, var) -> var
+            )),
+            (m, string) -> string,
+            (m, integer) -> integer,
+            (m, blob) -> blob,
+            (m, var) -> var
+        ));
+    }
+
+    /**
+     * Annotates the terms of the AST with term indices.
+     *
+     * @param ast the AST
+     * @param resourceKey the resource key from which the AST was created
+     * @return the annotated AST
+     */
+    private IStrategoTerm addIndicesToAst(IStrategoTerm ast, ResourceKey resourceKey) {
+        return StrategoTermIndices.index(ast, resourceKey.toString(), termFactory);
     }
 
     /**
@@ -245,8 +299,8 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
 //        return completionStartState;
 //    }
 //
-    private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, IStrategoAppl placeholder) throws InterruptedException {
-        return completer.complete(ctx, state, placeholder.getName()).stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
+    private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
+        return completer.complete(ctx, state, placeholderVar).stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
     }
 
     private ITerm replaceConstraintVariablesByPlaceholders(ITerm term) {

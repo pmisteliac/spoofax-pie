@@ -47,11 +47,11 @@ public final class TermCompleter {
      *
      * @param ctx the search context
      * @param state the initial search state
-     * @param placeholderName the name of the placeholder to complete
+     * @param placeholderVar the var of the placeholder to complete
      * @return the resulting completion proposals
      */
-    public List<ITerm> complete(SolverContext ctx, SolverState state, String placeholderName) throws InterruptedException {
-        return completeNodes(ctx, state).map(s -> project(placeholderName, s)).collect(Collectors.toList());
+    public List<ITerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
+        return completeNodes(ctx, state).map(s -> project(placeholderVar, s)).collect(Collectors.toList());
     }
 
     /**
@@ -65,12 +65,11 @@ public final class TermCompleter {
         return completionStrategy.apply(ctx, state);
     }
 
-    private static ITerm project(String varName, SolverState s) {
-        final ITermVar v = B.newVar("", varName);
-        if(s.getExistentials() != null && s.getExistentials().containsKey(v)) {
-            return s.getState().unifier().findRecursive(s.getExistentials().get(v));
+    private static ITerm project(ITermVar placeholderVar, SolverState s) {
+        if(s.getExistentials() != null && s.getExistentials().containsKey(placeholderVar)) {
+            return s.getState().unifier().findRecursive(s.getExistentials().get(placeholderVar));
         } else {
-            return v;
+            return placeholderVar;
         }
     }
 }

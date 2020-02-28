@@ -20,11 +20,13 @@ import mb.resource.ResourceKey;
 import mb.statix.common.SolverContext;
 import mb.statix.common.SolverState;
 import mb.statix.common.strategies.InferStrategy;
+import mb.statix.constraints.CExists;
 import mb.statix.constraints.CUser;
 import mb.statix.solver.IConstraint;
 import mb.statix.solver.persistent.State;
 import mb.statix.spec.Spec;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 import org.strategoxt.strc.$Apply$Closure_0_0;
@@ -58,9 +60,9 @@ public class TigerAnalyzer {
         return new SolverContext(spec.spec);
     }
 
-    public SolverState analyze(SolverContext ctx, IStrategoTerm ast, @Nullable ResourceKey resourceKey) throws InterruptedException {
-        PlaceholderVarMap placeholderVarMap = new PlaceholderVarMap(resourceKey != null ? resourceKey.toString() : "<unknown resource>");
-        IConstraint rootConstraint = getRootConstraint(ast, resourceKey, "static-semantics", placeholderVarMap);   /* TODO: Get the spec name from the spec? */
+    public SolverState analyze(SolverContext ctx, ITerm statixAst, ITermVar placeholderVar) throws InterruptedException {
+        IConstraint rootConstraint = getRootConstraint(statixAst, "static-semantics", placeholderVar);   /* TODO: Get the spec name from the spec? */
+        log.info("Analyzing: " + rootConstraint);
         return analyze(ctx, spec.spec, rootConstraint);
     }
 
@@ -69,47 +71,10 @@ public class TigerAnalyzer {
      *
      * @return the root constraint
      */
-    private IConstraint getRootConstraint(IStrategoTerm ast, @Nullable ResourceKey resourceKey, String specName, PlaceholderVarMap placeholderVarMap) {
+    private IConstraint getRootConstraint(ITerm statixAst, String specName, ITermVar placeholderVar) {
         String rootRuleName = "programOK";      // FIXME: Ability to specify root rule somewhere
         String qualifiedName = makeQualifiedName(specName, rootRuleName);
-        // TODO? <stx--explode> statixAst
-        return new CUser(qualifiedName, Collections.singletonList(toStatixAst(ast, resourceKey, placeholderVarMap)), null);
-    }
-
-    /**
-     * Converts a Stratego AST to a Statix AST.
-     *
-     * @param ast the Stratego AST to convert
-     * @param resourceKey the resource key of the resource from which the AST was parsed
-     * @return the resulting Statix AST, annotated with term indices
-     */
-    private ITerm toStatixAst(IStrategoTerm ast, @Nullable ResourceKey resourceKey, PlaceholderVarMap placeholderVarMap) {
-        IStrategoTerm annotatedAst = addIndicesToAst(ast, resourceKey);
-        ITerm statixAst = strategoTerms.fromStratego(annotatedAst);
-        ITerm newStatixAst = replacePlaceholdersByConstraintVariables(statixAst, placeholderVarMap);
-        return newStatixAst;
-    }
-
-    private ITerm replacePlaceholdersByConstraintVariables(ITerm term, PlaceholderVarMap placeholderVarMap) {
-        return term.match(Terms.<ITerm>casesFix(
-            (m, appl) ->  {
-                if (appl.getOp().endsWith("-Plhdr") && appl.getArity() == 0) {
-                    // Placeholder
-                    return placeholderVarMap.addPlaceholderMapping(appl);
-                } else {
-                    return TermBuild.B.newAppl(appl.getOp(), appl.getArgs().stream().map(a -> a.match(m)).collect(Collectors.toList()), appl.getAttachments());
-                }
-            },
-            (m, list) -> list.match(ListTerms.<IListTerm>casesFix(
-                (lm, cons) -> TermBuild.B.newCons(cons.getHead().match(m), cons.getTail().match(lm), cons.getAttachments()),
-                (lm, nil) -> nil,
-                (lm, var) -> var
-            )),
-            (m, string) -> string,
-            (m, integer) -> integer,
-            (m, blob) -> blob,
-            (m, var) -> var
-        ));
+        return new CExists(Collections.singletonList(placeholderVar), new CUser(qualifiedName, Collections.singletonList(statixAst), null));
     }
 
     /**
@@ -122,17 +87,6 @@ public class TigerAnalyzer {
     private String makeQualifiedName(String specName, String ruleName) {
         if (specName.equals("") || ruleName.contains("!")) return ruleName;
         return specName + "!" + ruleName;
-    }
-
-    /**
-     * Annotates the terms of the AST with term indices.
-     *
-     * @param ast the AST
-     * @param resourceKey the resource key from which the AST was created
-     * @return the annotated AST
-     */
-    private IStrategoTerm addIndicesToAst(IStrategoTerm ast, ResourceKey resourceKey) {
-        return StrategoTermIndices.index(ast, resourceKey.toString(), termFactory);
     }
 
     /**

@@ -42,7 +42,6 @@ import static mb.common.style.StyleNameConstants.*;
  */
 public abstract class SpoofaxCompletionContributor extends CompletionContributor {
 
-
     private final IntellijResourceRegistry resourceRegistry;
     private final LanguageInstance languageInstance;
     private final Provider<PieSession> pieSessionProvider;
@@ -51,7 +50,6 @@ public abstract class SpoofaxCompletionContributor extends CompletionContributor
         this.resourceRegistry = SpoofaxPlugin.getComponent().getResourceRegistry();
         this.languageInstance = languageComponent.getLanguageInstance();
         this.pieSessionProvider = languageComponent::newPieSession;
-
     }
 
     @Override
