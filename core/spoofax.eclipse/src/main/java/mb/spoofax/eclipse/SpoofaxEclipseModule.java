@@ -4,6 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import mb.pie.api.Logger;
 import mb.pie.runtime.logger.NoopLogger;
+import mb.spoofax.eclipse.editor.SpoofaxSourceViewerConfiguration;
 
 import javax.inject.Singleton;
 

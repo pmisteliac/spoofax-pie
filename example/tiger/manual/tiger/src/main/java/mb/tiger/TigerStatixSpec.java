@@ -1,8 +1,6 @@
 package mb.tiger;
 
 import com.google.common.collect.ListMultimap;
-import mb.jsglr1.common.JSGLR1ParseTable;
-import mb.jsglr1.common.JSGLR1ParseTableException;
 import mb.nabl2.terms.ITerm;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.statix.spec.Rule;
@@ -12,8 +10,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spoofax.interpreter.core.InterpreterException;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
-import org.spoofax.jsglr.client.InvalidParseTableException;
-import org.spoofax.jsglr.client.ParseTable;
 import org.spoofax.jsglr.client.imploder.ImploderOriginTermFactory;
 import org.spoofax.terms.TermFactory;
 import org.spoofax.terms.io.binary.TermReader;
@@ -35,7 +31,7 @@ public class TigerStatixSpec implements Serializable {
         // NOTE: This aterm is of the form Spec(..), which you get by running
         // the Generate > Generate Combined ATerm builder on a Statix .stx specification.
         // Currently, its name must be strc, and its root rule must be `programOK(e)`.
-        final String resource = "statix.aterm";
+        final String resource = "/mb/tiger/statix.aterm";
 //        final String resource = "mb/tiger/target/metaborg/statix.aterm";
         try(final @Nullable InputStream inputStream = TigerStatixSpec.class.getClassLoader().getResourceAsStream(resource)) {
             if(inputStream == null) {

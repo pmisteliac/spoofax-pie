@@ -26,6 +26,7 @@ import org.eclipse.jface.text.ITextViewerExtension4;
 import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -78,6 +79,8 @@ public abstract class SpoofaxEditor extends TextEditor {
     protected SpoofaxEditor(EclipseLanguageComponent languageComponent) {
         super();
         this.languageComponent = languageComponent;
+        setDocumentProvider(new SpoofaxDocumentProvider());
+        setSourceViewerConfiguration(languageComponent.getSourceViewerConfigurationFactory().create(this));
     }
 
 
@@ -147,8 +150,6 @@ public abstract class SpoofaxEditor extends TextEditor {
         this.logger = loggerFactory.create(getClass());
         this.pieRunner = component.getPieRunner();
 
-        setDocumentProvider(new SpoofaxDocumentProvider());
-        setSourceViewerConfiguration(new SpoofaxSourceViewerConfiguration());
         setEditorContextMenuId("#SpoofaxEditorContext");
     }
 
@@ -181,7 +182,6 @@ public abstract class SpoofaxEditor extends TextEditor {
         Objects.requireNonNull(sourceViewer); // Hint to editor that sourceViewer cannot be null.
         final SourceViewerDecorationSupport decorationSupport = getSourceViewerDecorationSupport(sourceViewer);
         configureSourceViewerDecorationSupport(decorationSupport);
-
         ((ITextViewerExtension4)sourceViewer).addTextPresentationListener(presentationMerger);
 
         if(document != null) {
