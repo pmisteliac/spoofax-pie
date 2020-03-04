@@ -50,24 +50,16 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
 
     public static class Input implements Serializable {
         public final ResourceKey resourceKey;
-//        public final Supplier<@Nullable Spec> specProvider;
         public final Supplier<@Nullable IStrategoTerm> astProvider;
         public final int caretLocation;
 
-        public Input(ResourceKey resourceKey, /*Supplier<@Nullable Spec> specProvider,*/ Supplier<IStrategoTerm> astProvider, int caretLocation) {
+        public Input(ResourceKey resourceKey, Supplier<IStrategoTerm> astProvider, int caretLocation) {
             this.resourceKey = resourceKey;
-//            this.specProvider = specProvider;
             this.astProvider = astProvider;
             this.caretLocation = caretLocation;
         }
     }
 
-//    public static class Output implements Serializable {
-//
-//    }
-
-//    private final TigerAnalyze analyzeTask;
-//    private final StatixAnalyzer statixAnalyzer;
     private final Logger log;
     private final TermCompleter completer = new TermCompleter();
     private final StrategoTerms strategoTerms;
@@ -79,14 +71,10 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         StrategoTerms strategoTerms,
         ITermFactory termFactory,
         Provider<TigerAnalyzer> analyzerProvider
-//        TigerAnalyze analyzeTask
-//        StatixAnalyzer statixAnalyzer
     ) {
         this.log = loggerFactory.create(TigerCompleteTaskDef.class);
         this.strategoTerms = strategoTerms;
         this.termFactory = termFactory;
-//        this.statixAnalyzer = statixAnalyzer;
-//        this.analyzeTask = analyzeTask;
         this.analyzerProvider = analyzerProvider;
     }
 
@@ -151,10 +139,6 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         }
 
         return new CompletionResult(ListView.copyOf(completionProposals), true);
-//        return new CompletionResult(ListView.of(
-//            new CompletionProposal("mypackage", "description", "", "", "mypackage", Objects.requireNonNull(StyleName.fromString("meta.package")), ListView.of(), false),
-//            new CompletionProposal("myclass", "description", "", "T", "mypackage", Objects.requireNonNull(StyleName.fromString("meta.class")), ListView.of(), false)
-//        ), true);
     }
 
     /**
@@ -228,77 +212,6 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         return term.toString();
     }
 
-//    /**
-//     * Gets the root constraint of the specification.
-//     *
-//     * @param spec the specification
-//     * @return the root constraint
-//     */
-//    private IConstraint getRootConstraint(Spec spec, IStrategoTerm ast, ResourceKey resourceKey) {
-//        String rootRuleName = "programOK";      // FIXME: Ability to specify root rule somewhere
-//        String qualifiedName = makeQualifiedName("", rootRuleName);
-//        // TODO? <stx--explode> statixAst
-//        return new CUser(qualifiedName, Collections.singletonList(toStatixAst(ast, resourceKey)), null);
-//    }
-
-//    /**
-//     * Converts a Stratego AST to a Statix AST.
-//     *
-//     * @param ast the Stratego AST to convert
-//     * @param resourceKey the resource key of the resource from which the AST was parsed
-//     * @return the resulting Statix AST, annotated with term indices
-//     */
-//    private ITerm toStatixAst(IStrategoTerm ast, ResourceKey resourceKey) {
-//        IStrategoTerm annotatedAst = addIndicesToAst(ast, resourceKey);
-//        return strategoTerms.fromStratego(annotatedAst);
-//    }
-
-//    /**
-//     * Returns the qualified name of the rule.
-//     *
-//     * @param specName the name of the specification
-//     * @param ruleName the name of the rule
-//     * @return the qualified name of the rule, in the form of {@code <specName>!<ruleName>}.
-//     */
-//    private String makeQualifiedName(String specName, String ruleName) {
-//        if (specName.equals("") || ruleName.contains("!")) return ruleName;
-//        return specName + "!" + ruleName;
-//    }
-
-//    /**
-//     * Annotates the terms of the AST with term indices.
-//     *
-//     * @param ast the AST
-//     * @param resourceKey the resource key from which the AST was created
-//     * @return the annotated AST
-//     */
-//    private IStrategoTerm addIndicesToAst(IStrategoTerm ast, ResourceKey resourceKey) {
-//        return StrategoTermIndices.index(ast, resourceKey.toString(), termFactory);
-//    }
-
-//    /**
-//     * Invokes analysis.
-//     *
-//     * @param spec the Statix specification
-//     * @param rootConstraint the root constraint
-//     * @return the resulting analysis result; or {@code null} when it failed
-//     */
-//    private @Nullable SearchState analyze(SearchContext ctx, Spec spec, IConstraint rootConstraint) throws InterruptedException {
-//        log.info("Preparing...");
-//        SearchState startState = SearchState.of(spec, State.of(spec), ImmutableList.of(rootConstraint));
-//        SearchState completionStartState = infer().apply(ctx, startState).findFirst().orElseThrow(() -> new IllegalStateException("This cannot be happening."));
-//        if (completionStartState.hasErrors()) {
-//            log.error("Input program validation failed. Aborted.\n" + completionStartState.toString());
-//            return null;
-//        }
-//        if (completionStartState.getConstraints().isEmpty()) {
-//            log.error("No constraints left, nothing to complete. Aborted.\n" + completionStartState.toString());
-//            return null;
-//        }
-//        log.info("Ready.");
-//        return completionStartState;
-//    }
-//
     private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
         return completer.complete(ctx, state, placeholderVar).stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
     }
@@ -325,32 +238,6 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             }
         ));
     }
-
-//    /**
-//     * Invokes analysis on the given AST.
-//     *
-//     * @param context the task execution context
-//     * @param ast the AST to analyze, with placeholders
-//     * @param resourceKey the resource key
-//     * @return the resulting analysis result; or {@code null} when it failed
-//     */
-//    private ASolverResult analyze(ExecContext context, IStrategoTerm ast, ResourceKey resourceKey) throws InterruptedException {
-//        return statixAnalyzer.analyze(resourceKey, ignored -> ast);
-//    }
-
-//    /**
-//     * Invokes analysis on the given AST.
-//     *
-//     * @param context the task execution context
-//     * @param ast the AST to analyze, with placeholders
-//     * @param resourceKey the resource key
-//     * @return the resulting analysis result; or {@code null} when it failed
-//     */
-//    private ConstraintAnalyzer.@Nullable SingleFileResult analyze(ExecContext context, IStrategoTerm ast, ResourceKey resourceKey) throws InterruptedException, IOException, ExecException {
-//        TigerAnalyze.@Nullable Output analysisResult = analyzeTask.exec(context, new TigerAnalyze.Input(resourceKey, ignored -> ast));
-//        if (analysisResult == null) return null;
-//        return analysisResult.result;
-//    }
 
     /**
      * Finds the placeholder near the caret location in the specified term.
