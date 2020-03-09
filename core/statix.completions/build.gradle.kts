@@ -8,6 +8,7 @@ dependencies {
   api(project(":common"))
   api(project(":completions.common"))
   api(project(":statix.common"))
+  api("org.metaborg:statix.solver")
   api("org.metaborg:statix.generator")
   implementation("one.util:streamex")
 

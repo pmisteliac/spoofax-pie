@@ -18,6 +18,8 @@ import mb.nabl2.terms.build.TermBuild;
 import mb.nabl2.terms.stratego.StrategoTermIndices;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.pie.api.ExecContext;
+import mb.pie.api.ExecException;
+import mb.pie.api.Function;
 import mb.pie.api.Supplier;
 import mb.pie.api.TaskDef;
 import mb.resource.ResourceKey;
@@ -25,7 +27,6 @@ import mb.spoofax.core.language.LanguageScope;
 import mb.statix.codecompletion.TermCompleter;
 import mb.statix.common.SolverContext;
 import mb.statix.common.SolverState;
-import mb.statix.spec.Spec;
 import mb.tiger.PlaceholderVarMap;
 import mb.tiger.TigerAnalyzer;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -50,13 +51,19 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
 
     public static class Input implements Serializable {
         public final ResourceKey resourceKey;
-        public final Supplier<@Nullable IStrategoTerm> astProvider;
         public final int caretLocation;
+        public final Supplier<@Nullable IStrategoTerm> astSupplier;
+        public final Function<IStrategoTerm, @Nullable String> prettyPrinterFunction;
 
-        public Input(ResourceKey resourceKey, Supplier<IStrategoTerm> astProvider, int caretLocation) {
+        public Input(
+            ResourceKey resourceKey,
+            int caretLocation,
+            Supplier<IStrategoTerm> astSupplier,
+            Function<IStrategoTerm, @Nullable String> prettyPrinterFunction) {
             this.resourceKey = resourceKey;
-            this.astProvider = astProvider;
             this.caretLocation = caretLocation;
+            this.astSupplier = astSupplier;
+            this.prettyPrinterFunction = prettyPrinterFunction;
         }
     }
 
@@ -91,7 +98,7 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         //    resulting in an AST with placeholders
         //    ==> This should be done by specifying the correct astProvider
         // TODO: get the ast in 'completion mode', with placeholders (use placeholder recovery or inference)
-        @Nullable IStrategoTerm ast = input.astProvider.get(context);
+        @Nullable IStrategoTerm ast = input.astSupplier.get(context);
         if (ast == null){
             log.error("Completion failed: we didn't get an AST.");
             return null;   // Cannot complete when we don't get an AST.
@@ -128,7 +135,16 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         List<IStrategoTerm> completionTerms = complete(ctx, initialState, placeholderVar);
 
         // 7) Format each completion as a proposal, with pretty-printed text
-        List<String> completionStrings = completionTerms.stream().map(this::prettyPrint).collect(Collectors.toList());
+        List<String> completionStrings = completionTerms.stream().map(t -> {
+            try {
+                // FIXME: We should remove the explicated injections, somehow
+                // How do we know which are injections?
+                @Nullable String prettyPrinted = prettyPrint(context, t, input.prettyPrinterFunction);
+                return prettyPrinted != null ? prettyPrinted : t.toString();
+            } catch(ExecException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
 
         // 8) Insert the selected completion: insert the pretty-printed text in the code,
         //    and (maybe?) add the solver state to the current solver state
@@ -204,16 +220,18 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
     /**
      * Returns the pretty-printed version of the specified term.
      *
+     * @param context the execution context
      * @param term the term to pretty-print
-     * @return the pretty-printed term
+     * @param prettyPrinterFunction the pretty-printer function
+     * @return the pretty-printed term; or {@code null} when it failed
      */
-    private String prettyPrint(IStrategoTerm term) {
-        // TODO: Implement
-        return term.toString();
+    private @Nullable String prettyPrint(ExecContext context, IStrategoTerm term, Function<IStrategoTerm, String> prettyPrinterFunction) throws ExecException, InterruptedException {
+        return prettyPrinterFunction.apply(context, term);
     }
 
     private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
-        return completer.complete(ctx, state, placeholderVar).stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
+        List<ITerm> proposalTerms = completer.complete(ctx, state, placeholderVar);
+        return proposalTerms.stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
     }
 
     private ITerm replaceConstraintVariablesByPlaceholders(ITerm term) {
@@ -227,16 +245,14 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             (m, string) -> string,
             (m, integer) -> integer,
             (m, blob) -> blob,
-            (m, var) -> {
-                if (var.getName().startsWith("$")) {
-                    return TermBuild.B.newAppl(var.getName().substring(1) + "-Phldr");
-                } else if (var.getName().endsWith("-Plhdr")) {
-                    return TermBuild.B.newAppl(var.getName().substring(1, var.getName().length() - (1 + "-Phldr".length())));
-                } else {
-                    return TermBuild.B.newAppl(var.getName() + "-Phldr");
-                }
-            }
+            // TODO: Ability to relate placeholders, such that typing in the editor in one placeholder also types in another
+            (m, var) -> TermBuild.B.newAppl(getSortOfVariable(var) + "-Plhdr")
         ));
+    }
+
+    private String getSortOfVariable(ITermVar var) {
+        // TODO: Get the actual sort
+        return "Exp";
     }
 
     /**

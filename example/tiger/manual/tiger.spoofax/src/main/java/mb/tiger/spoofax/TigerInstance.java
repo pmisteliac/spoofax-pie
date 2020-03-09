@@ -32,6 +32,7 @@ import mb.tiger.spoofax.task.TigerIdeCheck;
 import mb.tiger.spoofax.task.TigerIdeTokenize;
 import mb.tiger.spoofax.task.reusable.TigerCompleteTaskDef;
 import mb.tiger.spoofax.task.reusable.TigerParse;
+import mb.tiger.spoofax.task.reusable.TigerPrettyPrintTaskDef;
 import mb.tiger.spoofax.task.reusable.TigerStatixSpecTaskDef;
 import mb.tiger.spoofax.task.reusable.TigerStyle;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -49,6 +50,7 @@ public class TigerInstance implements LanguageInstance {
     private final TigerIdeTokenize tokenize;
     private final TigerCompleteTaskDef completeTaskDef;
     private final TigerStatixSpecTaskDef statixSpecTaskDef;
+    private final TigerPrettyPrintTaskDef prettyPrintTaskDef;
 
     private final TigerShowParsedAstCommand showParsedAstCommand;
     private final TigerShowPrettyPrintedTextCommand showPrettyPrintedTextCommand;
@@ -69,6 +71,7 @@ public class TigerInstance implements LanguageInstance {
         TigerIdeTokenize tokenize,
         TigerCompleteTaskDef completeTaskDef,
         TigerStatixSpecTaskDef statixSpecTaskDef,
+        TigerPrettyPrintTaskDef prettyPrintTaskDef,
 
         TigerShowParsedAstCommand showParsedAstCommand,
         TigerShowPrettyPrintedTextCommand showPrettyPrintedTextCommand,
@@ -87,6 +90,7 @@ public class TigerInstance implements LanguageInstance {
         this.tokenize = tokenize;
         this.completeTaskDef = completeTaskDef;
         this.statixSpecTaskDef = statixSpecTaskDef;
+        this.prettyPrintTaskDef = prettyPrintTaskDef;
 
         this.showParsedAstCommand = showParsedAstCommand;
         this.showPrettyPrintedTextCommand = showPrettyPrintedTextCommand;
@@ -122,8 +126,9 @@ public class TigerInstance implements LanguageInstance {
     public Task<@Nullable CompletionResult> createCompleteTask(ResourceKey resourceKey, Region primarySelection) {
         return completeTaskDef.createTask(new TigerCompleteTaskDef.Input(
             resourceKey,
+            primarySelection.getStartOffset(),
             parse.createAstSupplier(resourceKey),
-            primarySelection.getStartOffset()
+            (c, t) -> prettyPrintTaskDef.createFunction().apply(c, new TigerPrettyPrintTaskDef.Input(c2 -> t))
         ));
     }
 
