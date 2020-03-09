@@ -5,11 +5,13 @@ import mb.spoofax.core.language.LanguageInstance;
 import mb.spoofax.core.language.command.CommandContext;
 import mb.spoofax.core.language.command.CommandRequest;
 import mb.spoofax.core.language.command.HierarchicalResourceType;
+import mb.spoofax.core.language.command.ResourcePathWithKind;
 import mb.spoofax.core.language.menu.MenuItem;
 import mb.spoofax.eclipse.EclipseIdentifiers;
 import mb.spoofax.eclipse.EclipseLanguageComponent;
 import mb.spoofax.eclipse.SpoofaxEclipseComponent;
 import mb.spoofax.eclipse.SpoofaxPlugin;
+import mb.spoofax.eclipse.command.EnclosingCommandContextProvider;
 import mb.spoofax.eclipse.pie.PieRunner;
 import mb.spoofax.eclipse.resource.EclipseResourcePath;
 import mb.spoofax.eclipse.util.SelectionUtil;
@@ -29,6 +31,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class ResourceContextMenu extends MenuShared {
+    private final EnclosingCommandContextProvider enclosingCommandContextProvider;
     private final PieRunner pieRunner;
 
     private final EclipseLanguageComponent languageComponent;
@@ -36,8 +39,8 @@ public abstract class ResourceContextMenu extends MenuShared {
 
     public ResourceContextMenu(EclipseLanguageComponent languageComponent) {
         final SpoofaxEclipseComponent component = SpoofaxPlugin.getComponent();
+        this.enclosingCommandContextProvider = component.getEnclosingCommandContextProvider();
         this.pieRunner = component.getPieRunner();
-
         this.languageComponent = languageComponent;
     }
 
@@ -56,10 +59,16 @@ public abstract class ResourceContextMenu extends MenuShared {
         // Selections.
         // OPTO: prevent allocating ArrayLists of unused Eclipse resource objects.
         final ArrayList<IProject> eclipseProjects = SelectionUtil.toProjects(selection);
-        final ArrayList<CommandContext> projectContexts = eclipseProjects.stream().map(EclipseResourcePath::new).map(CommandContext::new).collect(Collectors.toCollection(ArrayList::new));
+        final ArrayList<CommandContext> projectContexts = eclipseProjects.stream()
+            .map(project -> ResourcePathWithKind.project(new EclipseResourcePath(project)))
+            .map(CommandContext::new)
+            .collect(Collectors.toCollection(ArrayList::new));
         final boolean hasProjects = !projectContexts.isEmpty();
         final ArrayList<IContainer> eclipseContainers = SelectionUtil.toContainers(selection);
-        final ArrayList<CommandContext> directoryContexts = eclipseContainers.stream().map(EclipseResourcePath::new).map(CommandContext::new).collect(Collectors.toCollection(ArrayList::new));
+        final ArrayList<CommandContext> directoryContexts = eclipseContainers.stream()
+            .map(directory -> ResourcePathWithKind.directory(new EclipseResourcePath(directory)))
+            .map(CommandContext::new)
+            .collect(Collectors.toCollection(ArrayList::new));
         final boolean hasDirectories = !directoryContexts.isEmpty();
         final ArrayList<IFile> eclipseLangFiles = SelectionUtil.toFiles(selection);
         for(Iterator<IFile> it = eclipseLangFiles.iterator(); it.hasNext(); ) {
@@ -69,8 +78,13 @@ public abstract class ResourceContextMenu extends MenuShared {
                 it.remove(); // Remove non-language files.
             }
         }
-        final ArrayList<EclipseResourcePath> langFiles = eclipseLangFiles.stream().map(EclipseResourcePath::new).collect(Collectors.toCollection(ArrayList::new));
-        final ArrayList<CommandContext> langFileContexts = langFiles.stream().map(CommandContext::new).collect(Collectors.toCollection(ArrayList::new));
+        final ArrayList<EclipseResourcePath> langFiles = eclipseLangFiles.stream()
+            .map(EclipseResourcePath::new)
+            .collect(Collectors.toCollection(ArrayList::new));
+        final ArrayList<CommandContext> langFileContexts = langFiles.stream()
+            .map(ResourcePathWithKind::file)
+            .map(CommandContext::new)
+            .collect(Collectors.toCollection(ArrayList::new));
         final boolean hasFiles = !langFiles.isEmpty();
 
         // Add/remove nature.
@@ -123,10 +137,8 @@ public abstract class ResourceContextMenu extends MenuShared {
         final String runCommandCommandId = identifiers.getRunCommand();
         for(MenuItem menuItem : languageInstance.getResourceContextMenuItems()) {
             EclipseMenuItemVisitor.run(langMenu, menuItem, (menu, commandAction) -> {
-                CommandRequest<?> commandRequest = commandAction.commandRequest();
-                final Set<HierarchicalResourceType> requiredResourceType = commandAction.requiredResourceType();
-                // TODO: support enclosing resource requirements
-//                final Set<HierarchicalResourceType> requiredEnclosingResourceType = commandAction.requiredEnclosingResourceType();
+                final CommandRequest<?> commandRequest = commandAction.commandRequest();
+                final Set<HierarchicalResourceType> requiredResourceType = commandAction.requiredResourceTypes();
                 final ArrayList<CommandContext> contexts;
                 if(hasProjects && requiredResourceType.contains(HierarchicalResourceType.Project)) {
                     contexts = projectContexts;
@@ -137,7 +149,10 @@ public abstract class ResourceContextMenu extends MenuShared {
                 } else {
                     return;
                 }
-                menu.add(createCommand(runCommandCommandId, commandRequest, new ListView<>(contexts), commandAction.displayName(), commandAction.description()));
+                final ArrayList<CommandContext> finalContexts =
+                    enclosingCommandContextProvider.filterRequired(contexts.stream(), commandAction.requiredEnclosingResourceTypes())
+                        .collect(Collectors.toCollection(ArrayList::new));
+                menu.add(createCommand(runCommandCommandId, commandRequest, ListView.of(finalContexts), commandAction.displayName(), commandAction.description()));
             });
         }
 

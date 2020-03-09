@@ -5,6 +5,7 @@ import mb.spoofax.core.language.command.CommandExecutionType;
 import mb.spoofax.core.language.command.CommandRequest;
 import mb.spoofax.core.language.command.EditorFileType;
 import mb.spoofax.core.language.command.EditorSelectionType;
+import mb.spoofax.core.language.command.EnclosingCommandContextType;
 import mb.spoofax.core.language.command.HierarchicalResourceType;
 import mb.spoofax.core.language.command.arg.RawArgs;
 import org.immutables.value.Value;
@@ -87,27 +88,27 @@ public interface CommandAction {
 
         public Builder fileRequired() {
             addRequiredEditorFileTypes(EditorFileType.HierarchicalResource);
-            addRequiredResourceType(HierarchicalResourceType.File);
+            addRequiredResourceTypes(HierarchicalResourceType.File);
             return this;
         }
 
         public Builder directoryRequired() {
-            addRequiredResourceType(HierarchicalResourceType.Directory);
+            addRequiredResourceTypes(HierarchicalResourceType.Directory);
             return this;
         }
 
         public Builder projectRequired() {
-            addRequiredResourceType(HierarchicalResourceType.Project);
+            addRequiredResourceTypes(HierarchicalResourceType.Project);
             return this;
         }
 
         public Builder enclosingDirectoryRequired() {
-            addRequiredEnclosingResourceType(HierarchicalResourceType.Directory);
+            addRequiredEnclosingResourceTypes(EnclosingCommandContextType.Directory);
             return this;
         }
 
         public Builder enclosingProjectRequired() {
-            addRequiredEnclosingResourceType(HierarchicalResourceType.Project);
+            addRequiredEnclosingResourceTypes(EnclosingCommandContextType.Project);
             return this;
         }
 
@@ -130,7 +131,7 @@ public interface CommandAction {
      * Gets whether this command action, in editor context menus, should only be shown when the text selection of the
      * editor is of a type in this set. An empty set indicates that there is no requirement.
      */
-    Set<EditorSelectionType> requiredEditorSelectionType();
+    Set<EditorSelectionType> requiredEditorSelectionTypes();
 
     /**
      * Gets whether this command action, in editor context menus, should only be shown when the file of the editor is of
@@ -142,11 +143,11 @@ public interface CommandAction {
      * Gets whether this command action, in resource context menus, should only be shown when the selected resource is
      * of a type in this set. An empty set indicates that there is no requirement.
      */
-    Set<HierarchicalResourceType> requiredResourceType();
+    Set<HierarchicalResourceType> requiredResourceTypes();
 
     /**
-     * Gets whether this  command action, in resource context menus, should only be shown when the enclosing resource of
-     * the selected resource is of a type in this set. An empty set indicates that there is no requirement.
+     * Gets whether this command action, in context menus, should only be shown when the enclosing resource of the
+     * resource in context is of a type in this set. An empty set indicates that there is no requirement.
      */
-    Set<HierarchicalResourceType> requiredEnclosingResourceType();
+    Set<EnclosingCommandContextType> requiredEnclosingResourceTypes();
 }

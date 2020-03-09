@@ -5,6 +5,7 @@ import mb.spoofax.compiler.command.CommandRequestRepr;
 import mb.spoofax.core.language.command.CommandExecutionType;
 import mb.spoofax.core.language.command.EditorFileType;
 import mb.spoofax.core.language.command.EditorSelectionType;
+import mb.spoofax.core.language.command.EnclosingCommandContextType;
 import mb.spoofax.core.language.command.HierarchicalResourceType;
 import org.immutables.value.Value;
 
@@ -88,27 +89,27 @@ public interface CommandActionRepr extends Serializable {
 
         public Builder fileRequired() {
             addRequiredEditorFileTypes(EditorFileType.HierarchicalResource);
-            addRequiredResourceType(HierarchicalResourceType.File);
+            addRequiredResourceTypes(HierarchicalResourceType.File);
             return this;
         }
 
         public Builder directoryRequired() {
-            addRequiredResourceType(HierarchicalResourceType.Directory);
+            addRequiredResourceTypes(HierarchicalResourceType.Directory);
             return this;
         }
 
         public Builder projectRequired() {
-            addRequiredResourceType(HierarchicalResourceType.Project);
+            addRequiredResourceTypes(HierarchicalResourceType.Project);
             return this;
         }
 
         public Builder enclosingDirectoryRequired() {
-            addRequiredEnclosingResourceType(HierarchicalResourceType.Directory);
+            addRequiredEnclosingResourceTypes(EnclosingCommandContextType.Directory);
             return this;
         }
 
         public Builder enclosingProjectRequired() {
-            addRequiredEnclosingResourceType(HierarchicalResourceType.Project);
+            addRequiredEnclosingResourceTypes(EnclosingCommandContextType.Project);
             return this;
         }
 
@@ -129,11 +130,11 @@ public interface CommandActionRepr extends Serializable {
 
     CommandRequestRepr commandRequest();
 
-    Set<EditorSelectionType> requiredEditorSelectionType();
+    Set<EditorSelectionType> requiredEditorSelectionTypes();
 
     Set<EditorFileType> requiredEditorFileTypes();
 
-    Set<HierarchicalResourceType> requiredResourceType();
+    Set<HierarchicalResourceType> requiredResourceTypes();
 
-    Set<HierarchicalResourceType> requiredEnclosingResourceType();
+    Set<EnclosingCommandContextType> requiredEnclosingResourceTypes();
 }

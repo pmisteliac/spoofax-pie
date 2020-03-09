@@ -8,11 +8,11 @@ import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.statix.spec.Rule;
 import mb.statix.spec.Spec;
 import mb.statix.spoofax.StatixTerms;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spoofax.interpreter.core.InterpreterException;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Map;
