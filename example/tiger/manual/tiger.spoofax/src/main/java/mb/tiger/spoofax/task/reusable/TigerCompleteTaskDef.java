@@ -1,5 +1,6 @@
 package mb.tiger.spoofax.task.reusable;
 
+import com.google.common.collect.ImmutableClassToInstanceMap;
 import mb.common.editing.TextEdit;
 import mb.common.region.Region;
 import mb.common.style.StyleName;
@@ -15,6 +16,7 @@ import mb.nabl2.terms.ITermVar;
 import mb.nabl2.terms.ListTerms;
 import mb.nabl2.terms.Terms;
 import mb.nabl2.terms.build.TermBuild;
+import mb.nabl2.terms.stratego.StrategoAnnotations;
 import mb.nabl2.terms.stratego.StrategoTermIndices;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.pie.api.ExecContext;
@@ -213,8 +215,14 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
      */
     private CompletionProposal createCompletionProposal(String text, int caretOffset) {
         ListView<TextEdit> textEdits = ListView.of(new TextEdit(Region.atOffset(caretOffset), text));
+        String label = normalizeText(text);
         StyleName style = Objects.requireNonNull(StyleName.fromString("meta.template"));
-        return new CompletionProposal(text, "", "", "", "", style, textEdits, false);
+        return new CompletionProposal(label, "", "", "", "", style, textEdits, false);
+    }
+
+    private String normalizeText(String text) {
+        // Replace all sequences of layout with a single space
+        return text.replaceAll("\\s+", " ");
     }
 
     /**
@@ -246,13 +254,52 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             (m, integer) -> integer,
             (m, blob) -> blob,
             // TODO: Ability to relate placeholders, such that typing in the editor in one placeholder also types in another
-            (m, var) -> TermBuild.B.newAppl(getSortOfVariable(var) + "-Plhdr")
+            (m, var) -> TermBuild.B.newAppl(getPlaceholderNameOfVar(var))
         ));
     }
 
-    private String getSortOfVariable(ITermVar var) {
-        // TODO: Get the actual sort
-        return "Exp";
+    private String getPlaceholderNameOfVar(ITermVar var) {
+        @Nullable String name = getSortFromAttachments(var.getAttachments());
+        if (name == null) {
+            // No name
+            return "??";
+        }
+        return name + "-Plhdr";
+    }
+
+    private @Nullable String getSortFromAttachments(ImmutableClassToInstanceMap<Object> attachments) {
+        @Nullable StrategoAnnotations annotations = (StrategoAnnotations)attachments.get(StrategoAnnotations.class);
+        if (annotations == null) return null;
+        return getSortNameFromAnnotations(annotations.getAnnotationList());
+    }
+
+    private @Nullable String getSortNameFromAnnotations(List<IStrategoTerm> annotations) {
+        for(IStrategoTerm term : annotations) {
+            if (!TermUtils.isAppl(term, "OfSort", 1)) continue; // OfSort(_)
+            return getSortNameFromSortTerm(term.getSubterm(0));
+        }
+        // Not found.
+        return null;
+    }
+
+    private @Nullable String getSortNameFromSortTerm(IStrategoTerm term) {
+        // TODO: Lots of things don't have sort names.
+        // Perhaps we should follow the example of ?? and use "??" for all placeholders,
+        // or parse any $name$ within dollars as a placeholder, so we can describe the placeholder (and perhaps relate then: "$x$ = $x$ + 1").
+        if (TermUtils.isAppl(term, "SORT", 1)) {
+            // SORT(_)
+            return TermUtils.toJavaStringAt(term, 0);
+        } else if (TermUtils.isAppl(term, "LIST", 1)) {
+            // LIST(_)
+            return getSortNameFromSortTerm(term.getSubterm(0)) + "-List";
+        } else if (TermUtils.isAppl(term, null, 0)) {
+            // SCOPE()
+            // STRING()
+            String name = TermUtils.toAppl(term).getConstructor().getName();
+            return "_" + Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
+        } else {
+            throw new UnsupportedOperationException("Unknown sort: " + term);
+        }
     }
 
     /**

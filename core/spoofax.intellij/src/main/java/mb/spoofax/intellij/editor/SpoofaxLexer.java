@@ -293,6 +293,9 @@ public final class SpoofaxLexer extends LexerBase {
 
     @Override
     public int getState() {
+        // By always returning the initial state (0),
+        // we force that the whole file is re-lexed every time.
+        // This is not good for performance, but what can you do?
         return 0;
     }
 
