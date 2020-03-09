@@ -30,7 +30,7 @@ Spec(
       , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("T"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
-        [Var("wld0"){OfSort(PATH())}, Var("wld4"){OfSort(OCCURRENCE())}]
+        [Var("wld4"){OfSort(PATH())}, Var("wld5"){OfSort(OCCURRENCE())}]
       , CConj(
           CConj(
             CTellRel(
@@ -51,59 +51,26 @@ Spec(
             , LLam(
                 [ Tuple(
                     [Occurrence("static-semantics!Type", [Var("u4"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
               , CEqual(Var("u4"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld0"){OfSort(PATH())}, Tuple([Var("wld4"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                              TUPLE(
-                                                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                              )
-                                                                                                                            )
-                                                                                                                          }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld4"){OfSort(PATH())}, Tuple([Var("wld5"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -139,60 +106,27 @@ Spec(
               Closure(Label("static-semantics!P"))
             , LLam(
                 [ Tuple(
-                    [Occurrence("static-semantics!Var", [Var("u7"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                    [Occurrence("static-semantics!Var", [Var("u5"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
-              , CEqual(Var("u7"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+              , CEqual(Var("u5"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld6"){OfSort(PATH())}, Tuple([Var("wld7"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                              TUPLE(
-                                                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                              )
-                                                                                                                            )
-                                                                                                                          }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld6"){OfSort(PATH())}, Tuple([Var("wld7"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -228,60 +162,27 @@ Spec(
               Closure(Label("static-semantics!P"))
             , LLam(
                 [ Tuple(
-                    [Occurrence("static-semantics!Type", [Var("u8"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                    [Occurrence("static-semantics!Type", [Var("u6"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
-              , CEqual(Var("u8"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+              , CEqual(Var("u6"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld8"){OfSort(PATH())}, Tuple([Var("wld9"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                              TUPLE(
-                                                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                              )
-                                                                                                                            )
-                                                                                                                          }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld8"){OfSort(PATH())}, Tuple([Var("wld9"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -294,22 +195,16 @@ Spec(
       NoName()
     , C(
         "static-semantics!lookupType"
-      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out0"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out2"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("T"){OfSort(SORT("TYPE"))}]
       , CConj(
-          CEqual(Var("out0"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
+          CEqual(Var("out2"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
         , CExists(
             [Var("x'"){OfSort(STRING())}, Var("wld37"){OfSort(PATH())}, Var("wld38"){ OfSort(
                                                                                         LIST(
-                                                                                          TUPLE(
-                                                                                            [ PATH()
-                                                                                            , TUPLE(
-                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                              )
-                                                                                            ]
-                                                                                          )
+                                                                                          TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                                                         )
                                                                                       )
                                                                                     }, Var("astId0"){OfSort(AST_ID())}]
@@ -324,30 +219,15 @@ Spec(
                   Closure(Label("static-semantics!P"))
                 , LLam(
                     [ Tuple(
-                        [Occurrence("static-semantics!Type", [Var("u9"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                      ){ OfSort(
-                           TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         )
-                       }
+                        [Occurrence("static-semantics!Type", [Var("u7"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                      ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                     ]
-                  , CEqual(Var("u9"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+                  , CEqual(Var("u7"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
                   )
                 )
               , Min(
                   [LabelPair(EOP(), Label("static-semantics!P"))]
-                , LLam([Wld(){ OfSort(
-                                 TUPLE(
-                                   [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                 )
-                               )
-                             }, Wld(){ OfSort(
-                                         TUPLE(
-                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                         )
-                                       )
-                                     }], CTrue())
+                , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
                 )
               , Var("s"){OfSort(SCOPE())}
               , ListTail(
@@ -355,45 +235,21 @@ Spec(
                       [ Var("wld37"){OfSort(PATH())}
                       , Tuple(
                           [Occurrence("static-semantics!Type", [Var("x'"){OfSort(STRING())}], NoId(){OfSort(AST_ID())}), Var("T"){OfSort(SORT("TYPE"))}]
-                        ){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }
+                        ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                       ]
-                    ){ OfSort(
-                         TUPLE(
-                           [ PATH()
-                           , TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           ]
-                         )
-                       )
-                     }
+                    ){OfSort(
+                        TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                      )}
                   ]
                 , Var("wld38"){ OfSort(
                                   LIST(
-                                    TUPLE(
-                                      [ PATH()
-                                      , TUPLE(
-                                          [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                        )
-                                      ]
-                                    )
+                                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                   )
                                 )
                               }
                 ){ OfSort(
                      LIST(
-                       TUPLE(
-                         [ PATH()
-                         , TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         ]
-                       )
+                       TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                      )
                    )
                  }
@@ -431,60 +287,27 @@ Spec(
               Closure(Label("static-semantics!P"))
             , LLam(
                 [ Tuple(
-                    [Occurrence("static-semantics!Var", [Var("u10"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                    [Occurrence("static-semantics!Var", [Var("u8"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
-              , CEqual(Var("u10"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+              , CEqual(Var("u8"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld39"){OfSort(PATH())}, Tuple([Var("wld40"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                                TUPLE(
-                                                                                                                                  [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                                )
-                                                                                                                              )
-                                                                                                                            }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld39"){OfSort(PATH())}, Tuple([Var("wld40"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -497,22 +320,16 @@ Spec(
       NoName()
     , C(
         "static-semantics!lookupVar"
-      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out1"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out3"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("T"){OfSort(SORT("TYPE"))}]
       , CConj(
-          CEqual(Var("out1"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
+          CEqual(Var("out3"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
         , CExists(
             [Var("x'"){OfSort(STRING())}, Var("wld41"){OfSort(PATH())}, Var("wld42"){ OfSort(
                                                                                         LIST(
-                                                                                          TUPLE(
-                                                                                            [ PATH()
-                                                                                            , TUPLE(
-                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                              )
-                                                                                            ]
-                                                                                          )
+                                                                                          TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                                                         )
                                                                                       )
                                                                                     }, Var("astId1"){OfSort(AST_ID())}]
@@ -527,30 +344,15 @@ Spec(
                   Closure(Label("static-semantics!P"))
                 , LLam(
                     [ Tuple(
-                        [Occurrence("static-semantics!Var", [Var("u11"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                      ){ OfSort(
-                           TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         )
-                       }
+                        [Occurrence("static-semantics!Var", [Var("u9"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                      ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                     ]
-                  , CEqual(Var("u11"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+                  , CEqual(Var("u9"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
                   )
                 )
               , Min(
                   [LabelPair(EOP(), Label("static-semantics!P"))]
-                , LLam([Wld(){ OfSort(
-                                 TUPLE(
-                                   [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                 )
-                               )
-                             }, Wld(){ OfSort(
-                                         TUPLE(
-                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                         )
-                                       )
-                                     }], CTrue())
+                , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
                 )
               , Var("s"){OfSort(SCOPE())}
               , ListTail(
@@ -558,45 +360,21 @@ Spec(
                       [ Var("wld41"){OfSort(PATH())}
                       , Tuple(
                           [Occurrence("static-semantics!Var", [Var("x'"){OfSort(STRING())}], NoId(){OfSort(AST_ID())}), Var("T"){OfSort(SORT("TYPE"))}]
-                        ){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }
+                        ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                       ]
-                    ){ OfSort(
-                         TUPLE(
-                           [ PATH()
-                           , TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           ]
-                         )
-                       )
-                     }
+                    ){OfSort(
+                        TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                      )}
                   ]
                 , Var("wld42"){ OfSort(
                                   LIST(
-                                    TUPLE(
-                                      [ PATH()
-                                      , TUPLE(
-                                          [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                        )
-                                      ]
-                                    )
+                                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                   )
                                 )
                               }
                 ){ OfSort(
                      LIST(
-                       TUPLE(
-                         [ PATH()
-                         , TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         ]
-                       )
+                       TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                      )
                    )
                  }
@@ -634,60 +412,27 @@ Spec(
               Closure(Label("static-semantics!P"))
             , LLam(
                 [ Tuple(
-                    [Occurrence("static-semantics!Field", [Var("u12"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                    [Occurrence("static-semantics!Field", [Var("u10"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
-              , CEqual(Var("u12"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+              , CEqual(Var("u10"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld43"){OfSort(PATH())}, Tuple([Var("wld44"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                                TUPLE(
-                                                                                                                                  [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                                )
-                                                                                                                              )
-                                                                                                                            }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld43"){OfSort(PATH())}, Tuple([Var("wld44"){OfSort(OCCURRENCE())}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -700,22 +445,16 @@ Spec(
       NoName()
     , C(
         "static-semantics!lookupField"
-      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out2"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, Var("x"){OfSort(STRING())}, Var("out4"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("T"){OfSort(SORT("TYPE"))}]
       , CConj(
-          CEqual(Var("out2"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
+          CEqual(Var("out4"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
         , CExists(
             [Var("x'"){OfSort(STRING())}, Var("wld45"){OfSort(PATH())}, Var("wld46"){ OfSort(
                                                                                         LIST(
-                                                                                          TUPLE(
-                                                                                            [ PATH()
-                                                                                            , TUPLE(
-                                                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                              )
-                                                                                            ]
-                                                                                          )
+                                                                                          TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                                                         )
                                                                                       )
                                                                                     }, Var("astId2"){OfSort(AST_ID())}]
@@ -730,30 +469,15 @@ Spec(
                   Closure(Label("static-semantics!P"))
                 , LLam(
                     [ Tuple(
-                        [Occurrence("static-semantics!Field", [Var("u13"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                      ){ OfSort(
-                           TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         )
-                       }
+                        [Occurrence("static-semantics!Field", [Var("u11"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                      ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                     ]
-                  , CEqual(Var("u13"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+                  , CEqual(Var("u11"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
                   )
                 )
               , Min(
                   [LabelPair(EOP(), Label("static-semantics!P"))]
-                , LLam([Wld(){ OfSort(
-                                 TUPLE(
-                                   [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                 )
-                               )
-                             }, Wld(){ OfSort(
-                                         TUPLE(
-                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                         )
-                                       )
-                                     }], CTrue())
+                , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
                 )
               , Var("s"){OfSort(SCOPE())}
               , ListTail(
@@ -761,45 +485,21 @@ Spec(
                       [ Var("wld45"){OfSort(PATH())}
                       , Tuple(
                           [Occurrence("static-semantics!Field", [Var("x'"){OfSort(STRING())}], NoId(){OfSort(AST_ID())}), Var("T"){OfSort(SORT("TYPE"))}]
-                        ){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }
+                        ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                       ]
-                    ){ OfSort(
-                         TUPLE(
-                           [ PATH()
-                           , TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           ]
-                         )
-                       )
-                     }
+                    ){OfSort(
+                        TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                      )}
                   ]
                 , Var("wld46"){ OfSort(
                                   LIST(
-                                    TUPLE(
-                                      [ PATH()
-                                      , TUPLE(
-                                          [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                        )
-                                      ]
-                                    )
+                                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                   )
                                 )
                               }
                 ){ OfSort(
                      LIST(
-                       TUPLE(
-                         [ PATH()
-                         , TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         ]
-                       )
+                       TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                      )
                    )
                  }
@@ -844,60 +544,20 @@ Spec(
     )
   , Rule(
       NoName()
-    , C("static-semantics!subtypes", [List([]){ OfSort(
-                                                  LIST(
-                                                    SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                  )
-                                                )
-                                              }, List([]){ OfSort(
-                                                             LIST(
-                                                               SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                             )
-                                                           )
-                                                         }])
+    , C("static-semantics!subtypes", [List([]){OfSort(LIST(SORT("TYPE")))}, List([]){OfSort(LIST(SORT("TYPE")))}])
     , CTrue()
     )
   , Rule(
       NoName()
     , C(
         "static-semantics!subtypes"
-      , [ ListTail([Var("T"){OfSort(SORT("TYPE"))}], Var("Ts"){ OfSort(
-                                                                  LIST(
-                                                                    SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                  )
-                                                                )
-                                                              }){ OfSort(
-                                                                    LIST(
-                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                    )
-                                                                  )
-                                                                }
-        , ListTail([Var("S"){OfSort(SORT("TYPE"))}], Var("Ss"){ OfSort(
-                                                                  LIST(
-                                                                    SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                  )
-                                                                )
-                                                              }){ OfSort(
-                                                                    LIST(
-                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                    )
-                                                                  )
-                                                                }
+      , [ ListTail([Var("T"){OfSort(SORT("TYPE"))}], Var("Ts"){OfSort(LIST(SORT("TYPE")))}){OfSort(LIST(SORT("TYPE")))}
+        , ListTail([Var("S"){OfSort(SORT("TYPE"))}], Var("Ss"){OfSort(LIST(SORT("TYPE")))}){OfSort(LIST(SORT("TYPE")))}
         ]
       )
     , CConj(
         C("static-semantics!subtype", [Var("T"){OfSort(SORT("TYPE"))}, Var("S"){OfSort(SORT("TYPE"))}], NoMessage())
-      , C("static-semantics!subtypes", [Var("Ts"){ OfSort(
-                                                     LIST(
-                                                       SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                     )
-                                                   )
-                                                 }, Var("Ss"){ OfSort(
-                                                                 LIST(
-                                                                   SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                 )
-                                                               )
-                                                             }], NoMessage())
+      , C("static-semantics!subtypes", [Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Var("Ss"){OfSort(LIST(SORT("TYPE")))}], NoMessage())
       )
     )
   , Rule(
@@ -925,9 +585,9 @@ Spec(
       NoName()
     , C(
         "static-semantics!lub"
-      , [Var("S"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, Var("out3"){OfSort(SORT("TYPE"))}]
+      , [Var("S"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, Var("out5"){OfSort(SORT("TYPE"))}]
       )
-    , CConj(CEqual(Var("out3"){OfSort(SORT("TYPE"))}, Var("S"){OfSort(SORT("TYPE"))}, NoMessage()), CTrue())
+    , CConj(CEqual(Var("out5"){OfSort(SORT("TYPE"))}, Var("S"){OfSort(SORT("TYPE"))}, NoMessage()), CTrue())
     )
   , Rule(
       NoName()
@@ -942,17 +602,7 @@ Spec(
     , C(
         "static-semantics!typeOfExp"
       , [ Var("s_outer"){OfSort(SCOPE())}
-        , Op("Let", [Var("ds"){ OfSort(
-                                  LIST(
-                                    SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                  )
-                                )
-                              }, Var("es"){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                              )
-                                            )
-                                          }]){OfSort(SORT("Exp"))}
+        , Op("Let", [Var("ds"){OfSort(LIST(SORT("Dec")))}, Var("es"){OfSort(LIST(SORT("Exp")))}]){OfSort(SORT("Exp"))}
         , Var("out7"){OfSort(SORT("TYPE"))}
         ]
       )
@@ -967,23 +617,13 @@ Spec(
             , CConj(
                 C(
                   "static-semantics!decsOk"
-                , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, Var("ds"){ OfSort(
-                                                                                                 LIST(
-                                                                                                   SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                                                 )
-                                                                                               )
-                                                                                             }]
+                , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, Var("ds"){OfSort(LIST(SORT("Dec")))}]
                 , NoMessage()
                 )
               , CConj(
                   C(
                     "static-semantics!typeOfSeq"
-                  , [Var("s_body"){OfSort(SCOPE())}, Var("es"){ OfSort(
-                                                                  LIST(
-                                                                    SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                  )
-                                                                )
-                                                              }, Var("typeOfSeq0"){OfSort(SORT("TYPE"))}]
+                  , [Var("s_body"){OfSort(SCOPE())}, Var("es"){OfSort(LIST(SORT("Exp")))}, Var("typeOfSeq0"){OfSort(SORT("TYPE"))}]
                   , NoMessage()
                   )
                 , CEqual(Var("typeOfSeq0"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
@@ -998,12 +638,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!decsOk"
-      , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                                      LIST(
-                                                                                        SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                                      )
-                                                                                    )
-                                                                                  }]
+      , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("Dec")))}]
       )
     , CTellEdge(Var("s_body"){OfSort(SCOPE())}, Label("static-semantics!P"), Var("s_outer"){OfSort(SCOPE())})
     )
@@ -1011,12 +646,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!decsOk"
-      , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, List([Var("dec"){OfSort(SORT("Dec"))}]){ OfSort(
-                                                                                                                     LIST(
-                                                                                                                       SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                                                                     )
-                                                                                                                   )
-                                                                                                                 }]
+      , [Var("s_outer"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, List([Var("dec"){OfSort(SORT("Dec"))}]){OfSort(LIST(SORT("Dec")))}]
       )
     , CConj(
         CTellEdge(Var("s_body"){OfSort(SCOPE())}, Label("static-semantics!P"), Var("s_outer"){OfSort(SCOPE())})
@@ -1035,33 +665,8 @@ Spec(
         , Var("s_body"){OfSort(SCOPE())}
         , ListTail(
             [Var("dec"){OfSort(SORT("Dec"))}]
-          , As(Var("decs"){ OfSort(
-                              LIST(
-                                SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                              )
-                            )
-                          }, ListTail([Wld(){OfSort(SORT("Dec"))}], Wld(){ OfSort(
-                                                                             LIST(
-                                                                               SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                             )
-                                                                           )
-                                                                         }){ OfSort(
-                                                                               LIST(
-                                                                                 SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                               )
-                                                                             )
-                                                                           }){ OfSort(
-                                                                                 LIST(
-                                                                                   SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                                 )
-                                                                               )
-                                                                             }
-          ){ OfSort(
-               LIST(
-                 SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-               )
-             )
-           }
+          , As(Var("decs"){OfSort(LIST(SORT("Dec")))}, ListTail([Wld(){OfSort(SORT("Dec"))}], Wld(){OfSort(LIST(SORT("Dec")))}){OfSort(LIST(SORT("Dec")))}){OfSort(LIST(SORT("Dec")))}
+          ){OfSort(LIST(SORT("Dec")))}
         ]
       )
     , CExists(
@@ -1078,12 +683,7 @@ Spec(
               )
             , C(
                 "static-semantics!decsOk"
-              , [Var("s_dec"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, Var("decs"){ OfSort(
-                                                                                               LIST(
-                                                                                                 SORT(Occurrence(Namespace("Sort"), "Dec", TermIndex("trans/static-semantics.stx", 2132)))
-                                                                                               )
-                                                                                             )
-                                                                                           }]
+              , [Var("s_dec"){OfSort(SCOPE())}, Var("s_body"){OfSort(SCOPE())}, Var("decs"){OfSort(LIST(SORT("Dec")))}]
               , NoMessage()
               )
             )
@@ -1095,21 +695,11 @@ Spec(
       NoName()
     , C(
         "static-semantics!decOk"
-      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Op("TypeDecs", [Var("tdecs"){ OfSort(
-                                                                                                     LIST(
-                                                                                                       SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                                                     )
-                                                                                                   )
-                                                                                                 }]){OfSort(SORT("Dec"))}]
+      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Op("TypeDecs", [Var("tdecs"){OfSort(LIST(SORT("TypeDec")))}]){OfSort(SORT("Dec"))}]
       )
     , C(
         "static-semantics!tdecsOk"
-      , [Var("s"){OfSort(SCOPE())}, Var("s"){OfSort(SCOPE())}, Var("tdecs"){ OfSort(
-                                                                               LIST(
-                                                                                 SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                               )
-                                                                             )
-                                                                           }]
+      , [Var("s"){OfSort(SCOPE())}, Var("s"){OfSort(SCOPE())}, Var("tdecs"){OfSort(LIST(SORT("TypeDec")))}]
       , NoMessage()
       )
     )
@@ -1166,21 +756,11 @@ Spec(
       NoName()
     , C(
         "static-semantics!decOk"
-      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Op("FunDecs", [Var("fdecs"){ OfSort(
-                                                                                                    LIST(
-                                                                                                      SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                                                    )
-                                                                                                  )
-                                                                                                }]){OfSort(SORT("Dec"))}]
+      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Op("FunDecs", [Var("fdecs"){OfSort(LIST(SORT("FunDec")))}]){OfSort(SORT("Dec"))}]
       )
     , C(
         "static-semantics!fdecsOk"
-      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("fdecs"){ OfSort(
-                                                                                     LIST(
-                                                                                       SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                                     )
-                                                                                   )
-                                                                                 }]
+      , [Var("s"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("fdecs"){OfSort(LIST(SORT("FunDec")))}]
       , NoMessage()
       )
     )
@@ -1194,28 +774,13 @@ Spec(
             Var("d"){OfSort(SORT("FunDec"))}
           , Op(
               "ProcDec"
-            , [Var("f"){OfSort(STRING())}, Var("args"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                          )
-                                                        )
-                                                      }, Var("e"){OfSort(SORT("Exp"))}]
+            , [Var("f"){OfSort(STRING())}, Var("args"){OfSort(LIST(SORT("FArg")))}, Var("e"){OfSort(SORT("Exp"))}]
             ){OfSort(SORT("FunDec"))}
           ){OfSort(SORT("FunDec"))}
         ]
       )
     , CExists(
-        [Var("s_fun"){OfSort(SCOPE())}, Var("Ts"){ OfSort(
-                                                     LIST(
-                                                       SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                     )
-                                                   )
-                                                 }, Var("typesOfArgs0"){ OfSort(
-                                                                           LIST(
-                                                                             SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                           )
-                                                                         )
-                                                                       }, Var("typeOfExp1"){OfSort(SORT("TYPE"))}]
+        [Var("s_fun"){OfSort(SCOPE())}, Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Var("typesOfArgs0"){OfSort(LIST(SORT("TYPE")))}, Var("typeOfExp1"){OfSort(SORT("TYPE"))}]
       , CConj(
           CNew([Var("s_fun"){OfSort(SCOPE())}])
         , CConj(
@@ -1224,42 +789,17 @@ Spec(
               CConj(
                 C(
                   "static-semantics!typesOfArgs"
-                , [Var("s_fun"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("args"){ OfSort(
-                                                                                                  LIST(
-                                                                                                    SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                                                  )
-                                                                                                )
-                                                                                              }, Var("typesOfArgs0"){ OfSort(
-                                                                                                                        LIST(
-                                                                                                                          SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                        )
-                                                                                                                      )
-                                                                                                                    }]
+                , [Var("s_fun"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("args"){OfSort(LIST(SORT("FArg")))}, Var("typesOfArgs0"){OfSort(LIST(SORT("TYPE")))}]
                 , NoMessage()
                 )
-              , CEqual(Var("typesOfArgs0"){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                              )
-                                            )
-                                          }, Var("Ts"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                          )
-                                                        )
-                                                      }, NoMessage())
+              , CEqual(Var("typesOfArgs0"){OfSort(LIST(SORT("TYPE")))}, Var("Ts"){OfSort(LIST(SORT("TYPE")))}, NoMessage())
               )
             , CConj(
                 C(
                   "static-semantics!declareVar"
                 , [ Var("s"){OfSort(SCOPE())}
                   , Var("f"){OfSort(STRING())}
-                  , Op("FUN", [Var("Ts"){ OfSort(
-                                            LIST(
-                                              SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                            )
-                                          )
-                                        }, Op("UNIT", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
+                  , Op("FUN", [Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Op("UNIT", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
                   ]
                 , NoMessage()
                 )
@@ -1287,32 +827,17 @@ Spec(
             Var("d"){OfSort(SORT("FunDec"))}
           , Op(
               "FunDec"
-            , [Var("f"){OfSort(STRING())}, Var("args"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                          )
-                                                        )
-                                                      }, Var("t"){OfSort(SORT("Type"))}, Var("e"){OfSort(SORT("Exp"))}]
+            , [Var("f"){OfSort(STRING())}, Var("args"){OfSort(LIST(SORT("FArg")))}, Var("t"){OfSort(SORT("Type"))}, Var("e"){OfSort(SORT("Exp"))}]
             ){OfSort(SORT("FunDec"))}
           ){OfSort(SORT("FunDec"))}
         ]
       )
     , CExists(
         [ Var("s_fun"){OfSort(SCOPE())}
-        , Var("Ts"){ OfSort(
-                       LIST(
-                         SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                       )
-                     )
-                   }
+        , Var("Ts"){OfSort(LIST(SORT("TYPE")))}
         , Var("T"){OfSort(SORT("TYPE"))}
         , Var("S"){OfSort(SORT("TYPE"))}
-        , Var("typesOfArgs1"){ OfSort(
-                                 LIST(
-                                   SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                 )
-                               )
-                             }
+        , Var("typesOfArgs1"){OfSort(LIST(SORT("TYPE")))}
         , Var("typeOfType1"){OfSort(SORT("TYPE"))}
         , Var("typeOfExp2"){OfSort(SORT("TYPE"))}
         ]
@@ -1324,30 +849,10 @@ Spec(
               CConj(
                 C(
                   "static-semantics!typesOfArgs"
-                , [Var("s_fun"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("args"){ OfSort(
-                                                                                                  LIST(
-                                                                                                    SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                                                  )
-                                                                                                )
-                                                                                              }, Var("typesOfArgs1"){ OfSort(
-                                                                                                                        LIST(
-                                                                                                                          SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                        )
-                                                                                                                      )
-                                                                                                                    }]
+                , [Var("s_fun"){OfSort(SCOPE())}, Var("s_outer"){OfSort(SCOPE())}, Var("args"){OfSort(LIST(SORT("FArg")))}, Var("typesOfArgs1"){OfSort(LIST(SORT("TYPE")))}]
                 , NoMessage()
                 )
-              , CEqual(Var("typesOfArgs1"){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                              )
-                                            )
-                                          }, Var("Ts"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                          )
-                                                        )
-                                                      }, NoMessage())
+              , CEqual(Var("typesOfArgs1"){OfSort(LIST(SORT("TYPE")))}, Var("Ts"){OfSort(LIST(SORT("TYPE")))}, NoMessage())
               )
             , CConj(
                 CConj(
@@ -1363,12 +868,7 @@ Spec(
                     "static-semantics!declareVar"
                   , [ Var("s"){OfSort(SCOPE())}
                     , Var("f"){OfSort(STRING())}
-                    , Op("FUN", [Var("Ts"){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                              )
-                                            )
-                                          }, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
+                    , Op("FUN", [Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
                     ]
                   , NoMessage()
                   )
@@ -1431,12 +931,7 @@ Spec(
     , C(
         "static-semantics!typeOfExp"
       , [ Var("s"){OfSort(SCOPE())}
-        , Op("Call", [Var("f"){OfSort(STRING())}, Var("es"){ OfSort(
-                                                               LIST(
-                                                                 SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                               )
-                                                             )
-                                                           }]){OfSort(SORT("Exp"))}
+        , Op("Call", [Var("f"){OfSort(STRING())}, Var("es"){OfSort(LIST(SORT("Exp")))}]){OfSort(SORT("Exp"))}
         , Var("out10"){OfSort(SORT("TYPE"))}
         ]
       )
@@ -1445,22 +940,7 @@ Spec(
       , CConj(
           CEqual(Var("out10"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
         , CExists(
-            [Var("Ts"){ OfSort(
-                          LIST(
-                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                          )
-                        )
-                      }, Var("Ss"){ OfSort(
-                                      LIST(
-                                        SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                      )
-                                    )
-                                  }, Var("lookupVar0"){OfSort(SORT("TYPE"))}, Var("typeOfExps0"){ OfSort(
-                                                                                                    LIST(
-                                                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                    )
-                                                                                                  )
-                                                                                                }]
+            [Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Var("Ss"){OfSort(LIST(SORT("TYPE")))}, Var("lookupVar0"){OfSort(SORT("TYPE"))}, Var("typeOfExps0"){OfSort(LIST(SORT("TYPE")))}]
           , CConj(
               CConj(
                 C(
@@ -1470,12 +950,7 @@ Spec(
                 )
               , CEqual(
                   Var("lookupVar0"){OfSort(SORT("TYPE"))}
-                , Op("FUN", [Var("Ts"){ OfSort(
-                                          LIST(
-                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                          )
-                                        )
-                                      }, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
+                , Op("FUN", [Var("Ts"){OfSort(LIST(SORT("TYPE")))}, Var("T"){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
                 , NoMessage()
                 )
               )
@@ -1483,42 +958,12 @@ Spec(
                 CConj(
                   C(
                     "static-semantics!typeOfExps"
-                  , [Var("s"){OfSort(SCOPE())}, Var("es"){ OfSort(
-                                                             LIST(
-                                                               SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                             )
-                                                           )
-                                                         }, Var("typeOfExps0"){ OfSort(
-                                                                                  LIST(
-                                                                                    SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                  )
-                                                                                )
-                                                                              }]
+                  , [Var("s"){OfSort(SCOPE())}, Var("es"){OfSort(LIST(SORT("Exp")))}, Var("typeOfExps0"){OfSort(LIST(SORT("TYPE")))}]
                   , NoMessage()
                   )
-                , CEqual(Var("typeOfExps0"){ OfSort(
-                                               LIST(
-                                                 SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                               )
-                                             )
-                                           }, Var("Ss"){ OfSort(
-                                                           LIST(
-                                                             SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                           )
-                                                         )
-                                                       }, NoMessage())
+                , CEqual(Var("typeOfExps0"){OfSort(LIST(SORT("TYPE")))}, Var("Ss"){OfSort(LIST(SORT("TYPE")))}, NoMessage())
                 )
-              , C("static-semantics!subtypes", [Var("Ss"){ OfSort(
-                                                             LIST(
-                                                               SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                             )
-                                                           )
-                                                         }, Var("Ts"){ OfSort(
-                                                                         LIST(
-                                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                         )
-                                                                       )
-                                                                     }], NoMessage())
+              , C("static-semantics!subtypes", [Var("Ss"){OfSort(LIST(SORT("TYPE")))}, Var("Ts"){OfSort(LIST(SORT("TYPE")))}], NoMessage())
               )
             )
           )
@@ -1843,12 +1288,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!typeOfSeq"
-      , [Var("s"){OfSort(SCOPE())}, List([]){ OfSort(
-                                                LIST(
-                                                  SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                )
-                                              )
-                                            }, Var("out18"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("Exp")))}, Var("out18"){OfSort(SORT("TYPE"))}]
       )
     , CConj(
         CEqual(Var("out18"){OfSort(SORT("TYPE"))}, Op("UNIT", []){OfSort(SORT("TYPE"))}, NoMessage())
@@ -1859,12 +1299,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!typeOfSeq"
-      , [Var("s"){OfSort(SCOPE())}, List([Var("e"){OfSort(SORT("Exp"))}]){ OfSort(
-                                                                             LIST(
-                                                                               SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                             )
-                                                                           )
-                                                                         }, Var("out19"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, List([Var("e"){OfSort(SORT("Exp"))}]){OfSort(LIST(SORT("Exp")))}, Var("out19"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("T"){OfSort(SORT("TYPE"))}, Var("typeOfExp9"){OfSort(SORT("TYPE"))}]
@@ -1888,33 +1323,8 @@ Spec(
       , [ Var("s"){OfSort(SCOPE())}
         , ListTail(
             [Var("e"){OfSort(SORT("Exp"))}]
-          , As(Var("es"){ OfSort(
-                            LIST(
-                              SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                            )
-                          )
-                        }, ListTail([Wld(){OfSort(SORT("Exp"))}], Wld(){ OfSort(
-                                                                           LIST(
-                                                                             SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                           )
-                                                                         )
-                                                                       }){ OfSort(
-                                                                             LIST(
-                                                                               SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                             )
-                                                                           )
-                                                                         }){ OfSort(
-                                                                               LIST(
-                                                                                 SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                               )
-                                                                             )
-                                                                           }
-          ){ OfSort(
-               LIST(
-                 SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-               )
-             )
-           }
+          , As(Var("es"){OfSort(LIST(SORT("Exp")))}, ListTail([Wld(){OfSort(SORT("Exp"))}], Wld(){OfSort(LIST(SORT("Exp")))}){OfSort(LIST(SORT("Exp")))}){OfSort(LIST(SORT("Exp")))}
+          ){OfSort(LIST(SORT("Exp")))}
         , Var("out20"){OfSort(SORT("TYPE"))}
         ]
       )
@@ -1936,12 +1346,7 @@ Spec(
             , CConj(
                 C(
                   "static-semantics!typeOfSeq"
-                , [Var("s"){OfSort(SCOPE())}, Var("es"){ OfSort(
-                                                           LIST(
-                                                             SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                           )
-                                                         )
-                                                       }, Var("typeOfSeq1"){OfSort(SORT("TYPE"))}]
+                , [Var("s"){OfSort(SCOPE())}, Var("es"){OfSort(LIST(SORT("Exp")))}, Var("typeOfSeq1"){OfSort(SORT("TYPE"))}]
                 , NoMessage()
                 )
               , CEqual(Var("typeOfSeq1"){OfSort(SORT("TYPE"))}, Var("T"){OfSort(SORT("TYPE"))}, NoMessage())
@@ -1955,12 +1360,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!typeOfExp"
-      , [Var("s"){OfSort(SCOPE())}, Op("Seq", [Var("es"){ OfSort(
-                                                            LIST(
-                                                              SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                            )
-                                                          )
-                                                        }]){OfSort(SORT("Exp"))}, Var("out21"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, Op("Seq", [Var("es"){OfSort(LIST(SORT("Exp")))}]){OfSort(SORT("Exp"))}, Var("out21"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("typeOfSeq2"){OfSort(SORT("TYPE"))}]
@@ -1968,12 +1368,7 @@ Spec(
           CConj(
             C(
               "static-semantics!typeOfSeq"
-            , [Var("s"){OfSort(SCOPE())}, Var("es"){ OfSort(
-                                                       LIST(
-                                                         SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                       )
-                                                     )
-                                                   }, Var("typeOfSeq2"){OfSort(SORT("TYPE"))}]
+            , [Var("s"){OfSort(SCOPE())}, Var("es"){OfSort(LIST(SORT("Exp")))}, Var("typeOfSeq2"){OfSort(SORT("TYPE"))}]
             , NoMessage()
             )
           , CEqual(Var("out21"){OfSort(SORT("TYPE"))}, Var("typeOfSeq2"){OfSort(SORT("TYPE"))}, NoMessage())
@@ -2227,60 +1622,27 @@ Spec(
               Closure(Label("static-semantics!P"))
             , LLam(
                 [ Tuple(
-                    [Occurrence("static-semantics!Loop", [Var("u14"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                  ){ OfSort(
-                       TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     )
-                   }
+                    [Occurrence("static-semantics!Loop", [Var("u12"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                  ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                 ]
-              , CEqual(Var("u14"){OfSort(STRING())}, Str("break"){OfSort(STRING())}, NoMessage())
+              , CEqual(Var("u12"){OfSort(STRING())}, Str("break"){OfSort(STRING())}, NoMessage())
               )
             )
           , Min(
               [LabelPair(EOP(), Label("static-semantics!P"))]
-            , LLam([Wld(){ OfSort(
-                             TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           )
-                         }, Wld(){ OfSort(
-                                     TUPLE(
-                                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                     )
-                                   )
-                                 }], CTrue())
+            , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
             )
           , Var("s"){OfSort(SCOPE())}
           , List(
               [ Tuple(
-                  [Var("wld47"){OfSort(PATH())}, Tuple([Var("wld48"){OfSort(OCCURRENCE())}, Op("UNIT", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                                      TUPLE(
-                                                                                                                                        [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                                                                      )
-                                                                                                                                    )
-                                                                                                                                  }]
-                ){ OfSort(
-                     TUPLE(
-                       [ PATH()
-                       , TUPLE(
-                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                         )
-                       ]
-                     )
-                   )
-                 }
+                  [Var("wld47"){OfSort(PATH())}, Tuple([Var("wld48"){OfSort(OCCURRENCE())}, Op("UNIT", []){OfSort(SORT("TYPE"))}]){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}]
+                ){OfSort(
+                    TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                  )}
               ]
             ){ OfSort(
                  LIST(
-                   TUPLE(
-                     [ PATH()
-                     , TUPLE(
-                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                       )
-                     ]
-                   )
+                   TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                  )
                )
              }
@@ -2750,12 +2112,7 @@ Spec(
       NoName()
     , C(
         "static-semantics!typeOfType"
-      , [Var("s"){OfSort(SCOPE())}, Op("RecordTy", [Var("fields"){ OfSort(
-                                                                     LIST(
-                                                                       SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                     )
-                                                                   )
-                                                                 }]){OfSort(SORT("Type"))}, Var("out42"){OfSort(SORT("TYPE"))}]
+      , [Var("s"){OfSort(SCOPE())}, Op("RecordTy", [Var("fields"){OfSort(LIST(SORT("Field")))}]){OfSort(SORT("Type"))}, Var("out42"){OfSort(SORT("TYPE"))}]
       )
     , CExists(
         [Var("s_rec"){OfSort(SCOPE())}]
@@ -2769,12 +2126,7 @@ Spec(
             CNew([Var("s_rec"){OfSort(SCOPE())}])
           , C(
               "static-semantics!fieldsOk"
-            , [Var("s_rec"){OfSort(SCOPE())}, Var("s"){OfSort(SCOPE())}, Var("fields"){ OfSort(
-                                                                                          LIST(
-                                                                                            SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                                          )
-                                                                                        )
-                                                                                      }]
+            , [Var("s_rec"){OfSort(SCOPE())}, Var("s"){OfSort(SCOPE())}, Var("fields"){OfSort(LIST(SORT("Field")))}]
             , NoMessage()
             )
           )
@@ -2827,12 +2179,7 @@ Spec(
       , [ Var("s"){OfSort(SCOPE())}
         , As(
             Var("e"){OfSort(SORT("Exp"))}
-          , Op("Record", [Var("t"){OfSort(STRING())}, Var("inits"){ OfSort(
-                                                                      LIST(
-                                                                        SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                      )
-                                                                    )
-                                                                  }]){OfSort(SORT("Exp"))}
+          , Op("Record", [Var("t"){OfSort(STRING())}, Var("inits"){OfSort(LIST(SORT("InitField")))}]){OfSort(SORT("Exp"))}
           ){OfSort(SORT("Exp"))}
         , Var("out44"){OfSort(SORT("TYPE"))}
         ]
@@ -2848,13 +2195,7 @@ Spec(
         , CExists(
             [Var("s_init"){OfSort(SCOPE())}, Var("ds"){ OfSort(
                                                           LIST(
-                                                            TUPLE(
-                                                              [ PATH()
-                                                              , TUPLE(
-                                                                  [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                )
-                                                              ]
-                                                            )
+                                                            TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                           )
                                                         )
                                                       }, Var("typeOfType7"){OfSort(SORT("TYPE"))}]
@@ -2876,12 +2217,7 @@ Spec(
               , CConj(
                   C(
                     "static-semantics!initsOk"
-                  , [Var("s"){OfSort(SCOPE())}, Var("s_rec"){OfSort(SCOPE())}, Var("s_init"){OfSort(SCOPE())}, Var("inits"){ OfSort(
-                                                                                                                               LIST(
-                                                                                                                                 SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                                                                               )
-                                                                                                                             )
-                                                                                                                           }]
+                  , [Var("s"){OfSort(SCOPE())}, Var("s_rec"){OfSort(SCOPE())}, Var("s_init"){OfSort(SCOPE())}, Var("inits"){OfSort(LIST(SORT("InitField")))}]
                   , NoMessage()
                   )
                 , CConj(
@@ -2891,44 +2227,23 @@ Spec(
                         Closure(Label("static-semantics!P"))
                       , LLam(
                           [ Tuple(
-                              [Occurrence("static-semantics!Field", [Var("u16"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                            ){ OfSort(
-                                 TUPLE(
-                                   [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                 )
-                               )
-                             }
+                              [Occurrence("static-semantics!Field", [Var("u13"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                            ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
                           ]
                         , CExists(
                             [Var("wld49"){OfSort(STRING())}]
-                          , CEqual(Var("u16"){OfSort(STRING())}, Var("wld49"){OfSort(STRING())}, NoMessage())
+                          , CEqual(Var("u13"){OfSort(STRING())}, Var("wld49"){OfSort(STRING())}, NoMessage())
                           )
                         )
                       )
                     , Min(
                         [LabelPair(EOP(), Label("static-semantics!P"))]
-                      , LLam([Wld(){ OfSort(
-                                       TUPLE(
-                                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                       )
-                                     )
-                                   }, Wld(){ OfSort(
-                                               TUPLE(
-                                                 [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                               )
-                                             )
-                                           }], CTrue())
+                      , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
                       )
                     , Var("s_rec"){OfSort(SCOPE())}
                     , Var("ds"){ OfSort(
                                    LIST(
-                                     TUPLE(
-                                       [ PATH()
-                                       , TUPLE(
-                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                         )
-                                       ]
-                                     )
+                                     TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                    )
                                  )
                                }
@@ -2938,13 +2253,7 @@ Spec(
                       "static-semantics!allFieldsInitialized"
                     , [Var("t"){OfSort(STRING())}, Var("ds"){ OfSort(
                                                                 LIST(
-                                                                  TUPLE(
-                                                                    [ PATH()
-                                                                    , TUPLE(
-                                                                        [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                      )
-                                                                    ]
-                                                                  )
+                                                                  TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                                 )
                                                               )
                                                             }, Var("s_init"){OfSort(SCOPE())}]
@@ -3009,90 +2318,43 @@ Spec(
             [ Wld(){OfSort(PATH())}
             , Tuple(
                 [Occurrence("static-semantics!Field", [Var("x"){OfSort(STRING())}], NoId(){OfSort(AST_ID())}), Wld(){OfSort(SORT("TYPE"))}]
-              ){ OfSort(
-                   TUPLE(
-                     [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                   )
-                 )
-               }
+              ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
             ]
-          ){ OfSort(
-               TUPLE(
-                 [ PATH()
-                 , TUPLE(
-                     [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                   )
-                 ]
-               )
-             )
-           }
+          ){OfSort(
+              TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+            )}
         , Var("s"){OfSort(SCOPE())}
         ]
       )
     , CExists(
-        [Var("wld50"){ OfSort(
-                         TUPLE(
-                           [ PATH()
-                           , TUPLE(
-                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                             )
-                           ]
-                         )
-                       )
-                     }]
+        [Var("wld50"){OfSort(
+                        TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                      )}]
       , CResolveQuery(
           Label("static-semantics!typeOfDecl")
         , Filter(
             Closure(Label("static-semantics!P"))
           , LLam(
               [ Tuple(
-                  [Occurrence("static-semantics!Field", [Var("u17"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
-                ){ OfSort(
-                     TUPLE(
-                       [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                     )
-                   )
-                 }
+                  [Occurrence("static-semantics!Field", [Var("u14"){OfSort(STRING())}], WithId(Wld(){OfSort(AST_ID())})), Wld(){OfSort(SORT("TYPE"))}]
+                ){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}
               ]
-            , CEqual(Var("u17"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
+            , CEqual(Var("u14"){OfSort(STRING())}, Var("x"){OfSort(STRING())}, NoMessage())
             )
           )
         , Min(
             [LabelPair(EOP(), Label("static-semantics!P"))]
-          , LLam([Wld(){ OfSort(
-                           TUPLE(
-                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                           )
-                         )
-                       }, Wld(){ OfSort(
-                                   TUPLE(
-                                     [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                   )
-                                 )
-                               }], CTrue())
+          , LLam([Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}, Wld(){OfSort(TUPLE([OCCURRENCE(), SORT("TYPE")]))}], CTrue())
           )
         , Var("s"){OfSort(SCOPE())}
-        , List([Var("wld50"){ OfSort(
-                                TUPLE(
-                                  [ PATH()
-                                  , TUPLE(
-                                      [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                    )
-                                  ]
-                                )
-                              )
-                            }]){ OfSort(
-                                   LIST(
-                                     TUPLE(
-                                       [ PATH()
-                                       , TUPLE(
-                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                         )
-                                       ]
+        , List([Var("wld50"){OfSort(
+                               TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                             )}]){ OfSort(
+                                     LIST(
+                                       TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                      )
                                    )
-                                 )
-                               }
+                                 }
         , NoMessage()
         )
       )
@@ -3171,12 +2433,7 @@ Spec(
               , Str("print"){OfSort(STRING())}
               , Op(
                   "FUN"
-                , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                     LIST(
-                                                                       SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                     )
-                                                                   )
-                                                                 }, Op("UNIT", []){OfSort(SORT("TYPE"))}]
+                , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("UNIT", []){OfSort(SORT("TYPE"))}]
                 ){OfSort(SORT("TYPE"))}
               ]
             , NoMessage()
@@ -3188,12 +2445,7 @@ Spec(
                 , Str("chr"){OfSort(STRING())}
                 , Op(
                     "FUN"
-                  , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                    LIST(
-                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                    )
-                                                                  )
-                                                                }, Op("STRING", []){OfSort(SORT("TYPE"))}]
+                  , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("STRING", []){OfSort(SORT("TYPE"))}]
                   ){OfSort(SORT("TYPE"))}
                 ]
               , NoMessage()
@@ -3205,12 +2457,7 @@ Spec(
                   , Str("ord"){OfSort(STRING())}
                   , Op(
                       "FUN"
-                    , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                         LIST(
-                                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                         )
-                                                                       )
-                                                                     }, Op("INT", []){OfSort(SORT("TYPE"))}]
+                    , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("INT", []){OfSort(SORT("TYPE"))}]
                     ){OfSort(SORT("TYPE"))}
                   ]
                 , NoMessage()
@@ -3222,12 +2469,7 @@ Spec(
                     , Str("size"){OfSort(STRING())}
                     , Op(
                         "FUN"
-                      , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                           LIST(
-                                                                             SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                           )
-                                                                         )
-                                                                       }, Op("INT", []){OfSort(SORT("TYPE"))}]
+                      , [List([Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("INT", []){OfSort(SORT("TYPE"))}]
                       ){OfSort(SORT("TYPE"))}
                     ]
                   , NoMessage()
@@ -3241,12 +2483,7 @@ Spec(
                           "FUN"
                         , [ List(
                               [Op("STRING", []){OfSort(SORT("TYPE"))}, Op("INT", []){OfSort(SORT("TYPE"))}, Op("INT", []){OfSort(SORT("TYPE"))}]
-                            ){ OfSort(
-                                 LIST(
-                                   SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                 )
-                               )
-                             }
+                            ){OfSort(LIST(SORT("TYPE")))}
                           , Op("STRING", []){OfSort(SORT("TYPE"))}
                           ]
                         ){OfSort(SORT("TYPE"))}
@@ -3260,12 +2497,7 @@ Spec(
                         , Str("concat"){OfSort(STRING())}
                         , Op(
                             "FUN"
-                          , [ List([Op("STRING", []){OfSort(SORT("TYPE"))}, Op("STRING", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                                                        LIST(
-                                                                                                                          SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                        )
-                                                                                                                      )
-                                                                                                                    }
+                          , [ List([Op("STRING", []){OfSort(SORT("TYPE"))}, Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}
                             , Op("STRING", []){OfSort(SORT("TYPE"))}
                             ]
                           ){OfSort(SORT("TYPE"))}
@@ -3279,12 +2511,7 @@ Spec(
                           , Str("not"){OfSort(STRING())}
                           , Op(
                               "FUN"
-                            , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                              LIST(
-                                                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                              )
-                                                                            )
-                                                                          }, Op("INT", []){OfSort(SORT("TYPE"))}]
+                            , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("INT", []){OfSort(SORT("TYPE"))}]
                             ){OfSort(SORT("TYPE"))}
                           ]
                         , NoMessage()
@@ -3296,12 +2523,7 @@ Spec(
                             , Str("exit"){OfSort(STRING())}
                             , Op(
                                 "FUN"
-                              , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                LIST(
-                                                                                  SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                )
-                                                                              )
-                                                                            }, Op("UNIT", []){OfSort(SORT("TYPE"))}]
+                              , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("UNIT", []){OfSort(SORT("TYPE"))}]
                               ){OfSort(SORT("TYPE"))}
                             ]
                           , NoMessage()
@@ -3311,12 +2533,7 @@ Spec(
                               "static-semantics!declareVarRaw"
                             , [ Var("s"){OfSort(SCOPE())}
                               , Str("getchar"){OfSort(STRING())}
-                              , Op("FUN", [List([]){ OfSort(
-                                                       LIST(
-                                                         SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                       )
-                                                     )
-                                                   }, Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
+                              , Op("FUN", [List([]){OfSort(LIST(SORT("TYPE")))}, Op("STRING", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
                               ]
                             , NoMessage()
                             )
@@ -3325,12 +2542,7 @@ Spec(
                                 "static-semantics!declareVarRaw"
                               , [ Var("s"){OfSort(SCOPE())}
                                 , Str("flush"){OfSort(STRING())}
-                                , Op("FUN", [List([]){ OfSort(
-                                                         LIST(
-                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                         )
-                                                       )
-                                                     }, Op("UNIT", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
+                                , Op("FUN", [List([]){OfSort(LIST(SORT("TYPE")))}, Op("UNIT", []){OfSort(SORT("TYPE"))}]){OfSort(SORT("TYPE"))}
                                 ]
                               , NoMessage()
                               )
@@ -3340,12 +2552,7 @@ Spec(
                                 , Str("printi"){OfSort(STRING())}
                                 , Op(
                                     "FUN"
-                                  , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){ OfSort(
-                                                                                    LIST(
-                                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                    )
-                                                                                  )
-                                                                                }, Op("UNIT", []){OfSort(SORT("TYPE"))}]
+                                  , [List([Op("INT", []){OfSort(SORT("TYPE"))}]){OfSort(LIST(SORT("TYPE")))}, Op("UNIT", []){OfSort(SORT("TYPE"))}]
                                   ){OfSort(SORT("TYPE"))}
                                 ]
                               , NoMessage()
@@ -3365,84 +2572,24 @@ Spec(
     )
   , Rule(
       NoName()
-    , C("static-semantics!typeOfExps", [Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                            LIST(
-                                                                              SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                            )
-                                                                          )
-                                                                        }, Var("out47"){ OfSort(
-                                                                                           LIST(
-                                                                                             SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                           )
-                                                                                         )
-                                                                                       }])
-    , CConj(CEqual(Var("out47"){ OfSort(
-                                   LIST(
-                                     SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                   )
-                                 )
-                               }, List([]){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                              )
-                                            )
-                                          }, NoMessage()), CTrue())
+    , C("static-semantics!typeOfExps", [Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("Exp")))}, Var("out47"){OfSort(LIST(SORT("TYPE")))}])
+    , CConj(CEqual(Var("out47"){OfSort(LIST(SORT("TYPE")))}, List([]){OfSort(LIST(SORT("TYPE")))}, NoMessage()), CTrue())
     )
   , Rule(
       NoName()
     , C(
         "static-semantics!typeOfExps"
       , [ Var("x_1"){OfSort(SCOPE())}
-        , ListTail([Var("x_2"){OfSort(SORT("Exp"))}], Var("xs_2"){ OfSort(
-                                                                     LIST(
-                                                                       SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                     )
-                                                                   )
-                                                                 }){ OfSort(
-                                                                       LIST(
-                                                                         SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                                       )
-                                                                     )
-                                                                   }
-        , Var("out48"){ OfSort(
-                          LIST(
-                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                          )
-                        )
-                      }
+        , ListTail([Var("x_2"){OfSort(SORT("Exp"))}], Var("xs_2"){OfSort(LIST(SORT("Exp")))}){OfSort(LIST(SORT("Exp")))}
+        , Var("out48"){OfSort(LIST(SORT("TYPE")))}
         ]
       )
     , CExists(
-        [Var("y_1"){OfSort(SORT("TYPE"))}, Var("ys_1"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                          )
-                                                        )
-                                                      }, Var("typeOfExp47"){OfSort(SORT("TYPE"))}, Var("typeOfExps1"){ OfSort(
-                                                                                                                         LIST(
-                                                                                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                         )
-                                                                                                                       )
-                                                                                                                     }]
+        [Var("y_1"){OfSort(SORT("TYPE"))}, Var("ys_1"){OfSort(LIST(SORT("TYPE")))}, Var("typeOfExp47"){OfSort(SORT("TYPE"))}, Var("typeOfExps1"){OfSort(LIST(SORT("TYPE")))}]
       , CConj(
           CEqual(
-            Var("out48"){ OfSort(
-                            LIST(
-                              SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                            )
-                          )
-                        }
-          , ListTail([Var("y_1"){OfSort(SORT("TYPE"))}], Var("ys_1"){ OfSort(
-                                                                        LIST(
-                                                                          SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                        )
-                                                                      )
-                                                                    }){ OfSort(
-                                                                          LIST(
-                                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                          )
-                                                                        )
-                                                                      }
+            Var("out48"){OfSort(LIST(SORT("TYPE")))}
+          , ListTail([Var("y_1"){OfSort(SORT("TYPE"))}], Var("ys_1"){OfSort(LIST(SORT("TYPE")))}){OfSort(LIST(SORT("TYPE")))}
           , NoMessage()
           )
         , CConj(
@@ -3457,30 +2604,10 @@ Spec(
           , CConj(
               C(
                 "static-semantics!typeOfExps"
-              , [Var("x_1"){OfSort(SCOPE())}, Var("xs_2"){ OfSort(
-                                                             LIST(
-                                                               SORT(Occurrence(Namespace("Sort"), "Exp", TermIndex("trans/static-semantics.stx", 15)))
-                                                             )
-                                                           )
-                                                         }, Var("typeOfExps1"){ OfSort(
-                                                                                  LIST(
-                                                                                    SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                  )
-                                                                                )
-                                                                              }]
+              , [Var("x_1"){OfSort(SCOPE())}, Var("xs_2"){OfSort(LIST(SORT("Exp")))}, Var("typeOfExps1"){OfSort(LIST(SORT("TYPE")))}]
               , NoMessage()
               )
-            , CEqual(Var("typeOfExps1"){ OfSort(
-                                           LIST(
-                                             SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                           )
-                                         )
-                                       }, Var("ys_1"){ OfSort(
-                                                         LIST(
-                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                         )
-                                                       )
-                                                     }, NoMessage())
+            , CEqual(Var("typeOfExps1"){OfSort(LIST(SORT("TYPE")))}, Var("ys_1"){OfSort(LIST(SORT("TYPE")))}, NoMessage())
             )
           )
         )
@@ -3488,12 +2615,7 @@ Spec(
     )
   , Rule(
       NoName()
-    , C("static-semantics!tdecsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                                                 LIST(
-                                                                                                   SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                                                 )
-                                                                                               )
-                                                                                             }])
+    , C("static-semantics!tdecsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("TypeDec")))}])
     , CTrue()
     )
   , Rule(
@@ -3502,17 +2624,7 @@ Spec(
         "static-semantics!tdecsOk"
       , [ Var("x_1"){OfSort(SCOPE())}
         , Var("x_2"){OfSort(SCOPE())}
-        , ListTail([Var("x_3"){OfSort(SORT("TypeDec"))}], Var("xs_3"){ OfSort(
-                                                                         LIST(
-                                                                           SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                         )
-                                                                       )
-                                                                     }){ OfSort(
-                                                                           LIST(
-                                                                             SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                           )
-                                                                         )
-                                                                       }
+        , ListTail([Var("x_3"){OfSort(SORT("TypeDec"))}], Var("xs_3"){OfSort(LIST(SORT("TypeDec")))}){OfSort(LIST(SORT("TypeDec")))}
         ]
       )
     , CConj(
@@ -3523,24 +2635,14 @@ Spec(
         )
       , C(
           "static-semantics!tdecsOk"
-        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){ OfSort(
-                                                                                    LIST(
-                                                                                      SORT(Occurrence(Namespace("Sort"), "TypeDec", TermIndex("trans/static-semantics.stx", 1903)))
-                                                                                    )
-                                                                                  )
-                                                                                }]
+        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){OfSort(LIST(SORT("TypeDec")))}]
         , NoMessage()
         )
       )
     )
   , Rule(
       NoName()
-    , C("static-semantics!fdecsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                                                 LIST(
-                                                                                                   SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                                                 )
-                                                                                               )
-                                                                                             }])
+    , C("static-semantics!fdecsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("FunDec")))}])
     , CTrue()
     )
   , Rule(
@@ -3549,17 +2651,7 @@ Spec(
         "static-semantics!fdecsOk"
       , [ Var("x_1"){OfSort(SCOPE())}
         , Var("x_2"){OfSort(SCOPE())}
-        , ListTail([Var("x_3"){OfSort(SORT("FunDec"))}], Var("xs_3"){ OfSort(
-                                                                        LIST(
-                                                                          SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                        )
-                                                                      )
-                                                                    }){ OfSort(
-                                                                          LIST(
-                                                                            SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                          )
-                                                                        )
-                                                                      }
+        , ListTail([Var("x_3"){OfSort(SORT("FunDec"))}], Var("xs_3"){OfSort(LIST(SORT("FunDec")))}){OfSort(LIST(SORT("FunDec")))}
         ]
       )
     , CConj(
@@ -3570,12 +2662,7 @@ Spec(
         )
       , C(
           "static-semantics!fdecsOk"
-        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){ OfSort(
-                                                                                    LIST(
-                                                                                      SORT(Occurrence(Namespace("Sort"), "FunDec", TermIndex("trans/static-semantics.stx", 2134)))
-                                                                                    )
-                                                                                  )
-                                                                                }]
+        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){OfSort(LIST(SORT("FunDec")))}]
         , NoMessage()
         )
       )
@@ -3584,29 +2671,9 @@ Spec(
       NoName()
     , C(
         "static-semantics!typesOfArgs"
-      , [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                     LIST(
-                                                                       SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                     )
-                                                                   )
-                                                                 }, Var("out49"){ OfSort(
-                                                                                    LIST(
-                                                                                      SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                    )
-                                                                                  )
-                                                                                }]
+      , [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("FArg")))}, Var("out49"){OfSort(LIST(SORT("TYPE")))}]
       )
-    , CConj(CEqual(Var("out49"){ OfSort(
-                                   LIST(
-                                     SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                   )
-                                 )
-                               }, List([]){ OfSort(
-                                              LIST(
-                                                SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                              )
-                                            )
-                                          }, NoMessage()), CTrue())
+    , CConj(CEqual(Var("out49"){OfSort(LIST(SORT("TYPE")))}, List([]){OfSort(LIST(SORT("TYPE")))}, NoMessage()), CTrue())
     )
   , Rule(
       NoName()
@@ -3614,56 +2681,16 @@ Spec(
         "static-semantics!typesOfArgs"
       , [ Var("x_1"){OfSort(SCOPE())}
         , Var("x_2"){OfSort(SCOPE())}
-        , ListTail([Var("x_3"){OfSort(SORT("FArg"))}], Var("xs_3"){ OfSort(
-                                                                      LIST(
-                                                                        SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                      )
-                                                                    )
-                                                                  }){ OfSort(
-                                                                        LIST(
-                                                                          SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                        )
-                                                                      )
-                                                                    }
-        , Var("out50"){ OfSort(
-                          LIST(
-                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                          )
-                        )
-                      }
+        , ListTail([Var("x_3"){OfSort(SORT("FArg"))}], Var("xs_3"){OfSort(LIST(SORT("FArg")))}){OfSort(LIST(SORT("FArg")))}
+        , Var("out50"){OfSort(LIST(SORT("TYPE")))}
         ]
       )
     , CExists(
-        [Var("y_1"){OfSort(SORT("TYPE"))}, Var("ys_1"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                          )
-                                                        )
-                                                      }, Var("typeOfArg0"){OfSort(SORT("TYPE"))}, Var("typesOfArgs2"){ OfSort(
-                                                                                                                         LIST(
-                                                                                                                           SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                         )
-                                                                                                                       )
-                                                                                                                     }]
+        [Var("y_1"){OfSort(SORT("TYPE"))}, Var("ys_1"){OfSort(LIST(SORT("TYPE")))}, Var("typeOfArg0"){OfSort(SORT("TYPE"))}, Var("typesOfArgs2"){OfSort(LIST(SORT("TYPE")))}]
       , CConj(
           CEqual(
-            Var("out50"){ OfSort(
-                            LIST(
-                              SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                            )
-                          )
-                        }
-          , ListTail([Var("y_1"){OfSort(SORT("TYPE"))}], Var("ys_1"){ OfSort(
-                                                                        LIST(
-                                                                          SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                        )
-                                                                      )
-                                                                    }){ OfSort(
-                                                                          LIST(
-                                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                          )
-                                                                        )
-                                                                      }
+            Var("out50"){OfSort(LIST(SORT("TYPE")))}
+          , ListTail([Var("y_1"){OfSort(SORT("TYPE"))}], Var("ys_1"){OfSort(LIST(SORT("TYPE")))}){OfSort(LIST(SORT("TYPE")))}
           , NoMessage()
           )
         , CConj(
@@ -3678,30 +2705,10 @@ Spec(
           , CConj(
               C(
                 "static-semantics!typesOfArgs"
-              , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){ OfSort(
-                                                                                          LIST(
-                                                                                            SORT(Occurrence(Namespace("Sort"), "FArg", TermIndex("trans/static-semantics.stx", 2136)))
-                                                                                          )
-                                                                                        )
-                                                                                      }, Var("typesOfArgs2"){ OfSort(
-                                                                                                                LIST(
-                                                                                                                  SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                                                                                )
-                                                                                                              )
-                                                                                                            }]
+              , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){OfSort(LIST(SORT("FArg")))}, Var("typesOfArgs2"){OfSort(LIST(SORT("TYPE")))}]
               , NoMessage()
               )
-            , CEqual(Var("typesOfArgs2"){ OfSort(
-                                            LIST(
-                                              SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                            )
-                                          )
-                                        }, Var("ys_1"){ OfSort(
-                                                          LIST(
-                                                            SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))
-                                                          )
-                                                        )
-                                                      }, NoMessage())
+            , CEqual(Var("typesOfArgs2"){OfSort(LIST(SORT("TYPE")))}, Var("ys_1"){OfSort(LIST(SORT("TYPE")))}, NoMessage())
             )
           )
         )
@@ -3709,12 +2716,7 @@ Spec(
     )
   , Rule(
       NoName()
-    , C("static-semantics!fieldsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                                                  LIST(
-                                                                                                    SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                                                  )
-                                                                                                )
-                                                                                              }])
+    , C("static-semantics!fieldsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("Field")))}])
     , CTrue()
     )
   , Rule(
@@ -3723,17 +2725,7 @@ Spec(
         "static-semantics!fieldsOk"
       , [ Var("x_1"){OfSort(SCOPE())}
         , Var("x_2"){OfSort(SCOPE())}
-        , ListTail([Var("x_3"){OfSort(SORT("Field"))}], Var("xs_3"){ OfSort(
-                                                                       LIST(
-                                                                         SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                       )
-                                                                     )
-                                                                   }){ OfSort(
-                                                                         LIST(
-                                                                           SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                         )
-                                                                       )
-                                                                     }
+        , ListTail([Var("x_3"){OfSort(SORT("Field"))}], Var("xs_3"){OfSort(LIST(SORT("Field")))}){OfSort(LIST(SORT("Field")))}
         ]
       )
     , CConj(
@@ -3744,24 +2736,14 @@ Spec(
         )
       , C(
           "static-semantics!fieldsOk"
-        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){ OfSort(
-                                                                                    LIST(
-                                                                                      SORT(Occurrence(Namespace("Sort"), "Field", TermIndex("trans/static-semantics.stx", 5261)))
-                                                                                    )
-                                                                                  )
-                                                                                }]
+        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("xs_3"){OfSort(LIST(SORT("Field")))}]
         , NoMessage()
         )
       )
     )
   , Rule(
       NoName()
-    , C("static-semantics!initsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){ OfSort(
-                                                                                                                         LIST(
-                                                                                                                           SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                                                                         )
-                                                                                                                       )
-                                                                                                                     }])
+    , C("static-semantics!initsOk", [Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, Wld(){OfSort(SCOPE())}, List([]){OfSort(LIST(SORT("InitField")))}])
     , CTrue()
     )
   , Rule(
@@ -3771,17 +2753,7 @@ Spec(
       , [ Var("x_1"){OfSort(SCOPE())}
         , Var("x_2"){OfSort(SCOPE())}
         , Var("x_3"){OfSort(SCOPE())}
-        , ListTail([Var("x_4"){OfSort(SORT("InitField"))}], Var("xs_4"){ OfSort(
-                                                                           LIST(
-                                                                             SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                           )
-                                                                         )
-                                                                       }){ OfSort(
-                                                                             LIST(
-                                                                               SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                             )
-                                                                           )
-                                                                         }
+        , ListTail([Var("x_4"){OfSort(SORT("InitField"))}], Var("xs_4"){OfSort(LIST(SORT("InitField")))}){OfSort(LIST(SORT("InitField")))}
         ]
       )
     , CConj(
@@ -3792,12 +2764,7 @@ Spec(
         )
       , C(
           "static-semantics!initsOk"
-        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("x_3"){OfSort(SCOPE())}, Var("xs_4"){ OfSort(
-                                                                                                                 LIST(
-                                                                                                                   SORT(Occurrence(Namespace("Sort"), "InitField", TermIndex("trans/static-semantics.stx", 5263)))
-                                                                                                                 )
-                                                                                                               )
-                                                                                                             }]
+        , [Var("x_1"){OfSort(SCOPE())}, Var("x_2"){OfSort(SCOPE())}, Var("x_3"){OfSort(SCOPE())}, Var("xs_4"){OfSort(LIST(SORT("InitField")))}]
         , NoMessage()
         )
       )
@@ -3806,13 +2773,7 @@ Spec(
       NoName()
     , C("static-semantics!allFieldsInitialized", [Wld(){OfSort(STRING())}, List([]){ OfSort(
                                                                                        LIST(
-                                                                                         TUPLE(
-                                                                                           [ PATH()
-                                                                                           , TUPLE(
-                                                                                               [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                                                             )
-                                                                                           ]
-                                                                                         )
+                                                                                         TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                                                        )
                                                                                      )
                                                                                    }, Wld(){OfSort(SCOPE())}])
@@ -3823,67 +2784,35 @@ Spec(
     , C(
         "static-semantics!allFieldsInitialized"
       , [ Var("x_1"){OfSort(STRING())}
-        , ListTail([Var("x_2"){ OfSort(
-                                  TUPLE(
-                                    [ PATH()
-                                    , TUPLE(
-                                        [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                      )
-                                    ]
-                                  )
-                                )
-                              }], Var("xs_2"){ OfSort(
-                                                 LIST(
-                                                   TUPLE(
-                                                     [ PATH()
-                                                     , TUPLE(
-                                                         [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                       )
-                                                     ]
+        , ListTail([Var("x_2"){OfSort(
+                                 TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                               )}], Var("xs_2"){ OfSort(
+                                                   LIST(
+                                                     TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                    )
                                                  )
-                                               )
-                                             }){ OfSort(
-                                                   LIST(
-                                                     TUPLE(
-                                                       [ PATH()
-                                                       , TUPLE(
-                                                           [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                         )
-                                                       ]
+                                               }){ OfSort(
+                                                     LIST(
+                                                       TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                      )
                                                    )
-                                                 )
-                                               }
+                                                 }
         , Var("x_3"){OfSort(SCOPE())}
         ]
       )
     , CConj(
         C(
           "static-semantics!fieldInitialized"
-        , [Var("x_1"){OfSort(STRING())}, Var("x_2"){ OfSort(
-                                                       TUPLE(
-                                                         [ PATH()
-                                                         , TUPLE(
-                                                             [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                           )
-                                                         ]
-                                                       )
-                                                     )
-                                                   }, Var("x_3"){OfSort(SCOPE())}]
+        , [Var("x_1"){OfSort(STRING())}, Var("x_2"){OfSort(
+                                                      TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
+                                                    )}, Var("x_3"){OfSort(SCOPE())}]
         , NoMessage()
         )
       , C(
           "static-semantics!allFieldsInitialized"
         , [Var("x_1"){OfSort(STRING())}, Var("xs_2"){ OfSort(
                                                         LIST(
-                                                          TUPLE(
-                                                            [ PATH()
-                                                            , TUPLE(
-                                                                [OCCURRENCE(), SORT(Occurrence(Namespace("Sort"), "TYPE", TermIndex("trans/static-semantics.stx", 1172)))]
-                                                              )
-                                                            ]
-                                                          )
+                                                          TUPLE([PATH(), TUPLE([OCCURRENCE(), SORT("TYPE")])])
                                                         )
                                                       )
                                                     }, Var("x_3"){OfSort(SCOPE())}]
