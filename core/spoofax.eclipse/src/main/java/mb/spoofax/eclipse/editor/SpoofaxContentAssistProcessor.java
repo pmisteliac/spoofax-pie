@@ -5,7 +5,7 @@ import mb.common.region.Region;
 import mb.completions.common.CompletionProposal;
 import mb.completions.common.CompletionResult;
 import mb.pie.api.ExecException;
-import mb.pie.api.PieSession;
+import mb.pie.api.MixedSession;
 import mb.pie.api.Task;
 import mb.resource.ResourceKey;
 import mb.spoofax.core.language.LanguageInstance;
@@ -33,14 +33,14 @@ public abstract class SpoofaxContentAssistProcessor implements IContentAssistPro
 
     private final SpoofaxEditor editor;
     private final LanguageInstance languageInstance;
-    private final Provider<PieSession> pieSessionProvider;
+    private final Provider<MixedSession> pieSessionProvider;
 
     private @Nullable String lastErrorMessage = null;
 
     protected SpoofaxContentAssistProcessor(
         SpoofaxEditor editor,
         LanguageInstance languageInstance,
-        Provider<PieSession> pieSessionProvider
+        Provider<MixedSession> pieSessionProvider
 //        EclipseLanguageComponent languageComponent
     ) {
         this.editor = editor;
@@ -57,7 +57,7 @@ public abstract class SpoofaxContentAssistProcessor implements IContentAssistPro
         final ResourceKey resourceKey = getResourceKeyFromEditor();
         final Region selection = Region.atOffset(offset);
         final @Nullable CompletionResult completionResult;
-        try (final PieSession session = this.pieSessionProvider.get()) {
+        try (final MixedSession session = this.pieSessionProvider.get()) {
             Task<@Nullable CompletionResult> completionTask = this.languageInstance.createCompleteTask(resourceKey, selection);
             completionResult = session.require(completionTask);
         } catch (ExecException e) {

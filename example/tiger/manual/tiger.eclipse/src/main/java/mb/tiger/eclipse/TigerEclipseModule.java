@@ -2,7 +2,7 @@ package mb.tiger.eclipse;
 
 import dagger.Module;
 import dagger.Provides;
-import mb.pie.api.PieSession;
+import mb.pie.api.MixedSession;
 import mb.spoofax.core.language.LanguageInstance;
 import mb.spoofax.core.language.LanguageScope;
 import mb.spoofax.eclipse.EclipseIdentifiers;
@@ -22,7 +22,7 @@ public class TigerEclipseModule {
     @Provides
     SpoofaxContentAssistProcessor.Factory provideContentAssistProcessorFactory(
         LanguageInstance languageInstance,
-        Provider<PieSession> pieSessionProvider
+        Provider<MixedSession> pieSessionProvider
     ) {
         return new TigerContentAssistProcessor.Factory(languageInstance, pieSessionProvider);
     }

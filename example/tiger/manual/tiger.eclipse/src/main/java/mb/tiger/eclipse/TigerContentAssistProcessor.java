@@ -1,6 +1,6 @@
 package mb.tiger.eclipse;
 
-import mb.pie.api.PieSession;
+import mb.pie.api.MixedSession;
 import mb.spoofax.core.language.LanguageInstance;
 import mb.spoofax.eclipse.editor.SpoofaxContentAssistProcessor;
 import mb.spoofax.eclipse.editor.SpoofaxEditor;
@@ -12,10 +12,10 @@ public class TigerContentAssistProcessor extends SpoofaxContentAssistProcessor {
 
     public static class Factory implements SpoofaxContentAssistProcessor.Factory {
         LanguageInstance languageInstance;
-        Provider<PieSession> pieSessionProvider;
+        Provider<MixedSession> pieSessionProvider;
         @Inject public Factory(
             LanguageInstance languageInstance,
-            Provider<PieSession> pieSessionProvider
+            Provider<MixedSession> pieSessionProvider
         ) {
             this.languageInstance = languageInstance;
             this.pieSessionProvider = pieSessionProvider;
@@ -29,7 +29,7 @@ public class TigerContentAssistProcessor extends SpoofaxContentAssistProcessor {
     protected TigerContentAssistProcessor(
         SpoofaxEditor editor,
         LanguageInstance languageInstance,
-        Provider<PieSession> pieSessionProvider
+        Provider<MixedSession> pieSessionProvider
     ) {
         super(editor, languageInstance, pieSessionProvider);
     }
