@@ -47,6 +47,7 @@ dependencies {
     api("org.immutables:value:$immutablesVersion")
     api("org.immutables:value-annotations:$immutablesVersion")
     api("javax.inject:javax.inject:1")
+    api("javax.annotation:javax.annotation-api:1.3.2")
     api("one.util:streamex:0.7.2")
 
     api("org.checkerframework:checker-qual-android:3.0.0") // Use android version: annotation retention policy is class instead of runtime.
