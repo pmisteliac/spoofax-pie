@@ -10,6 +10,8 @@ import mb.nabl2.terms.unification.UnifierFormatter;
 import mb.nabl2.terms.unification.Unifiers;
 import mb.nabl2.terms.unification.ud.IUniDisunifier;
 import mb.nabl2.util.CapsuleUtil;
+import mb.statix.constraints.CConj;
+import mb.statix.constraints.CExists;
 import mb.statix.constraints.messages.IMessage;
 import mb.statix.constraints.messages.MessageKind;
 import mb.statix.scopegraph.reference.CriticalEdge;
@@ -29,6 +31,8 @@ import org.metaborg.util.log.LoggerUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -136,6 +140,30 @@ public final class SolverState {
 
     public ICompleteness.Immutable getCompleteness() {
         return completeness;
+    }
+
+    /**
+     * Updates the existentials to be tracked in the state.
+     *
+     * @param existentials the existentials to track
+     * @return the new solver state
+     */
+    public SolverState withExistentials(Iterable<ITermVar> existentials) {
+        // We wrap all constraints in a conjunction,
+        // and wrap the result in an existential constraint.
+        IConstraint newConstraint;
+        Iterator<IConstraint> iterator = this.constraints.iterator();
+        if (iterator.hasNext()) {
+            IConstraint constraintList = iterator.next();
+            while(iterator.hasNext()) {
+                constraintList = new CConj(constraintList, iterator.next());
+            }
+            newConstraint = new CExists(existentials, constraintList);
+            return new SolverState(this.state, this.messages, Set.Immutable.of(newConstraint), this.delays, this.existentials, this.completeness);
+        } else {
+            // No constraints, so what can you do? ¯\_(ツ)_/¯
+            return this;
+        }
     }
 
     /**

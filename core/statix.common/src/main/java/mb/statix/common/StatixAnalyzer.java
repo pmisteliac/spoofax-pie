@@ -4,10 +4,13 @@ import com.google.common.collect.ImmutableList;
 import mb.log.api.Logger;
 import mb.log.api.LoggerFactory;
 import mb.nabl2.terms.ITerm;
+import mb.nabl2.terms.ITermVar;
 import mb.nabl2.terms.stratego.StrategoTermIndices;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.nabl2.util.CapsuleUtil;
 import mb.resource.ResourceKey;
+import mb.statix.common.strategies.InferStrategy;
+import mb.statix.constraints.CExists;
 import mb.statix.constraints.CUser;
 import mb.statix.solver.IConstraint;
 import mb.statix.solver.completeness.Completeness;
@@ -20,7 +23,9 @@ import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -28,90 +33,61 @@ import java.util.function.Function;
  */
 public class StatixAnalyzer {
 
-//    private final Logger log;
+    private final Logger log;
     private final StrategoTerms strategoTerms;
     private final ITermFactory termFactory;
-    private final Spec spec;
+    private final StatixSpec spec;
 
     @Inject public StatixAnalyzer(
-//        LoggerFactory loggerFactory,
+        StatixSpec spec,
         ITermFactory termFactory,
-        Spec spec
+        LoggerFactory loggerFactory
     ) {
-//        this.log = loggerFactory.create(getClass());
-        this.strategoTerms = new StrategoTerms(termFactory);
-        this.termFactory = termFactory;
         this.spec = spec;
+        this.termFactory = termFactory;
+        this.strategoTerms = new StrategoTerms(termFactory);
+        this.log = loggerFactory.create(getClass());
     }
 
     /**
-     * Performs analysis on the given root resource.
+     * Creates a new solver context.
      *
-     * @param rootResource the resource key of the root resource to analyze
-     * @param astProvider given a resource key, provides the AST of the resource
-     * @return the analysis results
+     * @return the solver context
      */
-    public ASolverResult analyze(ResourceKey rootResource, Function<ResourceKey, IStrategoTerm> astProvider) throws InterruptedException {
-        // TODO: Multi-file support. For now, we just get the root resource as the only resource.
-        @SuppressWarnings("UnnecessaryLocalVariable") ResourceKey resourceKey = rootResource;
-        IStrategoTerm ast = astProvider.apply(resourceKey);
-        ITerm statixAst = toStatixAst(ast, resourceKey);
-
-        IConstraint constraint = getRootConstraint(statixAst);
-
-        return Solver.solve(
-            this.spec,
-            State.of(this.spec),
-            CapsuleUtil.toSet(ImmutableList.of(constraint)),
-            io.usethesource.capsule.Map.Immutable.of(),
-            Completeness.Transient.of(this.spec).freeze(),
-            new NullDebugContext()
-        );
+    public SolverContext createContext() {
+        return new SolverContext(spec.getSpec());
     }
 
     /**
-     * Gets the root constraint to be solved for the program.
+     * Analyzes the specified AST in the specified solver context.
+     *
+     * @param ctx the solver context
+     * @param statixAst the AST to analyze
+     * @param trackedVars the term variables that we're interested in
+     * @return the resulting solver state
+     * @throws InterruptedException
+     */
+    public SolverState analyze(SolverContext ctx, ITerm statixAst, Collection<ITermVar> trackedVars) throws InterruptedException {
+        IConstraint rootConstraint = getRootConstraint(statixAst, "static-semantics", trackedVars);   /* TODO: Get the spec name from the spec? */
+        log.info("Analyzing: " + rootConstraint);
+        return analyze(ctx, spec.getSpec(), rootConstraint);
+    }
+
+    /**
+     * Gets the root constraint of the specification.
      *
      * @return the root constraint
      */
-    private CUser getRootConstraint(ITerm ast) {
+    private IConstraint getRootConstraint(ITerm statixAst, String specName, Collection<ITermVar> trackedVars) {
         String rootRuleName = "programOK";      // FIXME: Ability to specify root rule somewhere
-        String qualifiedName = makeQualifiedName("", rootRuleName);
-        // TODO? <stx--explode> statixAst
-        return new CUser(qualifiedName, Collections.singletonList(ast), null);
-    }
-//
-//    /**
-//     * Gets the Statix specification of the language.
-//     *
-//     * @return the Statix specification
-//     */
-//    private Spec getStatixSpec() {
-//        /*
-//  stx--language-spec-by-name =
-//    MkSingleton                 // ![<id>]
-//  ; language-resources(stx--module-path, stx--spec-imports)
-//  ; map(Snd)
-//  ; stx--merge-spec-aterms
-//         */
-//        Spec spec = null;
-//        if (!checkNoOverlappingRules(spec)) {
-//            // Analysis failed
-//            return null;
-//        }
-//        return spec;
-//    }
-
-    /**
-     * Converts a Stratego AST to a Statix AST.
-     *
-     * @param ast the Stratego AST to convert
-     * @param resourceKey the resource key of the resource from which the AST was parsed
-     * @return the resulting Statix AST, annotated with term indices
-     */
-    private ITerm toStatixAst(IStrategoTerm ast, ResourceKey resourceKey) {
-        IStrategoTerm annotatedAst = addIndicesToAst(ast, resourceKey);
-        return strategoTerms.fromStratego(annotatedAst);
+        String qualifiedName = makeQualifiedName(specName, rootRuleName);
+        CUser constraint = new CUser(qualifiedName, Collections.singletonList(statixAst), null);
+        if (!trackedVars.isEmpty()) {
+            // FIXME: It is annoying to have to specify the placeholder we're interested in as an existential.
+            return new CExists(trackedVars, constraint);
+        } else {
+            return constraint;
+        }
     }
 
     /**
@@ -127,16 +103,15 @@ public class StatixAnalyzer {
     }
 
     /**
-     * Annotates the terms of the AST with term indices.
+     * Invokes analysis.
      *
-     * @param ast the AST
-     * @param resourceKey the resource key from which the AST was created
-     * @return the annotated AST
+     * @param spec the Statix specification
+     * @param rootConstraint the root constraint
+     * @return the resulting analysis result
      */
-    private IStrategoTerm addIndicesToAst(IStrategoTerm ast, ResourceKey resourceKey) {
-        return StrategoTermIndices.index(ast, resourceKey.toString(), termFactory);
+    private SolverState analyze(SolverContext ctx, Spec spec, IConstraint rootConstraint) throws InterruptedException {
+        SolverState startState = SolverState.of(spec, State.of(spec), ImmutableList.of(rootConstraint));
+        return new InferStrategy().apply(ctx, startState).findFirst().orElseThrow(() -> new IllegalStateException("This cannot be happening."));
     }
-
-
 
 }

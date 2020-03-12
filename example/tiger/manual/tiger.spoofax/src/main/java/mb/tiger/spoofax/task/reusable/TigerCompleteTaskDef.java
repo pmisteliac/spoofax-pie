@@ -1,6 +1,5 @@
 package mb.tiger.spoofax.task.reusable;
 
-import com.google.common.collect.ImmutableClassToInstanceMap;
 import mb.common.editing.TextEdit;
 import mb.common.region.Region;
 import mb.common.style.StyleName;
@@ -10,13 +9,9 @@ import mb.completions.common.CompletionResult;
 import mb.log.api.Logger;
 import mb.log.api.LoggerFactory;
 import mb.nabl2.terms.IApplTerm;
-import mb.nabl2.terms.IListTerm;
 import mb.nabl2.terms.ITerm;
 import mb.nabl2.terms.ITermVar;
-import mb.nabl2.terms.ListTerms;
-import mb.nabl2.terms.Terms;
-import mb.nabl2.terms.build.TermBuild;
-import mb.nabl2.terms.stratego.StrategoAnnotations;
+import mb.nabl2.terms.stratego.StrategoPlaceholders;
 import mb.nabl2.terms.stratego.StrategoTermIndices;
 import mb.nabl2.terms.stratego.StrategoTerms;
 import mb.pie.api.ExecContext;
@@ -29,11 +24,10 @@ import mb.spoofax.core.language.LanguageScope;
 import mb.statix.codecompletion.TermCompleter;
 import mb.statix.common.SolverContext;
 import mb.statix.common.SolverState;
-import mb.tiger.PlaceholderVarMap;
+import mb.nabl2.terms.stratego.PlaceholderVarMap;
 import mb.tiger.TigerAnalyzer;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spoofax.interpreter.terms.IStrategoAppl;
-import org.spoofax.interpreter.terms.IStrategoConstructor;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 import org.spoofax.jsglr.client.imploder.ImploderAttachment;
@@ -43,6 +37,7 @@ import org.spoofax.terms.util.TermUtils;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -114,15 +109,17 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         }
 
         // Convert to Statix AST
+        IStrategoTerm annotatedAst = StrategoTermIndices.index(ast, input.resourceKey.toString(), termFactory);
+        ITerm tmpStatixAst = strategoTerms.fromStratego(annotatedAst);
         PlaceholderVarMap placeholderVarMap = new PlaceholderVarMap(input.resourceKey.toString());
-        ITerm statixAst = toStatixAst(ast, input.resourceKey, placeholderVarMap);
+        ITerm statixAst = StrategoPlaceholders.replacePlaceholdersByVariables(tmpStatixAst, placeholderVarMap);
         ITermVar placeholderVar = Objects.requireNonNull(placeholderVarMap.getVar((IApplTerm)strategoTerms.fromStratego(placeholder)));
 
         // 4) Get the solver state of the program (whole project),
         //    which should have some remaining constraints on the placeholder.
         //    TODO: What to do when the file is semantically incorrect? Recovery?
         SolverContext ctx = analyzer.createContext();
-        SolverState initialState = analyzer.analyze(ctx, statixAst, placeholderVar);
+        SolverState initialState = analyzer.analyze(ctx, statixAst, Collections.singletonList(placeholderVar));
         if (initialState.hasErrors()) {
             log.error("Completion failed: input program validation failed.\n" + initialState.toString());
             return null;    // Cannot complete when analysis fails.
@@ -134,7 +131,7 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
 
         // 5) Invoke the completer on the solver state, indicating the placeholder for which we want completions
         // 6) Get the possible completions back, as a list of ASTs with new solver states
-        List<IStrategoTerm> completionTerms = complete(ctx, initialState, placeholderVar);
+        List<IStrategoTerm> completionTerms = complete(ctx, initialState, placeholderVar, placeholderVarMap);
 
         // 7) Format each completion as a proposal, with pretty-printed text
         List<String> completionStrings = completionTerms.stream().map(t -> {
@@ -157,53 +154,6 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         }
 
         return new CompletionResult(ListView.copyOf(completionProposals), true);
-    }
-
-    /**
-     * Converts a Stratego AST to a Statix AST.
-     *
-     * @param ast the Stratego AST to convert
-     * @param resourceKey the resource key of the resource from which the AST was parsed
-     * @return the resulting Statix AST, annotated with term indices
-     */
-    private ITerm toStatixAst(IStrategoTerm ast, @Nullable ResourceKey resourceKey, PlaceholderVarMap placeholderVarMap) {
-        IStrategoTerm annotatedAst = addIndicesToAst(ast, resourceKey);
-        ITerm statixAst = strategoTerms.fromStratego(annotatedAst);
-        ITerm newStatixAst = replacePlaceholdersByConstraintVariables(statixAst, placeholderVarMap);
-        return newStatixAst;
-    }
-
-    private ITerm replacePlaceholdersByConstraintVariables(ITerm term, PlaceholderVarMap placeholderVarMap) {
-        return term.match(Terms.<ITerm>casesFix(
-            (m, appl) ->  {
-                if (appl.getOp().endsWith("-Plhdr") && appl.getArity() == 0) {
-                    // Placeholder
-                    return placeholderVarMap.addPlaceholderMapping(appl);
-                } else {
-                    return TermBuild.B.newAppl(appl.getOp(), appl.getArgs().stream().map(a -> a.match(m)).collect(Collectors.toList()), appl.getAttachments());
-                }
-            },
-            (m, list) -> list.match(ListTerms.<IListTerm>casesFix(
-                (lm, cons) -> TermBuild.B.newCons(cons.getHead().match(m), cons.getTail().match(lm), cons.getAttachments()),
-                (lm, nil) -> nil,
-                (lm, var) -> var
-            )),
-            (m, string) -> string,
-            (m, integer) -> integer,
-            (m, blob) -> blob,
-            (m, var) -> var
-        ));
-    }
-
-    /**
-     * Annotates the terms of the AST with term indices.
-     *
-     * @param ast the AST
-     * @param resourceKey the resource key from which the AST was created
-     * @return the annotated AST
-     */
-    private IStrategoTerm addIndicesToAst(IStrategoTerm ast, ResourceKey resourceKey) {
-        return StrategoTermIndices.index(ast, resourceKey.toString(), termFactory);
     }
 
     /**
@@ -237,69 +187,9 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         return prettyPrinterFunction.apply(context, term);
     }
 
-    private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
+    private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar, PlaceholderVarMap placeholderVarMap) throws InterruptedException {
         List<ITerm> proposalTerms = completer.complete(ctx, state, placeholderVar);
-        return proposalTerms.stream().map(t -> strategoTerms.toStratego(replaceConstraintVariablesByPlaceholders(t))).collect(Collectors.toList());
-    }
-
-    private ITerm replaceConstraintVariablesByPlaceholders(ITerm term) {
-        return term.match(Terms.<ITerm>casesFix(
-            (m, appl) ->  TermBuild.B.newAppl(appl.getOp(), appl.getArgs().stream().map(a -> a.match(m)).collect(Collectors.toList()), appl.getAttachments()),
-            (m, list) -> list.match(ListTerms.<IListTerm>casesFix(
-                (lm, cons) -> TermBuild.B.newCons(cons.getHead().match(m), cons.getTail().match(lm), cons.getAttachments()),
-                (lm, nil) -> nil,
-                (lm, var) -> var
-            )),
-            (m, string) -> string,
-            (m, integer) -> integer,
-            (m, blob) -> blob,
-            // TODO: Ability to relate placeholders, such that typing in the editor in one placeholder also types in another
-            (m, var) -> TermBuild.B.newAppl(getPlaceholderNameOfVar(var))
-        ));
-    }
-
-    private String getPlaceholderNameOfVar(ITermVar var) {
-        @Nullable String name = getSortFromAttachments(var.getAttachments());
-        if (name == null) {
-            // No name
-            return "??";
-        }
-        return name + "-Plhdr";
-    }
-
-    private @Nullable String getSortFromAttachments(ImmutableClassToInstanceMap<Object> attachments) {
-        @Nullable StrategoAnnotations annotations = (StrategoAnnotations)attachments.get(StrategoAnnotations.class);
-        if (annotations == null) return null;
-        return getSortNameFromAnnotations(annotations.getAnnotationList());
-    }
-
-    private @Nullable String getSortNameFromAnnotations(List<IStrategoTerm> annotations) {
-        for(IStrategoTerm term : annotations) {
-            if (!TermUtils.isAppl(term, "OfSort", 1)) continue; // OfSort(_)
-            return getSortNameFromSortTerm(term.getSubterm(0));
-        }
-        // Not found.
-        return null;
-    }
-
-    private @Nullable String getSortNameFromSortTerm(IStrategoTerm term) {
-        // TODO: Lots of things don't have sort names.
-        // Perhaps we should follow the example of ?? and use "??" for all placeholders,
-        // or parse any $name$ within dollars as a placeholder, so we can describe the placeholder (and perhaps relate then: "$x$ = $x$ + 1").
-        if (TermUtils.isAppl(term, "SORT", 1)) {
-            // SORT(_)
-            return TermUtils.toJavaStringAt(term, 0);
-        } else if (TermUtils.isAppl(term, "LIST", 1)) {
-            // LIST(_)
-            return getSortNameFromSortTerm(term.getSubterm(0)) + "-List";
-        } else if (TermUtils.isAppl(term, null, 0)) {
-            // SCOPE()
-            // STRING()
-            String name = TermUtils.toAppl(term).getConstructor().getName();
-            return "_" + Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
-        } else {
-            throw new UnsupportedOperationException("Unknown sort: " + term);
-        }
+        return proposalTerms.stream().map(t -> strategoTerms.toStratego(StrategoPlaceholders.replaceVariablesByPlaceholders(t, placeholderVarMap))).collect(Collectors.toList());
     }
 
     /**
@@ -314,7 +204,7 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
      */
     private @Nullable IStrategoAppl findPlaceholderAt(IStrategoTerm term, int caretOffset) {
         if (!termContainsCaret(term, caretOffset)) return null;
-        Optional<IStrategoAppl> maybePlaceholder = TermUtils.asAppl(term).filter(TigerCompleteTaskDef::isPlaceholderTerm);
+        Optional<IStrategoAppl> maybePlaceholder = TermUtils.asAppl(term).filter(StrategoPlaceholders::isPlaceholder);
         if (maybePlaceholder.isPresent()) return maybePlaceholder.get();
         // Recurse into the term
         for (IStrategoTerm subterm : term.getAllSubterms()) {
@@ -322,17 +212,6 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
             if (nearbyPlaceholder != null) return nearbyPlaceholder;
         }
         return null;
-    }
-
-    /**
-     * Determines whether the given term is a placeholder term.
-     *
-     * @param term the term to check
-     * @return {@code true} when the term is a placeholder term; otherwise, {@code false}
-     */
-    private static boolean isPlaceholderTerm(IStrategoAppl term) {
-        IStrategoConstructor constructor = term.getConstructor();
-        return constructor.getName().endsWith("-Plhdr") && constructor.getArity() == 0;
     }
 
     /**

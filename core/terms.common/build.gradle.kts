@@ -6,13 +6,8 @@ dependencies {
   api(platform(project(":spoofax.depconstraints")))
 
   api(project(":common"))
-  api(project(":stratego.common"))
-  api(project(":jsglr.common"))
-  api("org.metaborg:statix.solver")
-
   api("org.metaborg:log.api")
-
-  implementation("org.metaborg:nabl2.terms")
+  api("org.metaborg:org.spoofax.terms")
 
   compileOnly("org.checkerframework:checker-qual-android")
 }

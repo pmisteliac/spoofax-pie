@@ -1,9 +1,12 @@
 plugins {
   id("org.metaborg.gradle.config.java-library")
+  id("org.metaborg.gradle.config.junit-testing")
 }
 
 dependencies {
   api(platform(project(":spoofax.depconstraints")))
+  testCompileOnly(platform(project(":spoofax.depconstraints")))
+  testAnnotationProcessor(platform(project(":spoofax.depconstraints")))
 
   api(project(":common"))
   api(project(":completions.common"))
@@ -18,5 +21,12 @@ dependencies {
   testImplementation(platform(project(":spoofax.depconstraints")))
   testCompileOnly("org.checkerframework:checker-qual-android")
   testImplementation("nl.jqno.equalsverifier:equalsverifier")
+  testImplementation("org.metaborg:log.backend.slf4j")
+
+  testAnnotationProcessor("org.immutables:value")
+//  testAnnotationProcessor("org.immutables:serial")
+  testCompileOnly("org.immutables:value")
+//  testCompileOnly("org.immutables:serial")
+  testCompileOnly("javax.annotation:javax.annotation-api")
 
 }

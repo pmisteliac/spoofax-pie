@@ -50,8 +50,8 @@ public final class TermCompleter {
      * @param placeholderVar the var of the placeholder to complete
      * @return the resulting completion proposals
      */
-    public List<ITerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
-        return completeNodes(ctx, state).map(s -> project(placeholderVar, s)).collect(Collectors.toList());
+    public List<CompletionSolverProposal> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar) throws InterruptedException {
+        return completeNodes(ctx, state).map(s -> new CompletionSolverProposal(s, project(placeholderVar, s))).collect(Collectors.toList());
     }
 
     /**
@@ -70,6 +70,27 @@ public final class TermCompleter {
             return s.getState().unifier().findRecursive(s.getExistentials().get(placeholderVar));
         } else {
             return placeholderVar;
+        }
+    }
+
+    /**
+     * A completion solver result.
+     */
+    public final static class CompletionSolverProposal {
+        private final SolverState newState;
+        private final ITerm term;
+
+        public CompletionSolverProposal(SolverState newState, ITerm term) {
+            this.newState = newState;
+            this.term = term;
+        }
+
+        public SolverState getNewState() {
+            return newState;
+        }
+
+        public ITerm getTerm() {
+            return term;
         }
     }
 }
