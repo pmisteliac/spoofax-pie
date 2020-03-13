@@ -119,7 +119,7 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
         //    which should have some remaining constraints on the placeholder.
         //    TODO: What to do when the file is semantically incorrect? Recovery?
         SolverContext ctx = analyzer.createContext();
-        SolverState initialState = analyzer.analyze(ctx, statixAst, Collections.singletonList(placeholderVar));
+        SolverState initialState = analyzer.analyze(ctx, statixAst);
         if (initialState.hasErrors()) {
             log.error("Completion failed: input program validation failed.\n" + initialState.toString());
             return null;    // Cannot complete when analysis fails.
@@ -188,8 +188,8 @@ public class TigerCompleteTaskDef implements TaskDef<TigerCompleteTaskDef.Input,
     }
 
     private List<IStrategoTerm> complete(SolverContext ctx, SolverState state, ITermVar placeholderVar, PlaceholderVarMap placeholderVarMap) throws InterruptedException {
-        List<ITerm> proposalTerms = completer.complete(ctx, state, placeholderVar);
-        return proposalTerms.stream().map(t -> strategoTerms.toStratego(StrategoPlaceholders.replaceVariablesByPlaceholders(t, placeholderVarMap))).collect(Collectors.toList());
+        List<TermCompleter.CompletionSolverProposal> proposalTerms = completer.complete(ctx, state, placeholderVar);
+        return proposalTerms.stream().map(p -> strategoTerms.toStratego(StrategoPlaceholders.replaceVariablesByPlaceholders(p.getTerm(), placeholderVarMap))).collect(Collectors.toList());
     }
 
     /**
