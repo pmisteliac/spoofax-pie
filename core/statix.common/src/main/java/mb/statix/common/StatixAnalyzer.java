@@ -63,12 +63,11 @@ public class StatixAnalyzer {
      *
      * @param ctx the solver context
      * @param statixAst the AST to analyze
-     * @param trackedVars the term variables that we're interested in
      * @return the resulting solver state
      * @throws InterruptedException
      */
-    public SolverState analyze(SolverContext ctx, ITerm statixAst, Collection<ITermVar> trackedVars) throws InterruptedException {
-        IConstraint rootConstraint = getRootConstraint(statixAst, "static-semantics", trackedVars);   /* TODO: Get the spec name from the spec? */
+    public SolverState analyze(SolverContext ctx, ITerm statixAst) throws InterruptedException {
+        IConstraint rootConstraint = getRootConstraint(statixAst, "static-semantics");   /* TODO: Get the spec name from the spec? */
         log.info("Analyzing: " + rootConstraint);
         return analyze(ctx, spec.getSpec(), rootConstraint);
     }
@@ -78,16 +77,10 @@ public class StatixAnalyzer {
      *
      * @return the root constraint
      */
-    private IConstraint getRootConstraint(ITerm statixAst, String specName, Collection<ITermVar> trackedVars) {
+    private IConstraint getRootConstraint(ITerm statixAst, String specName) {
         String rootRuleName = "programOK";      // FIXME: Ability to specify root rule somewhere
         String qualifiedName = makeQualifiedName(specName, rootRuleName);
-        CUser constraint = new CUser(qualifiedName, Collections.singletonList(statixAst), null);
-        if (!trackedVars.isEmpty()) {
-            // FIXME: It is annoying to have to specify the placeholder we're interested in as an existential.
-            return new CExists(trackedVars, constraint);
-        } else {
-            return constraint;
-        }
+        return new CUser(qualifiedName, Collections.singletonList(statixAst), null);
     }
 
     /**

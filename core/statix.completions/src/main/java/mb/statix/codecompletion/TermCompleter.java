@@ -24,8 +24,8 @@ public final class TermCompleter {
 
     private static Strategy<SolverState, SolverState, SolverContext> completionStrategy =
     // @formatter:off
-        seq(print(Strategies.<SolverState, SolverContext>id()))
-         .$(seq(debug(limit(1, focus(CUser.class)), s -> System.out.println("Focused on: " + s)))
+        seq(Strategies.<SolverState, SolverContext>id())
+         .$(seq(limit(1, focus(CUser.class)))
              .$(expandRule())
              .$(infer())
              .$(isSuccessful())
@@ -38,7 +38,6 @@ public final class TermCompleter {
             .$(delayStuckQueries())
             .$()
          ))
-         .$(print())
          .$();
     // @formatter:on
 
@@ -66,11 +65,12 @@ public final class TermCompleter {
     }
 
     private static ITerm project(ITermVar placeholderVar, SolverState s) {
-        if(s.getExistentials() != null && s.getExistentials().containsKey(placeholderVar)) {
-            return s.getState().unifier().findRecursive(s.getExistentials().get(placeholderVar));
-        } else {
-            return placeholderVar;
-        }
+        return s.getState().unifier().findRecursive(placeholderVar);
+//        if(s.getExistentials() != null && s.getExistentials().containsKey(placeholderVar)) {
+//            return s.getState().unifier().findRecursive(s.getExistentials().get(placeholderVar));
+//        } else {
+//            return placeholderVar;
+//        }
     }
 
     /**

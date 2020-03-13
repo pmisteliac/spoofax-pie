@@ -159,7 +159,7 @@ public final class SolverState {
                 constraintList = new CConj(constraintList, iterator.next());
             }
             newConstraint = new CExists(existentials, constraintList);
-            return new SolverState(this.state, this.messages, Set.Immutable.of(newConstraint), this.delays, this.existentials, this.completeness);
+            return new SolverState(this.state, this.messages, Set.Immutable.of(newConstraint), this.delays, null, this.completeness);
         } else {
             // No constraints, so what can you do? ¯\_(ツ)_/¯
             return this;

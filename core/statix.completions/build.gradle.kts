@@ -22,11 +22,13 @@ dependencies {
   testCompileOnly("org.checkerframework:checker-qual-android")
   testImplementation("nl.jqno.equalsverifier:equalsverifier")
   testImplementation("org.metaborg:log.backend.slf4j")
+  testImplementation("org.slf4j:slf4j-simple:1.7.10")
 
   testAnnotationProcessor("org.immutables:value")
 //  testAnnotationProcessor("org.immutables:serial")
   testCompileOnly("org.immutables:value")
 //  testCompileOnly("org.immutables:serial")
   testCompileOnly("javax.annotation:javax.annotation-api")
+
 
 }
