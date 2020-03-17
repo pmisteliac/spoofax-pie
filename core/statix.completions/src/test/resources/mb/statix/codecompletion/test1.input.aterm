@@ -1,0 +1,48 @@
+Mod(
+  Let(
+    [ FunDecs(
+        [ FunDec(
+            "fact"
+          , [FArg("n", Tid("int"))]
+          , Tid("int")
+          , Let(
+              [VarDecNoType(
+                 "c"
+               , Lt(L2E(V2L(Var("n"))), Int("1"))
+               )]
+            , [ If(
+                  L2E(V2L(Var("c")))
+                , Int("1")
+                , Let(
+                    [ VarDec(
+                        "a"
+                      , Tid("int")
+                      , Minus(L2E(V2L(Var("n"))), Int("1"))
+                      )
+                    , VarDec(
+                        "b"
+                      , Tid("int")
+                      , Call("fact", [L2E(V2L(Var("a")))])
+                      )
+                    , VarDec(
+                        "c"
+                      , Tid("int")
+                      , Times(
+                          L2E(V2L(Var("n")))
+                        , L2E(V2L(Var("b")))
+                        )
+                      )
+                    ]
+                  , [L2E(V2L(Var("c")))]
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    , VarDecNoType("r", Call("fact", [Int("10")]))
+    ]
+  , Exp-Plhdr()
+  )
+)

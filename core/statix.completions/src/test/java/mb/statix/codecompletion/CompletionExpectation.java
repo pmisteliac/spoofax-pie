@@ -1,14 +1,18 @@
 package mb.statix.codecompletion;
 
 
+import com.google.common.collect.ImmutableMap;
 import mb.nabl2.terms.ITerm;
 import mb.nabl2.terms.ITermVar;
 import mb.nabl2.terms.matching.TermPattern;
+import mb.nabl2.terms.stratego.PlaceholderVarMap;
+import mb.nabl2.terms.stratego.StrategoPlaceholders;
 import mb.nabl2.terms.substitution.ISubstitution;
 import mb.nabl2.terms.substitution.PersistentSubstitution;
 import mb.statix.common.SolverState;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.immutables.value.Value;
+import org.spoofax.interpreter.terms.IStrategoTerm;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +25,21 @@ import java.util.Set;
  */
 @Value.Immutable(builder = false)
 abstract class CompletionExpectation<T extends ITerm> {
+
+    public static ImmutableCompletionExpectation<? extends ITerm> fromTerm(ITerm incompleteTerm, ITerm completeTerm, String resourceName) {
+        // Gather all the placeholders in the term
+        ITerm replacedTerm = StrategoPlaceholders.replacePlaceholdersByVariables(incompleteTerm, new PlaceholderVarMap(resourceName));
+        // Does the term we got, including variables, match the expected term?
+        Optional<ISubstitution.Immutable> optSubstitution = TermPattern.P.fromTerm(replacedTerm).match(completeTerm);
+        if (!optSubstitution.isPresent()) throw new IllegalStateException("The incomplete term is not a match to the complete term.");
+        // Yes, and the substitution shows the new variables and their expected term values
+        ISubstitution.Immutable substitution = optSubstitution.get();
+        HashMap<ITermVar, ITerm> expectedAsts = new HashMap<>();
+        for(Map.Entry<ITermVar, ITerm> entry : substitution.entrySet()) {
+            expectedAsts.put(entry.getKey(), entry.getValue());
+        }
+        return ImmutableCompletionExpectation.of(replacedTerm, expectedAsts, null);
+    }
 
     /**
      * Gets the AST that is being built.
