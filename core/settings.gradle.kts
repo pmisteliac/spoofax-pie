@@ -20,6 +20,7 @@ include("constraint.common")
 include("nabl2.common")
 include("statix.common")
 include("spoofax2.common")
+include("refactoring.common")
 
 include("spoofax.core")
 include("spoofax.cli")

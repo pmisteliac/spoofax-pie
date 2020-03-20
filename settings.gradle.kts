@@ -19,4 +19,9 @@ if(gradle.parent == null) {
   includeBuild("example/tiger/manual")
   includeBuild("example/mod")
   includeBuild("example/sdf3")
+
+  includeBuild("example/refactoring/renaming.nabl")
+  includeBuild("example/refactoring/renaming.statix")
+  includeBuild("example/refactoring/tiger.nabl")
+  includeBuild("example/refactoring/tiger.statix")
 }

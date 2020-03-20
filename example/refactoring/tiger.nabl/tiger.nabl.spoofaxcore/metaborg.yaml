@@ -1,0 +1,51 @@
+---
+id: org.metaborg:tiger.nabl.spoofaxcore:0.1.0-SNAPSHOT
+name: Tiger
+dependencies:
+  compile:
+  - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
+  - org.metaborg:org.metaborg.meta.lang.template:${metaborgVersion}
+  - org.metaborg:statix.lang:${metaborgVersion}
+  - org.metaborg:dynsem:${metaborgVersion}
+  source:
+  - org.metaborg:meta.lib.spoofax:${metaborgVersion}
+  - org.metaborg:statix.runtime:${metaborgVersion}
+#  - org.metaborg:renaming.nabl:${metaborgVersion}
+pardonedLanguages:
+- EditorService
+- Stratego-Sugar
+- SDF
+- ds
+debug:
+  typesmart: false
+language:
+  sdf:
+    pretty-print: Tiger
+    sdf2table: java
+    check-priorities: false
+    check-overlap: false
+    placeholder:
+      prefix: "$"
+  stratego:
+    format: ctree
+    args:
+    - -la
+    - stratego-lib
+    - -la
+    - stratego-sglr
+    - -la
+    - stratego-gpp
+    - -la
+    - stratego-xtc
+    - -la
+    - stratego-aterm
+    - -la
+    - stratego-sdf
+    - -la
+    - strc
+exports:
+  - language: ATerm
+    directory: src-gen/statix
+#  - directory: ./
+#    includes:
+#      - target/deps/*.jar
